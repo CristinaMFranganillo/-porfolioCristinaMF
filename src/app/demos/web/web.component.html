@@ -1,0 +1,166 @@
+<app-demo-bar title="Caso 03 · Web corporativa (marca ficticia)" />
+<div class="site">
+  <header class="hdr">
+    <button type="button" class="logo" (click)="vista.set('inicio')" aria-label="Normia, inicio">Normia<span>·</span></button>
+    <nav aria-label="Principal"><a href="#areas" (click)="vista.set('inicio')">Áreas</a><span>Plataforma</span><span>Blog</span><span>Contacto</span></nav>
+    <button type="button" class="cta" (click)="irPresupuesto()">Pide presupuesto @if (elegidas().size) { <span class="badge">{{ elegidas().size }}</span> }</button>
+  </header>
+
+  @if (vista() === 'inicio') {
+    <section class="hero">
+      <div class="in">
+        <div>
+          <p class="eyebrow">Plataforma de cumplimiento normativo</p>
+          <h1>Todo tu cumplimiento normativo en una sola plataforma.</h1>
+          <p class="sub">Empieza por el área que necesitas hoy y añade las demás cuando las necesites. Un único acceso, un único equipo consultor.</p>
+          <div class="btns"><a class="b primary" href="#areas">Empieza por un área</a><button type="button" class="b ghost" (click)="irPresupuesto()">Pide presupuesto</button></div>
+        </div>
+        <div class="mock" aria-hidden="true">
+          <div class="mbar"><i></i><i></i><i></i></div>
+          <div class="mgrid"><b>Protección de datos <em>al día</em></b><b>Canal ético <em>2 casos</em></b><b>Plan de igualdad <em>revisión</em></b><b>Registro horario <em>activo</em></b></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="steps-sec in">
+      <h2>Empieza con un área. Crece cuando lo necesites.</h2>
+      <ol class="steps">
+        <li><b>Elige tu primera área</b><span>La que te exige la normativa hoy.</span></li>
+        <li><b>Consultoría incluida</b><span>Un consultor te acompaña en la implantación.</span></li>
+        <li><b>Todo en la plataforma</b><span>Documentos, plazos y avisos en un solo sitio.</span></li>
+        <li><b>Añade áreas</b><span>Sin migraciones ni nuevos accesos.</span></li>
+      </ol>
+    </section>
+
+    <section class="cat in" id="areas" aria-labelledby="areas-t">
+      <div class="cat-head">
+        <h2 id="areas-t">Cada servicio, un área de tu plataforma</h2>
+        <label class="search"><span class="sr">Buscar área</span><input type="search" placeholder="Buscar área…" [ngModel]="busqueda()" (ngModelChange)="busqueda.set($event)"></label>
+      </div>
+      <div class="chips" role="group" aria-label="Filtrar por categoría">
+        <button type="button" [class.on]="!categoria()" [attr.aria-pressed]="!categoria()" (click)="categoria.set(null)">Todas</button>
+        @for (c of categorias; track c) { <button type="button" [class.on]="categoria() === c" [attr.aria-pressed]="categoria() === c" (click)="categoria.set(c)">{{ c }}</button> }
+      </div>
+      <p class="sr" aria-live="polite">{{ visibles().length }} áreas</p>
+      <div class="grid">
+        @for (a of visibles(); track a.id) {
+          <article class="area" [class.sel]="elegidas().has(a.id)">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path [attr.d]="a.icono"/></svg>
+            <span class="cat-l">{{ a.categoria }}</span>
+            <h3>{{ a.nombre }}</h3>
+            <p>{{ a.desc }}</p>
+            <ul>@for (p of a.puntos; track p) { <li>{{ p }}</li> }</ul>
+            <button type="button" class="add" [attr.aria-pressed]="elegidas().has(a.id)" (click)="toggleArea(a)">{{ elegidas().has(a.id) ? '✓ Añadida al presupuesto' : '+ Añadir al presupuesto' }}</button>
+          </article>
+        } @empty { <p class="empty">No hay áreas que coincidan con «{{ busqueda() }}».</p> }
+      </div>
+      @if (elegidas().size) {
+        <div class="sticky-cta" role="region" aria-label="Tu selección">
+          <span>{{ elegidas().size }} {{ elegidas().size === 1 ? 'área seleccionada' : 'áreas seleccionadas' }}</span>
+          <button type="button" class="b primary" (click)="irPresupuesto()">Continuar con el presupuesto →</button>
+        </div>
+      }
+    </section>
+  } @else {
+    <section class="wiz in">
+      @if (paso() < 4) {
+        <aside class="wiz-side">
+          <p class="eyebrow">Presupuesto online</p>
+          <ol class="stepper">
+            @for (s of [{ n: 1, t: 'Necesidades', d: 'Áreas y servicios' }, { n: 2, t: 'Tu organización', d: 'Sector y tamaño' }, { n: 3, t: 'Contacto', d: 'Cómo te contactamos' }]; track s.n) {
+              <li [class.done]="paso() > s.n" [class.on]="paso() === s.n" [attr.aria-current]="paso() === s.n ? 'step' : null">
+                @if (paso() > s.n) { <button type="button" (click)="irPaso($any(s.n))"><b>{{ s.t }}</b><span>{{ s.d }} · editar</span></button> }
+                @else { <div><b>{{ s.t }}</b><span>{{ s.d }}</span></div> }
+              </li>
+            }
+          </ol>
+          <div class="summary">
+            <b>Tu selección</b>
+            @for (a of seleccion(); track a.id) { <span>✓ {{ a.nombre }}</span> } @empty { <span class="muted">Aún no has elegido áreas</span> }
+            @if (org.sector) { <span class="muted">{{ org.sector }} · {{ org.plantilla }} personas</span> }
+          </div>
+          <p class="secure">Tus datos se tratan solo para preparar esta propuesta.</p>
+        </aside>
+      }
+
+      <div class="wiz-main">
+        @switch (paso()) {
+          @case (1) {
+            <p class="eyebrow">Paso 1 de 3</p>
+            <h1 #titulo tabindex="-1">¿Qué necesitas?</h1>
+            <p class="sub">Elige las áreas sobre las que quieres propuesta. Puedes seleccionar varias.</p>
+            <fieldset class="checks" id="w-areas" tabindex="-1" [attr.aria-invalid]="!!err('areas')" [attr.aria-describedby]="err('areas') ? 'e-areas' : null">
+              <legend>Áreas de la plataforma</legend>
+              @for (a of areas; track a.id) {
+                <label class="check" [class.sel]="elegidas().has(a.id)"><input type="checkbox" [checked]="elegidas().has(a.id)" (change)="toggleArea(a)"><span>{{ a.nombre }}</span></label>
+              }
+            </fieldset>
+            @if (err('areas')) { <p id="e-areas" class="error">{{ err('areas') }}</p> }
+            <label class="field"><span>¿Algo más que debamos saber? (opcional)</span><textarea rows="3" [(ngModel)]="comentario" placeholder="Cuéntanos tu situación, plazos o dudas…"></textarea></label>
+          }
+          @case (2) {
+            <p class="eyebrow">Paso 2 de 3</p>
+            <h1 #titulo tabindex="-1">Cuéntanos sobre tu organización</h1>
+            <p class="sub">Con esto tu consultor prepara una propuesta ajustada desde el primer contacto.</p>
+            <fieldset class="pills" id="w-sector" tabindex="-1" [attr.aria-describedby]="err('sector') ? 'e-sector' : null"><legend>Sector</legend>
+              @for (s of sectores; track s) { <label [class.on]="org.sector === s"><input type="radio" name="sector" [value]="s" [(ngModel)]="org.sector">{{ s }}</label> }
+            </fieldset>
+            @if (err('sector')) { <p id="e-sector" class="error">{{ err('sector') }}</p> }
+            <fieldset class="seg" id="w-plantilla" tabindex="-1" [attr.aria-describedby]="err('plantilla') ? 'e-plantilla' : null"><legend>Número de personas en plantilla</legend>
+              <div>@for (p of plantillas; track p) { <label [class.on]="org.plantilla === p"><input type="radio" name="plantilla" [value]="p" [(ngModel)]="org.plantilla">{{ p }}</label> }</div>
+            </fieldset>
+            @if (err('plantilla')) { <p id="e-plantilla" class="error">{{ err('plantilla') }}</p> }
+            <fieldset class="cards" id="w-implantado" tabindex="-1" [attr.aria-describedby]="err('implantado') ? 'e-impl' : null"><legend>¿Tenéis algo implantado actualmente?</legend>
+              @for (o of implantado; track o.v) { <label [class.on]="org.implantado === o.v"><input type="radio" name="impl" [value]="o.v" [(ngModel)]="org.implantado"><b>{{ o.t }}</b><span>{{ o.d }}</span></label> }
+            </fieldset>
+            @if (err('implantado')) { <p id="e-impl" class="error">{{ err('implantado') }}</p> }
+            <fieldset class="cards" id="w-plazo" tabindex="-1" [attr.aria-describedby]="err('plazo') ? 'e-plazo' : null"><legend>¿Cuándo lo necesitas?</legend>
+              @for (o of plazos; track o.v) { <label [class.on]="org.plazo === o.v"><input type="radio" name="plazo" [value]="o.v" [(ngModel)]="org.plazo"><b>{{ o.t }}</b><span>{{ o.d }}</span></label> }
+            </fieldset>
+            @if (err('plazo')) { <p id="e-plazo" class="error">{{ err('plazo') }}</p> }
+          }
+          @case (3) {
+            <p class="eyebrow">Paso 3 de 3</p>
+            <h1 #titulo tabindex="-1">¿Cómo te contactamos?</h1>
+            <p class="sub">Un consultor te escribirá en 24 horas laborables con la propuesta.</p>
+            <div class="form-grid">
+              <label class="field"><span>Nombre y apellidos *</span><input id="w-nombre" autocomplete="name" [(ngModel)]="contacto.nombre" [attr.aria-invalid]="!!err('nombre')" [attr.aria-describedby]="err('nombre') ? 'e-nombre' : null">
+                @if (err('nombre')) { <em id="e-nombre" class="error">{{ err('nombre') }}</em> }</label>
+              <label class="field"><span>Empresa *</span><input id="w-empresa" autocomplete="organization" [(ngModel)]="contacto.empresa" [attr.aria-invalid]="!!err('empresa')" [attr.aria-describedby]="err('empresa') ? 'e-empresa' : null">
+                @if (err('empresa')) { <em id="e-empresa" class="error">{{ err('empresa') }}</em> }</label>
+              <label class="field"><span>Email *</span><input id="w-email" type="email" autocomplete="email" [(ngModel)]="contacto.email" [attr.aria-invalid]="!!err('email')" [attr.aria-describedby]="err('email') ? 'e-email' : null">
+                @if (err('email')) { <em id="e-email" class="error">{{ err('email') }}</em> }</label>
+              <label class="field"><span>Teléfono (opcional)</span><input id="w-telefono" type="tel" autocomplete="tel" [(ngModel)]="contacto.telefono" [attr.aria-invalid]="!!err('telefono')" [attr.aria-describedby]="err('telefono') ? 'e-tel' : null">
+                @if (err('telefono')) { <em id="e-tel" class="error">{{ err('telefono') }}</em> }</label>
+            </div>
+            <label class="consent"><input id="w-acepto" type="checkbox" [(ngModel)]="contacto.acepto" [attr.aria-invalid]="!!err('acepto')" [attr.aria-describedby]="err('acepto') ? 'e-acepto' : null">
+              <span>Acepto que se usen mis datos para preparar y enviarme esta propuesta.</span></label>
+            @if (err('acepto')) { <p id="e-acepto" class="error">{{ err('acepto') }}</p> }
+          }
+          @case (4) {
+            <div class="ok">
+              <span class="tick" aria-hidden="true">✓</span>
+              <h1 #titulo tabindex="-1">Solicitud recibida</h1>
+              <p class="sub">Gracias, {{ contacto.nombre.split(' ')[0] }}. Te escribiremos a <b>{{ contacto.email }}</b> en 24 horas laborables.</p>
+              <dl class="resume">
+                <div><dt>Referencia</dt><dd class="mono">{{ referencia }}</dd></div>
+                <div><dt>Áreas</dt><dd>{{ seleccion().length }} · {{ seleccion()[0].nombre }}@if (seleccion().length > 1) { y {{ seleccion().length - 1 }} más }</dd></div>
+                <div><dt>Organización</dt><dd>{{ org.sector }} · {{ org.plantilla }} personas</dd></div>
+                <div><dt>Plazo</dt><dd>{{ etiqueta(plazos, org.plazo) }}</dd></div>
+              </dl>
+              <button type="button" class="b ghost-d" (click)="reiniciar()">Volver al inicio</button>
+            </div>
+          }
+        }
+        @if (paso() < 4) {
+          <div class="wiz-foot">
+            @if (paso() > 1) { <button type="button" class="link" (click)="atras()">← Atrás</button> } @else { <span class="muted">{{ elegidas().size }} {{ elegidas().size === 1 ? 'área seleccionada' : 'áreas seleccionadas' }}</span> }
+            <button type="button" class="b primary" (click)="siguiente()">{{ paso() === 3 ? 'Enviar solicitud' : 'Continuar →' }}</button>
+          </div>
+        }
+      </div>
+    </section>
+  }
+
+  <footer class="ftr"><div class="in"><span>Normia<span class="dot">·</span> es una marca ficticia creada para esta demo.</span><span>Aviso legal · Privacidad · Cookies</span></div></footer>
+</div>

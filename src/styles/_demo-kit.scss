@@ -1,0 +1,43 @@
+/* Kit de controles compartido por las demos (botones, campos, tablas, estados). */
+.dk{font-family:var(--f-sans);color:var(--ink);font-size:.875rem;line-height:1.5}
+.dk h1{font-size:1.5rem;letter-spacing:-.03em;margin:0}
+.dk-btn{font:500 .8125rem var(--f-sans);height:36px;padding:0 14px;border-radius:6px;border:1px solid var(--rule);background:var(--sheet);color:var(--ink);display:inline-flex;align-items:center;gap:6px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.dk-btn:hover:not(:disabled){border-color:var(--ink-soft)}
+.dk-btn:disabled{opacity:.45;cursor:not-allowed}
+.dk-btn.primary{background:var(--ultra);border-color:var(--ultra);color:var(--on-ultra)}
+.dk-btn.primary:hover:not(:disabled){background:color-mix(in srgb,var(--ultra) 88%,var(--ink))}
+.dk-btn.danger{background:var(--spec);border-color:var(--spec);color:#fff}
+.dk-btn.ghost{border-color:transparent;background:transparent;color:var(--ultra)}
+.dk-btn.sm{height:28px;padding:0 10px;font-size:.75rem}
+.dk-field{display:grid;gap:4px;min-width:0}
+.dk-field label,.dk-label{font-size:.75rem;font-weight:500}
+.dk-field .req{color:var(--spec)}
+.dk-input,.dk-select,.dk-textarea{font:inherit;font-size:.8125rem;height:34px;padding:0 10px;border:1px solid var(--rule);border-radius:6px;background:var(--sheet);color:var(--ink);width:100%;min-width:0}
+.dk-textarea{height:auto;min-height:80px;padding:8px 10px;resize:vertical}
+.dk-input:focus,.dk-select:focus,.dk-textarea:focus{outline:2px solid var(--ultra);outline-offset:0;border-color:var(--ultra)}
+.dk-input[aria-invalid="true"],.dk-select[aria-invalid="true"],.dk-textarea[aria-invalid="true"]{border-color:var(--spec)}
+.dk-error{font-size:.75rem;color:var(--spec)}
+.dk-check{display:inline-flex;align-items:center;gap:6px;font-size:.8125rem;cursor:pointer}
+.dk-check input{accent-color:var(--ultra);width:16px;height:16px}
+.dk-card{background:var(--sheet);border:1px solid var(--rule);border-radius:10px}
+.dk-table-wrap{overflow-x:auto;border:1px solid var(--rule);border-radius:10px;background:var(--sheet)}
+.dk-table{border-collapse:collapse;width:100%;font-size:.8125rem;font-variant-numeric:tabular-nums}
+.dk-table th,.dk-table td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule);white-space:nowrap}
+.dk-table th{font:500 .6875rem var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);background:var(--sheet);position:sticky;top:0}
+.dk-table tbody tr:hover td{background:color-mix(in srgb,var(--ultra-soft) 50%,transparent)}
+.dk-table tbody tr.is-selected td{background:var(--ultra-soft)}
+.dk-table tr:last-child td{border-bottom:0}
+.dk-table .r{text-align:right}
+.dk-sort{all:unset;cursor:pointer;display:inline-flex;gap:4px;align-items:center}
+.dk-sort:focus-visible{outline:2px solid var(--ultra);outline-offset:2px;border-radius:2px}
+.dk-sort .ar{opacity:.35}
+th[aria-sort="ascending"] .ar,th[aria-sort="descending"] .ar{opacity:1;color:var(--ultra)}
+.st{font:600 .625rem var(--f-mono);text-transform:uppercase;letter-spacing:.04em;padding:2px 8px;border-radius:999px;white-space:nowrap;display:inline-block}
+.st-abierto{background:var(--ultra-soft);color:var(--ultra)}
+.st-aplazado{background:color-mix(in srgb,#C77700 18%,transparent);color:var(--ink)}
+.st-juridico{background:var(--spec-soft);color:var(--spec)}
+.st-cobrado{background:color-mix(in srgb,var(--ok) 15%,transparent);color:var(--ok)}
+.st-cerrado{background:var(--paper);color:var(--ink-soft);border:1px solid var(--rule)}
+.dk-empty{padding:40px 16px;text-align:center;color:var(--ink-soft);display:grid;gap:8px;justify-items:center}
+.dk-alert{display:flex;gap:8px;align-items:center;padding:10px 14px;border-radius:6px;border-left:3px solid;font-size:.8125rem}
+.dk-alert.warn{background:color-mix(in srgb,#C77700 12%,transparent);border-color:#C77700}

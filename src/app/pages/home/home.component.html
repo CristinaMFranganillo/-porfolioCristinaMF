@@ -1,0 +1,618 @@
+<a class="skip" routerLink="/" fragment="main">Saltar al contenido</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" routerLink="/" fragment="inicio" aria-label="Cristina Martínez Franganillo, ir al inicio">
+      <span class="tag" aria-hidden="true">&lt;cmf/&gt;</span>
+      <span class="full">Cristina Martínez Franganillo</span>
+    </a>
+    <div class="top-right">
+      <nav aria-label="Principal">
+        <ul>
+          <li><a routerLink="/" fragment="trabajo">Trabajo</a></li>
+          <li class="hide-sm"><a routerLink="/" fragment="proceso">Proceso</a></li>
+          <li class="hide-sm"><a routerLink="/" fragment="trayectoria">Trayectoria</a></li>
+          <li class="hide-sm"><a routerLink="/" fragment="colofon">Esta web</a></li>
+          <li><a routerLink="/" fragment="contacto">Contacto</a></li>
+        </ul>
+      </nav>
+      <button class="theme-btn" type="button" (click)="theme.toggle()" aria-label="Cambiar entre tema claro y oscuro">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="inicio" aria-labelledby="hero-title">
+  <div class="wrap">
+    <div>
+      <span class="status"><span class="dot" aria-hidden="true"></span>disponible · 100&nbsp;% remoto</span>
+      <h1 id="hero-title">Diseño la interfaz y la <span class="hl">programo</span>. <span class="tagc" aria-hidden="true">&lt;/&gt;</span></h1>
+      <p class="lede">Soy <strong>Frontend UX/UI &amp; Design Systems Engineer</strong>. Construyo interfaces en <strong>Angular y TypeScript</strong> sobre design systems con tokens, accesibles por defecto (WCAG&nbsp;2.2&nbsp;AA), y conecto Figma con el repositorio mediante Claude Code&nbsp;(MCP) para pasar de diseño a producción en días.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" routerLink="/" fragment="trabajo">Ver casos de estudio</a>
+        <a class="btn btn-ghost" routerLink="/" fragment="colofon">Cómo está hecha esta web</a>
+      </div>
+    </div>
+
+    <div class="spec-card">
+      <div class="card-head">
+        <span class="file"><i aria-hidden="true"><b></b><b></b><b></b></i>button.component</span>
+        <div class="tabs" role="tablist" appTabs aria-label="Vista del botón primario">
+          <button role="tab" id="h-dis" aria-selected="true" aria-controls="hp-dis">diseño</button>
+          <button role="tab" id="h-tok" aria-selected="false" aria-controls="hp-tok" tabindex="-1">tokens</button>
+          <button role="tab" id="h-cod" aria-selected="false" aria-controls="hp-cod" tabindex="-1">código</button>
+        </div>
+      </div>
+      <div class="spec-body">
+        <div class="panel" role="tabpanel" id="hp-dis" aria-labelledby="h-dis" tabindex="0">
+          <div class="redline">
+            <span class="rl rl-top" aria-hidden="true"><span>hug · min-height 44</span></span>
+            <span class="rl rl-r" aria-hidden="true">r 8</span>
+            <span class="demo-btn">Guardar cambios</span>
+            <span class="rl rl-h" aria-hidden="true">44</span>
+            <span class="rl rl-pad" aria-hidden="true"><span>24</span></span>
+          </div>
+          <div class="spec-notes">
+            <div><b>fill</b>action/primary</div>
+            <div><b>text</b>label/md · 500</div>
+            <div><b>contraste</b><span class="num" data-ratio="--on-ultra|--ultra">–</span> · AA</div>
+          </div>
+        </div>
+        <div class="panel" role="tabpanel" id="hp-tok" aria-labelledby="h-tok" tabindex="0" hidden>
+          <ul class="token-list">
+            <li><span class="sw" style="background:var(--ultra)"></span><span>color.action.primary</span><span class="v" data-hex="--ultra"></span></li>
+            <li><span class="sw" style="background:var(--on-ultra)"></span><span>color.action.on-primary</span><span class="v" data-hex="--on-ultra"></span></li>
+            <li><span class="sw" style="background:var(--paper)"></span><span>space.inline.lg</span><span class="v">24px</span></li>
+            <li><span class="sw" style="background:var(--paper)"></span><span>radius.control</span><span class="v">8px</span></li>
+          </ul>
+          <span class="badge-aa">✓ WCAG 2.2 · 1.4.3 · 2.5.8 área táctil</span>
+        </div>
+        <div class="panel" role="tabpanel" id="hp-cod" aria-labelledby="h-cod" tabindex="0" hidden>
+<pre class="code"><code [innerHTML]="code['c0']"></code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="facts">
+  <div class="wrap">
+    <ul>
+      <li><strong class="num">+15 <em>años</em></strong><span>entre diseño gráfico, producto digital y frontend</span></li>
+      <li><strong>días<em>,</em> no semanas</strong><span>de Figma a código en producción con Claude Code</span></li>
+      <li><strong class="num">+100</strong><span>módulos OSGi en el workspace Liferay en el que desarrollo</span></li>
+      <li><strong>AA</strong><span>WCAG 2.1 / 2.2 como requisito de partida, no como revisión final</span></li>
+    </ul>
+  </div>
+</div>
+
+<section class="block" id="trabajo" aria-labelledby="trabajo-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="path" aria-hidden="true"><span class="p">~/</span>portfolio<span class="p">/</span><span class="b">casos-de-estudio</span></span>
+      <h2 id="trabajo-title">Cinco proyectos, del token a producción</h2>
+      <p>Son productos internos y SaaS B2B, así que he recreado las interfaces con datos ficticios. El código es representativo de cómo trabajo; el proceso y las decisiones son reales.</p>
+    </div>
+
+    <!-- Caso 0: asistente IA -->
+    <article class="case" aria-labelledby="c0">
+      <div class="plate">
+        <div class="card-head">
+          <span class="file"><i aria-hidden="true"><b></b><b></b><b></b></i>asistente-ia</span>
+          <div class="tabs" role="tablist" appTabs aria-label="Pantallas del asistente">
+            <button role="tab" id="c0-s" aria-selected="false" aria-controls="c0-ps" tabindex="-1">inicio</button>
+            <button role="tab" id="c0-v" aria-selected="true" aria-controls="c0-pv">chat</button>
+            <button role="tab" id="c0-r" aria-selected="false" aria-controls="c0-pr" tabindex="-1">proactivo</button>
+            <button role="tab" id="c0-t" aria-selected="false" aria-controls="c0-pt" tabindex="-1">reservas</button>
+            <button role="tab" id="c0-c" aria-selected="false" aria-controls="c0-pc" tabindex="-1">código</button>
+          </div>
+        </div>
+        <div class="plate-body">
+          <div role="tabpanel" id="c0-ps" aria-labelledby="c0-s" tabindex="0" hidden>
+            <div class="ai">
+              <div class="ai-top"><span class="ai-title">Chat</span><span class="ai-hint">sin tipo seleccionado</span></div>
+              <div class="start">
+                <b>¿Con qué quieres empezar?</b>
+                <span class="ai-hint">Elige un tipo de actividad para que el asistente interprete tu petición y consulte la disponibilidad correcta.</span>
+                <div class="types"><span>Reconocimiento</span><span>Actividad técnica</span><span class="on">Reconocimiento VIP</span><span>Extracción previa</span></div>
+              </div>
+              <div class="composer locked"><span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="vertical-align:-1px;margin-right:4px"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Primero selecciona un tipo de actividad</span></div>
+              <span class="ai-hint" style="text-align:center">El asistente interpreta cliente, trabajadores, centro, fecha, hora y restricciones, y consulta la disponibilidad real.</span>
+            </div>
+          </div>
+          <div role="tabpanel" id="c0-pv" aria-labelledby="c0-v" tabindex="0">
+            <div class="ai">
+              <div class="ai-top"><span class="ai-title">Chat <span class="ai-type">Reconocimiento VIP</span></span><span class="ai-hint">datos ficticios</span></div>
+              <p class="bubble me">Busca cita para Metalúrgica Guadiana en el centro Mérida Norte el 14 de junio por la mañana.</p>
+              <p class="bubble bot">Estas son las opciones ordenadas por coincidencia con tu petición:</p>
+              <div class="opts">
+                <div class="opt best">
+                  <h4>Opción 1 <span>recomendada</span></h4>
+                  <ul><li>14 jun · 08:00</li><li>Centro Mérida Norte</li><li>Dra. Lucía Prieto</li></ul>
+                  <div class="fit">Ajuste <b>96 %</b><i style="--w:96%"></i></div>
+                  <span class="why ok">Cumple todos los criterios</span>
+                  <span class="go">Confirmar</span>
+                </div>
+                <div class="opt">
+                  <h4>Opción 2</h4>
+                  <ul><li>14 jun · 11:30</li><li>Centro Mérida Norte</li><li>Dr. Andrés Gil</li></ul>
+                  <div class="fit">Ajuste <b>72 %</b><i style="--w:72%"></i></div>
+                  <span class="why">Fuera de la franja de mañana preferida</span>
+                  <span class="go">Confirmar</span>
+                </div>
+                <div class="opt">
+                  <h4>Opción 3</h4>
+                  <ul><li>15 jun · 08:30</li><li>Centro Mérida Sur</li><li>Dra. Lucía Prieto</li></ul>
+                  <div class="fit">Ajuste <b>48 %</b><i style="--w:48%;--c:var(--spec)"></i></div>
+                  <span class="why">Otro día y otro centro</span>
+                  <span class="go">Confirmar</span>
+                </div>
+              </div>
+              <div class="done"><b aria-hidden="true">✓</b><span><b>Cita reservada.</b> 14 de junio a las 08:00 en Mérida Norte. Queda como reserva temporal 15 min hasta que la confirmes.</span></div>
+              <div class="composer"><span>Escribe un mensaje…</span><kbd>Enter</kbd></div>
+            </div>
+          </div>
+          <div role="tabpanel" id="c0-pr" aria-labelledby="c0-r" tabindex="0" hidden>
+            <div class="ai">
+              <div class="ai-top"><span class="ai-title">Acciones recomendadas</span><span class="ai-hint">3 pendientes</span></div>
+              <div class="recs">
+                <div class="rec"><b>METALÚRGICA GUADIANA</b><div class="tags"><span class="tg hi">Alta</span><span class="tg pro">Proactivo</span></div><div class="ctx">Reconocimientos periódicos próximos a vencer<strong>18 trabajadores</strong></div><p>Agrupar en un bloque el martes con 6 citas.</p><span class="go2">Generar opciones →</span></div>
+                <div class="rec"><b>FRUTAS VEGAS ALTAS</b><div class="tags"><span class="tg md">Media</span><span class="tg pro">Reactivo</span></div><div class="ctx">Bolsa de reconocimientos contratada<strong>12 sin planificar</strong></div><p>Repartir en dos mañanas antes de fin de mes.</p><span class="go2">Generar opciones →</span></div>
+                <div class="rec"><b>TRANSPORTES SIERRA SUR</b><div class="tags"><span class="tg lo">Baja</span><span class="tg pro">Proactivo</span></div><div class="ctx">Altas recientes sin reconocimiento inicial<strong>4 conductores</strong></div><p>Proponer citas en el centro más cercano.</p><span class="go2">Generar opciones →</span></div>
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" id="c0-pt" aria-labelledby="c0-t" tabindex="0" hidden>
+            <div class="ranges" aria-label="Filtrar por caducidad"><span class="on">&lt; 15 min</span><span>&lt; 1 h</span><span>&lt; 4 h</span><span>&lt; 48 h</span></div>
+            <div class="res-wrap">
+              <table class="res">
+                <caption class="sr">Reservas temporales de ejemplo con su tiempo hasta caducar</caption>
+                <thead><tr><th scope="col">Reserva</th><th scope="col">Cliente</th><th scope="col">Fecha</th><th scope="col">Caduca en</th><th scope="col">Acción</th></tr></thead>
+                <tbody>
+                  <tr><td>R-3041</td><td>Metalúrgica Guadiana</td><td>14 jun · 08:00</td><td class="cd urg">00:04:12</td><td class="act"><span class="c">Confirmar</span><span>Liberar</span></td></tr>
+                  <tr><td>R-3038</td><td>Frutas Vegas Altas</td><td>16 jun · 09:30</td><td class="cd urg">00:11:47</td><td class="act"><span class="c">Confirmar</span><span>Liberar</span></td></tr>
+                  <tr><td>R-3035</td><td>Transportes Sierra Sur</td><td>17 jun · 08:30</td><td class="cd">00:42:18</td><td class="act"><span class="c">Confirmar</span><span>Liberar</span></td></tr>
+                  <tr><td>R-3029</td><td>Cerámicas del Zújar</td><td>20 jun · 10:00</td><td class="cd">03:15:02</td><td class="act"><span class="c">Confirmar</span><span>Liberar</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div role="tabpanel" id="c0-pc" aria-labelledby="c0-c" tabindex="0" hidden>
+<pre class="code"><code [innerHTML]="code['c1']"></code></pre>
+          </div>
+        </div>
+      </div>
+      <div class="case-info">
+        <div><span class="case-no">caso 01 · UX conversacional con IA</span><h3 id="c0">Asistente IA para planificar reconocimientos médicos</h3></div>
+        <p class="tagline">Diseñé un asistente que entiende peticiones en lenguaje natural, consulta la agenda real y devuelve opciones comparables listas para reservar.</p>
+        <dl class="ficha">
+          <div><dt>Rol</dt><dd>Diseño UX/UI</dd></div>
+          <div><dt>Año</dt><dd class="num">2026</dd></div>
+          <div><dt>Herramientas</dt><dd>Figma · componentes y variantes</dd></div>
+          <div><dt>Usuarios</dt><dd>Equipo interno de planificación</dd></div>
+        </dl>
+        <dl class="story">
+          <div><dt>problema</dt><dd>Planificar un reconocimiento obligaba a cruzar en varias pantallas cliente, trabajadores, centro, fecha, profesional y restricciones. Un chat de texto libre no bastaba: la IA necesitaba contexto y el usuario, respuestas que pudiera comparar.</dd></div>
+          <div><dt>qué hice</dt><dd>Diseñé el flujo completo: inicio guiado, conversación, acciones recomendadas, reservas temporales, trazabilidad e historial, con sus estados, errores y confirmaciones como componentes.</dd></div>
+          <div><dt>decisión</dt><dd>Respuestas estructuradas en vez de párrafos: cada opción es una tarjeta con su porcentaje de ajuste y el motivo de lo que no coincide. Además, el usuario elige el tipo de actividad antes de escribir, lo que reduce la ambigüedad desde el diseño.</dd></div>
+          <div><dt>decisión</dt><dd>Las opciones elegidas quedan como reservas temporales con cuenta atrás, para no bloquear la agenda de otros planificadores.</dd></div>
+        </dl>
+        <p class="result">Buscar, comparar y reservar en un solo flujo, sin salir de la conversación.</p>
+        <a class="btn btn-primary demo-link" routerLink="/demos/asistente">Probar la demo interactiva →</a>
+      </div>
+    </article>
+
+    <!-- Caso 3 -->
+    <article class="case" aria-labelledby="c3">
+      <div class="plate">
+        <div class="card-head">
+          <span class="file"><i aria-hidden="true"><b></b><b></b><b></b></i>gestion-cobros</span>
+          <div class="tabs" role="tablist" appTabs aria-label="Pantallas de la aplicación de gestión">
+            <button role="tab" id="c3-v" aria-selected="true" aria-controls="c3-pv">bandeja</button>
+            <button role="tab" id="c3-f" aria-selected="false" aria-controls="c3-pf" tabindex="-1">ficha</button>
+            <button role="tab" id="c3-k" aria-selected="false" aria-controls="c3-pk" tabindex="-1">componentes</button>
+            <button role="tab" id="c3-c" aria-selected="false" aria-controls="c3-pc" tabindex="-1">código</button>
+          </div>
+        </div>
+        <div class="plate-body">
+          <div role="tabpanel" id="c3-pv" aria-labelledby="c3-v" tabindex="0">
+            <div class="erp">
+              <div class="erp-bar"><span class="erp-logo">Gestión de cobros</span><span class="erp-nav">Expedientes · Recobro · Ingresos diarios · Importar movimientos</span></div>
+              <div class="erp-body">
+                <div class="erp-h">Expedientes <span class="ai-hint">datos ficticios</span></div>
+                <div class="erp-filters" aria-hidden="true">
+                  <span><small>Gestor</small>Todos ▾</span><span><small>Campaña</small>Octubre ▾</span><span><small>Estado</small>Abierto ▾</span>
+                  <span><small>Zona</small>Todas ▾</span><span><small>Importe (€)</small>Desde – hasta</span><span class="more">+14 filtros</span>
+                </div>
+                <div class="erp-sum"><b class="num">248 expedientes · deuda total 1.284.392,17 €</b><span class="erp-acts"><span>Reasignación múltiple</span><span>Exportar Excel</span></span></div>
+                <div class="res-wrap">
+                  <table class="res">
+                    <caption class="sr">Bandeja de expedientes de ejemplo</caption>
+                    <thead><tr><th scope="col"><span class="cb on"></span></th><th scope="col">Exp.</th><th scope="col">Cliente</th><th scope="col">Provincia</th><th scope="col">Estado</th><th scope="col" style="text-align:right">Deuda</th></tr></thead>
+                    <tbody>
+                      <tr><td><span class="cb"></span></td><td>184520</td><td><b>Talleres Ribera S.L.</b></td><td>Badajoz</td><td><span class="est ab">Abierto</span></td><td class="r">1.200,00 €</td></tr>
+                      <tr class="sel"><td><span class="cb on"></span></td><td>184557</td><td><b>Construcciones Alcántara</b></td><td>Cáceres</td><td><span class="est ap">Aplazado</span></td><td class="r">2.073,45 €</td></tr>
+                      <tr><td><span class="cb"></span></td><td>184594</td><td><b>Panadería Hnos. Ruiz</b></td><td>Sevilla</td><td><span class="est ab">Abierto</span></td><td class="r">2.946,90 €</td></tr>
+                      <tr><td><span class="cb"></span></td><td>184631</td><td><b>Clínica Dental Centro</b></td><td>Madrid</td><td><span class="est ju">Jurídico</span></td><td class="r">3.820,35 €</td></tr>
+                      <tr><td><span class="cb"></span></td><td>184668</td><td><b>Transportes Almaraz</b></td><td>Cáceres</td><td><span class="est co">Cobrado</span></td><td class="r">4.693,80 €</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" id="c3-pf" aria-labelledby="c3-f" tabindex="0" hidden>
+            <div class="erp">
+              <div class="erp-bar"><span class="erp-logo">Gestión de cobros</span><span class="erp-nav">← Expedientes</span></div>
+              <div class="erp-body">
+                <div class="erp-h">Construcciones Alcántara <span class="num" style="color:var(--ink-soft);font-weight:500">Exp. 184557</span> <span class="est ap">Aplazado</span></div>
+                <div class="warn">⚠ Cliente con una solicitud de baja en curso</div>
+                <div class="kpis">
+                  <div><small>Importe pendiente</small><b class="num">2.073,45 €</b></div>
+                  <div><small>Importe negativo</small><b class="num">0,00 €</b></div>
+                  <div><small>Deuda neta</small><b class="num">2.073,45 €</b></div>
+                  <div><small>Scoring</small><b class="num">1</b></div>
+                </div>
+                <div class="ftabs" aria-hidden="true"><span class="on">Seguimiento</span><span>Fact. pendientes</span><span>Movimientos</span><span>Aplazamientos</span><span>Bajas ⚠</span><span>Reclamaciones</span><span>Logs</span></div>
+                <div class="res-wrap">
+                  <table class="res">
+                    <caption class="sr">Seguimiento del expediente de ejemplo</caption>
+                    <thead><tr><th scope="col">Fecha</th><th scope="col">Actuación</th><th scope="col">Descripción</th><th scope="col" style="text-align:right">Recobrado</th></tr></thead>
+                    <tbody>
+                      <tr><td>05/11/2026</td><td><b>Llamada saliente</b></td><td>Pide aplazar al día 15</td><td class="r">—</td></tr>
+                      <tr><td>03/11/2026</td><td><b>Compromiso de pago</b></td><td>1.000 € antes del 15/11</td><td class="r">—</td></tr>
+                      <tr><td>01/11/2026</td><td><b>Cobro parcial</b></td><td>Transferencia recibida</td><td class="r">500,00 €</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" id="c3-pk" aria-labelledby="c3-k" tabindex="0" hidden>
+            <div class="kit">
+              <div class="kit-row"><span class="kb p">Botón</span><span class="kb p">+ Botón</span><span class="kb s">Botón</span><span class="kb d">Eliminar</span></div>
+              <div class="kit-row"><span class="kf"><small>Etiqueta</small>Seleccionar ▾</span><span class="kf"><small>Fecha (desde / hasta)</small>Desde – Hasta</span><span class="kf"><small>Importe</small>Desde – Hasta €</span></div>
+              <div class="kit-row"><span class="est ab">Abierto</span><span class="est ap">Aplazado</span><span class="est ju">Jurídico</span><span class="est co">Cobrado</span></div>
+              <div class="kit-al">
+                <span class="al i"><b>Información</b> · Se ha copiado el número de cliente</span>
+                <span class="al o"><b>Guardado</b> · La actuación se ha creado correctamente</span>
+                <span class="al w"><b>Atención</b> · El expediente ya está asignado</span>
+                <span class="al e"><b>Error</b> · No se ha podido guardar. Inténtalo de nuevo</span>
+              </div>
+              <div class="kit-modal"><b>¿Asignar el cliente a la factura?</b><span>Se asignará el cliente Construcciones Alcántara a la factura FP-2026-0012.</span><span class="kit-row" style="justify-content:flex-end"><span class="kb s">Cancelar</span><span class="kb p">Asignar</span></span></div>
+            </div>
+          </div>
+          <div role="tabpanel" id="c3-pc" aria-labelledby="c3-c" tabindex="0" hidden>
+<pre class="code"><code [innerHTML]="code['c4']"></code></pre>
+          </div>
+        </div>
+      </div>
+      <div class="case-info">
+        <div><span class="case-no">caso 02 · intranet de gestión</span><h3 id="c3">Aplicaciones de intranet para gestión y cobros</h3></div>
+        <p class="tagline">Diseño y maqueto aplicaciones internas con mucha densidad de datos: bandejas con decenas de filtros, fichas con muchas pestañas, acciones masivas y modales, todo con componentes reutilizables.</p>
+        <dl class="ficha">
+          <div><dt>Rol</dt><dd>Diseño y maquetación</dd></div>
+          <div><dt>Periodo</dt><dd class="num">2023 – hoy</dd></div>
+          <div><dt>Stack</dt><dd>JSP · Portlets MVC · SCSS</dd></div>
+          <div><dt>Pantallas</dt><dd>+20 vistas y modales</dd></div>
+        </dl>
+        <dl class="story">
+          <div><dt>problema</dt><dd>Los equipos de administración trabajan todo el día con cientos de expedientes, filtros cruzados e importes. Cada vista nueva se resolvía con estilos a medida y la información importante quedaba enterrada.</dd></div>
+          <div><dt>qué hice</dt><dd>Diseñé el flujo completo de una aplicación de cobros: bandeja de expedientes, ficha de cliente con nueve pestañas, importación de movimientos, ingresos diarios y facturas sin cliente. Lo llevé a componentes globales (filtros, fichas, avisos, modales y DataTables) alineados con los iconos y piezas que ya usaba desarrollo.</dd></div>
+          <div><dt>decisión</dt><dd>Lo urgente arriba: avisos de estado y cifras clave en la cabecera de la ficha, importes alineados con números tabulares y acciones masivas siempre visibles. Cualquier pantalla nueva se maqueta solo con clases y tokens.</dd></div>
+        </dl>
+        <p class="result">Pantallas densas que se leen de un vistazo y vistas nuevas montadas con piezas existentes.</p>
+        <a class="btn btn-primary demo-link" routerLink="/demos/cobros">Probar la demo interactiva →</a>
+      </div>
+    </article>
+
+    <!-- Caso web pública -->
+    <article class="case" aria-labelledby="cw">
+      <div class="plate">
+        <div class="card-head">
+          <span class="file"><i aria-hidden="true"><b></b><b></b><b></b></i>web-corporativa</span>
+          <div class="tabs" role="tablist" appTabs aria-label="Pantallas de la web corporativa">
+            <button role="tab" id="cw-v" aria-selected="true" aria-controls="cw-pv">inicio</button>
+            <button role="tab" id="cw-p" aria-selected="false" aria-controls="cw-pp" tabindex="-1">presupuesto</button>
+            <button role="tab" id="cw-c" aria-selected="false" aria-controls="cw-pc" tabindex="-1">código</button>
+          </div>
+        </div>
+        <div class="plate-body">
+          <div role="tabpanel" id="cw-pv" aria-labelledby="cw-v" tabindex="0">
+            <div class="pub">
+              <div class="pub-bar"><b>Normia<span>·</span></b><span class="pub-nav">Áreas · Kit Digital · Blog · Contacto</span><span class="pub-cta">Pide presupuesto</span></div>
+              <div class="pub-hero">
+                <div><span class="pub-eyebrow">Plataforma de cumplimiento</span><b>Todo tu cumplimiento normativo en una sola plataforma.</b><span class="pub-btns"><span class="kb p">Empieza por un área</span><span class="kb s">Ver la plataforma</span></span></div>
+                <div class="pub-shot" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+              </div>
+              <div class="pub-chips" aria-hidden="true"><span class="on">Todas</span><span>Protección y privacidad</span><span>Igualdad y personas</span><span>Sostenibilidad</span></div>
+              <div class="pub-areas">
+                <div><b>Protección de datos</b><span>RGPD y LOPDGDD al día</span></div>
+                <div><b>Canal ético</b><span>Ley 2/2023 de informantes</span></div>
+                <div><b>Plan de igualdad</b><span>Diagnóstico y registro</span></div>
+                <div><b>Huella de carbono</b><span>Cálculo y registro oficial</span></div>
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" id="cw-pp" aria-labelledby="cw-p" tabindex="0" hidden>
+            <div class="wiz">
+              <ol class="wiz-steps">
+                <li class="done"><b>Necesidades</b><span>2 áreas</span></li>
+                <li class="on"><b>Tu organización</b><span>Sector y tamaño</span></li>
+                <li><b>Contacto</b><span>Cómo te contactamos</span></li>
+              </ol>
+              <div class="wiz-card">
+                <span class="pub-eyebrow">Paso 2 de 3</span>
+                <b class="wiz-h">Cuéntanos sobre tu organización</b>
+                <small>Sector</small>
+                <div class="pub-chips"><span>Industria</span><span>Alimentación</span><span class="on">Servicios profesionales</span><span>Salud</span></div>
+                <small>Personas en plantilla</small>
+                <div class="seg"><span>1–9</span><span>10–49</span><span class="on">50–249</span><span>250+</span></div>
+                <small>¿Cuándo lo necesitas?</small>
+                <div class="radios"><span>Sin prisa</span><span class="on">Próximos 3 meses</span><span>Urgente</span></div>
+                <div class="wiz-foot"><span>Atrás</span><span class="kb p">Continuar →</span></div>
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" id="cw-pc" aria-labelledby="cw-c" tabindex="0" hidden>
+            <pre class="code"><code [innerHTML]="code['web']"></code></pre>
+          </div>
+        </div>
+      </div>
+      <div class="case-info">
+        <div><span class="case-no">caso 03 · web pública corporativa</span><h3 id="cw">Rediseño de la web de una consultora de cumplimiento normativo</h3></div>
+        <p class="tagline">Replanteé la web pública alrededor de la plataforma de la empresa: cada servicio es un área que se puede contratar por separado, y el presupuesto se pide en tres pasos.</p>
+        <dl class="ficha">
+          <div><dt>Rol</dt><dd>UX/UI y arquitectura de información</dd></div>
+          <div><dt>Año</dt><dd class="num">2026</dd></div>
+          <div><dt>Alcance</dt><dd>+17 plantillas · escritorio, tablet y móvil</dd></div>
+          <div><dt>Incluye</dt><dd>Formularios, legales, cookies y 404</dd></div>
+        </dl>
+        <dl class="story">
+          <div><dt>problema</dt><dd>La web anterior presentaba los servicios como una lista suelta y no explicaba que todos se gestionan desde la misma plataforma. Pedir presupuesto era un formulario largo y genérico.</dd></div>
+          <div><dt>qué hice</dt><dd>Hice el inventario de la web actual, propuse una nueva arquitectura con la plataforma en el centro y diseñé todas las plantillas: inicio, área de trabajo, blog, contacto, presupuesto, legales, cookies, 404 y acceso de clientes, con su versión responsive.</dd></div>
+          <div><dt>decisión</dt><dd>Un presupuesto en tres pasos con resumen lateral de lo elegido: primero qué necesitas, luego tu organización y al final tus datos. Se piden los datos personales solo cuando el usuario ya ha invertido en el proceso.</dd></div>
+        </dl>
+        <p class="result">Una web que explica el producto como sistema y convierte la visita en una petición de presupuesto cualificada.</p>
+        <a class="btn btn-primary demo-link" routerLink="/demos/web-publica">Probar la demo interactiva →</a>
+      </div>
+    </article>
+
+    <!-- Caso 1 -->
+    <article class="case" aria-labelledby="c1">
+      <div class="plate">
+        <div class="card-head">
+          <span class="file"><i aria-hidden="true"><b></b><b></b><b></b></i>pipeline</span>
+          <div class="tabs" role="tablist" appTabs aria-label="Vista del caso 2">
+            <button role="tab" id="c1-v" aria-selected="true" aria-controls="c1-pv">flujo</button>
+            <button role="tab" id="c1-c" aria-selected="false" aria-controls="c1-pc" tabindex="-1">código</button>
+          </div>
+        </div>
+        <div class="plate-body">
+          <div role="tabpanel" id="c1-pv" aria-labelledby="c1-v" tabindex="0">
+            <div class="flow" role="img" aria-label="Flujo: diseño en Figma con tokens, contexto vía MCP, Claude Code genera el componente, se integra en el workspace Liferay y se valida la accesibilidad antes del merge.">
+              <div class="node"><span class="ic ic-a">Fg</span><div><b>Diseño en Figma</b><small>Componentes y variables con tokens semánticos</small></div></div>
+              <div class="arrow">contexto de diseño vía MCP</div>
+              <div class="node"><span class="ic ic-b">CC</span><div><b>Claude Code</b><small>Lee el frame y genera el componente con las convenciones del repo</small></div></div>
+              <div class="arrow">clases y tokens existentes</div>
+              <div class="node"><span class="ic ic-c">&#123; &#125;</span><div><b>Workspace Liferay DXP 7.4</b><small>Temas SCSS, portlets MVC y JSP en +100 módulos OSGi</small></div></div>
+              <div class="arrow">revisión humana</div>
+              <div class="node"><span class="ic ic-d">✓</span><div><b>Validación</b><small>Contraste, teclado, roles ARIA y responsive antes del merge</small></div></div>
+            </div>
+          </div>
+          <div role="tabpanel" id="c1-pc" aria-labelledby="c1-c" tabindex="0" hidden>
+<pre class="code"><code [innerHTML]="code['c2']"></code></pre>
+          </div>
+        </div>
+      </div>
+      <div class="case-info">
+        <div><span class="case-no">caso 04 · design-to-code + IA</span><h3 id="c1">Pipeline Figma ↔ código con Claude Code</h3></div>
+        <p class="tagline">Conecté Figma con los repositorios de producción para que un cambio de interfaz no tuviera que reescribirse a mano.</p>
+        <dl class="ficha">
+          <div><dt>Rol</dt><dd>Diseño UX/UI y frontend</dd></div>
+          <div><dt>Periodo</dt><dd class="num">2023 – hoy</dd></div>
+          <div><dt>Stack</dt><dd>Claude Code · MCP · Figma</dd></div>
+          <div><dt>Entorno</dt><dd>Liferay DXP 7.4 · SCSS</dd></div>
+        </dl>
+        <dl class="story">
+          <div><dt>problema</dt><dd>Cada pantalla diseñada se traducía a mano a JSP y SCSS dentro de un workspace muy grande. Aparecían diferencias con el diseño y las entregas se alargaban semanas.</dd></div>
+          <div><dt>qué hice</dt><dd>Configuré el entorno MCP para que Claude Code leyera los frames de Figma y documenté las convenciones del repositorio en un <code>CLAUDE.md</code>, de modo que el código generado reutiliza clases y tokens en lugar de inventar estilos.</dd></div>
+          <div><dt>decisión</dt><dd>La IA propone y yo reviso. Ningún componente entra sin pasar la revisión de código y de accesibilidad.</dd></div>
+        </dl>
+        <p class="result">Entregas que antes llevaban semanas se cierran ahora en días, con código limpio y validado.</p>
+      </div>
+    </article>
+
+    <!-- Caso 2 -->
+    <article class="case" aria-labelledby="c2">
+      <div class="plate">
+        <div class="card-head">
+          <span class="file"><i aria-hidden="true"><b></b><b></b><b></b></i>design-system</span>
+          <div class="tabs" role="tablist" appTabs aria-label="Vista del caso 3">
+            <button role="tab" id="c2-v" aria-selected="true" aria-controls="c2-pv">fundamentos</button>
+            <button role="tab" id="c2-c" aria-selected="false" aria-controls="c2-pc" tabindex="-1">código</button>
+          </div>
+        </div>
+        <div class="plate-body">
+          <div role="tabpanel" id="c2-pv" aria-labelledby="c2-v" tabindex="0">
+            <div class="ds-grid">
+              <div class="swatches" role="img" aria-label="Tokens de color: primario, primario suave, texto, superficie y aviso.">
+                <div style="background:var(--ultra);color:var(--on-ultra)">primary</div>
+                <div style="background:var(--ultra-soft);color:var(--ultra)">primary-soft</div>
+                <div style="background:var(--ink);color:var(--paper)">text</div>
+                <div style="background:var(--paper);color:var(--ink);border:1px solid var(--rule)">surface</div>
+                <div style="background:var(--spec-soft);color:var(--spec)">warning</div>
+              </div>
+              <div class="type-scale" aria-label="Escala tipográfica">
+                <div><span class="t">display/32</span><span class="x" style="font-size:2rem">Prevención</span></div>
+                <div><span class="t">title/20</span><span class="x" style="font-size:1.25rem">Fichas de puesto</span></div>
+                <div><span class="t">body/16</span><span class="x" style="font-size:1rem;font-weight:400;letter-spacing:0">Texto de lectura, interlineado 1,6</span></div>
+              </div>
+              <div class="comps" aria-label="Componentes de muestra">
+                <span class="c-btn p">Primario</span>
+                <span class="c-btn s">Secundario</span>
+                <span class="c-chip">Activo</span>
+                <span class="c-alert">Revisión pendiente</span>
+                <span class="c-input">Buscar centro…</span>
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" id="c2-pc" aria-labelledby="c2-c" tabindex="0" hidden>
+<pre class="code"><code [innerHTML]="code['c3']"></code></pre>
+          </div>
+        </div>
+      </div>
+      <div class="case-info">
+        <div><span class="case-no">caso 05 · design system</span><h3 id="c2">Design system para productos SaaS multiempresa</h3></div>
+        <p class="tagline">Creé y hago evolucionar el sistema de diseño que comparten varias aplicaciones de gestión, en Figma y en código.</p>
+        <dl class="ficha">
+          <div><dt>Rol</dt><dd>Creadora y responsable</dd></div>
+          <div><dt>Periodo</dt><dd class="num">2023 – hoy</dd></div>
+          <div><dt>Stack</dt><dd>Figma Variables · SCSS</dd></div>
+          <div><dt>Consumido por</dt><dd>Angular y Liferay</dd></div>
+        </dl>
+        <dl class="story">
+          <div><dt>problema</dt><dd>Cada producto resolvía los mismos patrones (filtros, fichas, avisos, tablas) a su manera, con interfaces incoherentes y estilos duplicados.</dd></div>
+          <div><dt>qué hice</dt><dd>Definí tokens semánticos de color, tipografía y espaciado, monté una librería atómica en Figma con su equivalente en SCSS y Angular, y escribí la documentación de uso.</dd></div>
+          <div><dt>decisión</dt><dd>Nombrar los tokens por función (<code>action-primary</code>) y no por valor (<code>blue-600</code>). Así una marca nueva o un tema oscuro cambian valores sin tocar componentes.</dd></div>
+        </dl>
+        <p class="result">Una sola fuente de verdad: diseño y desarrollo usan los mismos nombres.</p>
+      </div>
+    </article>
+
+    <div class="more-work">
+      <h3>Otros proyectos</h3>
+      <div class="mw-item"><span class="case-no">e-learning · IA generativa</span><b>Generador de actividades formativas con IA</b><p>Plataforma en TypeScript y Vite que genera actividades a partir de un tema y un nivel con Gemini API. El contenido llega en un esquema JSON cerrado y se valida antes de pintarse, así que la estructura y la accesibilidad siempre las fija el código.</p><ul class="chips"><li class="chip">TypeScript</li><li class="chip">Vite</li><li class="chip">Gemini API</li><li class="chip">SCORM</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="proceso" aria-labelledby="proceso-title" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="path" aria-hidden="true"><span class="p">~/</span>portfolio<span class="p">/</span><span class="b">proceso</span></span>
+      <h2 id="proceso-title">Un mismo hilo del boceto a producción</h2>
+    </div>
+    <ol class="steps">
+      <li><h3>Entender</h3><p>Requisitos con negocio y usuarios, jerarquía de información y flujos antes de dibujar nada.</p></li>
+      <li><h3>Diseñar con tokens</h3><p>Prototipo en Figma sobre el design system, con estados de error, vacío y carga.</p></li>
+      <li><h3>Programar</h3><p>Angular, TypeScript y SCSS. Claude Code vía MCP acelera el paso de <code>frame</code> a <code>componente</code>.</p></li>
+      <li><h3>Auditar</h3><p>Contraste, teclado, lector de pantalla y responsive. Si no cumple WCAG AA, no se publica.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="block studio" aria-labelledby="studio-title">
+  <div class="wrap">
+    <div class="studio-grid">
+      <div class="manual">
+        <div class="manual-head"><span>manual de identidad · pág. 04</span><span style="color:var(--spec)">retícula 16 px</span></div>
+        <div class="construct">
+          <svg viewBox="0 0 200 110" role="img" aria-label="Construcción geométrica de un logotipo de ejemplo">
+            <circle cx="70" cy="55" r="40" fill="none" stroke="var(--spec)" stroke-width=".8" stroke-dasharray="3 3"/>
+            <circle cx="130" cy="55" r="40" fill="none" stroke="var(--spec)" stroke-width=".8" stroke-dasharray="3 3"/>
+            <path d="M70 15 A40 40 0 0 0 70 95 L70 15Z" fill="var(--ultra)"/>
+            <path d="M130 15 A40 40 0 0 1 130 95 L130 15Z" fill="var(--ink)"/>
+            <rect x="88" y="35" width="24" height="40" rx="4" fill="var(--spec)"/>
+            <line x1="0" y1="55" x2="200" y2="55" stroke="var(--spec)" stroke-width=".5"/>
+          </svg>
+        </div>
+        <div class="palette-row">
+          <div style="background:var(--ultra);color:var(--on-ultra)">principal<br><span data-hex="--ultra"></span></div>
+          <div style="background:var(--ink);color:var(--paper)">tinta<br><span data-hex="--ink"></span></div>
+          <div style="background:var(--spec);color:var(--paper)">acento<br><span data-hex="--spec"></span></div>
+          <div style="background:var(--sheet);color:var(--ink);border:1px solid var(--rule)">papel<br><span data-hex="--sheet"></span></div>
+        </div>
+      </div>
+      <div>
+        <div class="sec-head" style="margin-bottom:var(--s4)">
+          <span class="path" aria-hidden="true"><span class="p">~/</span>portfolio<span class="p">/</span><span class="b" style="color:var(--paper)">antes-del-codigo</span></span>
+          <h2 id="studio-title">13 años dirigiendo un estudio de diseño</h2>
+          <p>De 2005 a 2018 fundé y dirigí mi propio estudio web y de diseño gráfico. Ahí aprendí a pensar en sistemas antes de que se llamaran design systems.</p>
+        </div>
+        <ul class="studio-list">
+          <li><b>Identidad visual</b><span>Manuales de marca completos, guías de estilo digital y sistemas gráficos escalables.</span></li>
+          <li><b>Producto digital y UX</b><span>Portales corporativos para varios sectores, pensados para la usabilidad, la jerarquía de información y la conversión.</span></li>
+          <li><b>Negocio y clientes</b><span>Trato directo con cuentas corporativas, toma de requisitos, presupuestos y plazos.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="trayectoria" aria-labelledby="tray-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="path" aria-hidden="true"><span class="p">~/</span>portfolio<span class="p">/</span><span class="b">trayectoria</span></span>
+      <h2 id="tray-title">Comunicación audiovisual, diseño y código</h2>
+    </div>
+    <ol class="timeline" reversed>
+      <li><span class="yr">2023 – hoy</span><div><b>Diseñadora UX/UI y desarrolladora frontend</b><span class="d">Vitaly</span></div><span class="d full">Design system, flujo Figma ↔ código con Claude Code, rediseño de la suite corporativa y accesibilidad WCAG 2.2.</span></li>
+      <li><span class="yr">2025</span><div><b>Diseño UX/UI avanzado · Docencia FPE</b><span class="d">Hackea tu Futuro · Cema Informática</span></div><span class="d full">Formación en diseño de producto y capacitación como docente de formación profesional.</span></li>
+      <li><span class="yr">2021 – 2023</span><div><b>CFGS Desarrollo de Aplicaciones Web</b><span class="d">IES Albarregas, Mérida</span></div><span class="d full">Formación técnica para dar el salto del diseño al desarrollo frontend profesional.</span></li>
+      <li><span class="yr">2005 – 2018</span><div><b>Fundadora y directora creativa</b><span class="d">Estudio web y de diseño gráfico</span></div><span class="d full">Dirección integral del estudio: identidad visual, portales corporativos y clientes.</span></li>
+      <li><span class="yr">2000 – 2004</span><div><b>Licenciatura en Comunicación Audiovisual</b><span class="d">Universidad de Extremadura</span></div><span class="d full">Base en narrativa visual, composición e imagen.</span></li>
+    </ol>
+
+    <div class="stack-wrap">
+      <div><h3>Frontend</h3><ul class="chips"><li class="chip">Angular</li><li class="chip">TypeScript</li><li class="chip">SCSS modular</li><li class="chip">HTML semántico</li><li class="chip">CSS Grid / Flexbox</li><li class="chip">Vite</li><li class="chip">Liferay DXP 7.4</li><li class="chip">Git</li></ul></div>
+      <div><h3>Diseño</h3><ul class="chips"><li class="chip">Figma</li><li class="chip">Variables y tokens</li><li class="chip">Prototipado</li><li class="chip">Identidad visual</li><li class="chip">Arquitectura de información</li></ul></div>
+      <div><h3>Calidad e IA</h3><ul class="chips"><li class="chip">WCAG 2.1 / 2.2 AA</li><li class="chip">WAI-ARIA</li><li class="chip">Claude Code (MCP)</li><li class="chip">Gemini API</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="block colophon" id="colofon" aria-labelledby="colo-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="path" aria-hidden="true"><span class="p">~/</span>portfolio<span class="p">/</span><span class="b">colofon</span></span>
+      <h2 id="colo-title">Cómo está hecha esta web</h2>
+      <p>La propia página es una muestra de trabajo. Los datos de esta sección los calcula el navegador en este momento a partir de los tokens del tema activo; cambia el tema y se recalculan.</p>
+    </div>
+    <div class="colo-grid">
+      <div class="tbl-wrap">
+        <table class="contrast">
+          <caption>Contraste de los pares de tokens · tema <span>{{ theme.isDark() ? 'oscuro' : 'claro' }}</span></caption>
+          <thead><tr><th scope="col">Par</th><th scope="col">Tokens</th><th scope="col">Ratio</th><th scope="col">WCAG</th></tr></thead>
+          <tbody>
+            @for (row of contrast(); track row.name) {
+              <tr><td><span class="pair"><span class="pv" [style.color]="'var(' + row.fg + ')'" [style.background]="'var(' + row.bg + ')'">Aa</span>{{ row.name }}</span></td><td class="r">{{ row.fg.slice(2) }} / {{ row.bg.slice(2) }}</td><td class="r">{{ row.ratio }}</td><td><span class="pass" [class.fail]="row.value < 3">{{ row.level }}</span></td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <ul class="checks">
+        <li><span>HTML semántico y landmarks</span><span class="m">header · nav · main · footer</span></li>
+        <li><span>Pestañas navegables con flechas</span><span class="m">patrón ARIA tabs</span></li>
+        <li><span>Foco visible y enlace de salto</span><span class="m">2.4.7 · 2.4.1</span></li>
+        <li><span>Respeta <code>prefers-reduced-motion</code></span><span class="m">2.3.3</span></li>
+        <li><span>Tema claro y oscuro por tokens</span><span class="m"><span>{{ tokenCount() }}</span> tokens</span></li>
+        <li><span>Angular 19 con componentes standalone y signals</span><span class="m num">{{ weight() }}</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="block contact" id="contacto" aria-labelledby="contacto-title">
+  <div class="wrap contact-grid">
+    <div>
+      <span class="path" aria-hidden="true"><span class="p">~/</span>portfolio<span class="p">/</span><span class="b">contacto</span></span>
+      <h2 id="contacto-title" style="margin-top:var(--s2)">¿Construimos tu <span class="hl">próximo producto</span>?</h2>
+      <p class="lede">Busco un puesto 100&nbsp;% remoto como Frontend UX/UI o Design Systems Engineer en una empresa de producto.</p>
+    </div>
+    <div class="c-list">
+      <div class="c-item"><div><small>Email</small><span class="val" #mailEl>crisfranganillo1982&#64;gmail.com</span></div><button class="copy" type="button" (click)="copyMail(mailEl)">{{ copyLabel() }}</button></div>
+      <div class="c-item"><div><small>LinkedIn</small><a class="val" href="https://www.linkedin.com/in/cristina-mart%C3%ADnez-franganillo/" target="_blank" rel="noopener">in/cristina-martínez-franganillo</a></div></div>
+      <div class="demo-note"><span aria-hidden="true" style="color:var(--spec);font-family:var(--f-mono)">▸</span><p><b>Demo en directo.</b> Te enseño en una sesión técnica cómo paso un diseño de Figma a código de producción con Claude Code.</p></div>
+      <p class="sr" aria-live="polite">{{ copyStatus() }}</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap"><span>© 2026 Cristina Martínez Franganillo</span><span>Diseñada en Figma · programada en Angular · Geist &amp; Geist Mono</span></div>
+</footer>
+

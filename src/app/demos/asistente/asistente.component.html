@@ -1,0 +1,248 @@
+<app-demo-bar title="Caso 01 · Asistente IA de planificación" />
+<div class="app dk" [class.con-panel]="vista() === 'chat' && panelAbierto() && ctx().cliente">
+  <aside class="side" aria-label="Navegación del asistente">
+    <div class="brand"><span class="spark" aria-hidden="true">✦</span>Planifica <small>asistente</small></div>
+    <button type="button" class="dk-btn primary new" (click)="nuevaConversacion()">+ Nueva petición</button>
+    <nav>
+      <button type="button" [class.on]="vista() === 'chat'" [attr.aria-current]="vista() === 'chat' ? 'page' : null" (click)="vista.set('chat')">Chat</button>
+      <button type="button" [class.on]="vista() === 'recomendadas'" [attr.aria-current]="vista() === 'recomendadas' ? 'page' : null" (click)="vista.set('recomendadas')">Acciones recomendadas <span class="n">{{ recomendaciones().length }}</span></button>
+      <button type="button" [class.on]="vista() === 'reservas'" [attr.aria-current]="vista() === 'reservas' ? 'page' : null" (click)="vista.set('reservas')">Reservas temporales <span class="n" [class.hot]="temporales().length">{{ temporales().length }}</span></button>
+    </nav>
+    <div class="hist">
+      <h2>Conversaciones recientes</h2>
+      <ul>
+        @for (h of historial; track h.titulo) {
+          <li><button type="button" (click)="abrirHistorial(h)"><span>{{ h.titulo }}</span><small>{{ h.cuando }} · {{ h.tipo }}</small></button></li>
+        }
+      </ul>
+    </div>
+    <p class="today">Citas confirmadas hoy <b>{{ confirmadas() }}</b></p>
+  </aside>
+
+  <main class="main">
+    @switch (vista()) {
+      @case ('chat') {
+        <div class="chat-head">
+          <h1>Chat</h1>
+          @if (tipo()) {
+            <label class="tipo-sel"><span class="sr">Tipo de actividad</span>
+              <select class="dk-select" [ngModel]="tipo()" (ngModelChange)="tipo.set($event)">@for (t of tipos; track t) { <option [value]="t">{{ t }}</option> }</select>
+            </label>
+          }
+          @if (ctx().cliente) {
+            <button type="button" class="dk-btn sm panel-btn" (click)="panelAbierto.set(!panelAbierto())" [attr.aria-expanded]="panelAbierto()" aria-controls="panel-ctx">
+              {{ panelAbierto() ? 'Ocultar criterios' : 'Ver criterios' }}
+            </button>
+          }
+        </div>
+
+        <div class="log" #log role="log" aria-label="Conversación con el asistente" aria-live="off" tabindex="0">
+          @if (!tipo()) {
+            <div class="start">
+              <span class="spark big" aria-hidden="true">✦</span>
+              <h2>¿Con qué quieres empezar?</h2>
+              <p>Elige un tipo de actividad para que el asistente interprete tu petición y consulte la disponibilidad correcta.</p>
+              <div class="types" role="group" aria-label="Tipo de actividad">
+                @for (t of tipos; track t) { <button type="button" class="chip" (click)="elegirTipo(t)">{{ t }}</button> }
+              </div>
+            </div>
+          } @else if (!mensajes().length) {
+            <div class="start">
+              <h2>Pídelo como lo dirías</h2>
+              <p>Cliente, centro, día, franja, profesional o número de personas. Si falta algo, el asistente te dice qué ha supuesto y puedes corregirlo después.</p>
+              <div class="sugs">@for (s of sugerencias; track s) { <button type="button" class="sug" (click)="enviar(s)">{{ s }}</button> }</div>
+            </div>
+          }
+
+          @for (m of mensajes(); track m.id) {
+            @if (m.de === 'nota') {
+              <p class="nota">{{ m.texto }}</p>
+            } @else {
+              <div class="msg" [class.me]="m.de === 'yo'">
+                @if (m.de === 'bot') { <span class="avatar" aria-hidden="true">✦</span> }
+                <div class="msg-body">
+                  <p class="bubble"><span class="sr">{{ m.de === 'yo' ? 'Tú:' : 'Asistente:' }}</span>{{ m.texto.slice(0, m.visible) }}@if (m.visible < m.texto.length) {<span class="caret" aria-hidden="true"></span>}</p>
+
+                  @if (m.visible >= m.texto.length) {
+                    @if (m.huecos) {
+                      @if (m.id !== ultimoResultado() && !m.elegida) { <p class="old-note">Resultados anteriores · la búsqueda se ha actualizado más abajo</p> }
+                      <div class="opts" role="list" [attr.aria-label]="'Opciones de cita, página ' + ((m.pagina ?? 0) + 1)">
+                        @for (h of paginaDe(m); track h.id; let i = $index) {
+                          <app-opcion-card [hueco]="h" [rank]="(m.pagina ?? 0) * 3 + i + 1" [recomendada]="(m.pagina ?? 0) === 0 && i === 0"
+                            [elegida]="m.elegida === h.id" [bloqueada]="!!m.elegida || m.id !== ultimoResultado()"
+                            [etiqueta]="ctx().trabajador ? 'Reservar para ' + ctx().trabajador!.split(' ')[0] : 'Reservar'"
+                            (reservar)="reservarHueco(m, $event)" />
+                        }
+                      </div>
+                    }
+
+                    @if (m.bloque; as b) {
+                      <section class="bloque dk-card" [class.old]="m.id !== ultimoResultado() && !b.reservado" [attr.aria-label]="'Bloque de ' + b.citas.length + ' citas'">
+                        <header>
+                          <b>{{ fmtFechaLarga(b.fecha) }} · {{ b.centro }}</b>
+                          <span class="cnt" [class.full]="b.seleccion.length === b.citas.length">{{ b.seleccion.length }} / {{ b.citas.length }} asignadas</span>
+                        </header>
+                        <ol class="slots">
+                          @for (c of b.citas; track c.hora.getTime(); let i = $index) {
+                            <li><span class="mono">{{ fmtHora(c.hora) }}</span><span class="who" [class.empty]="!nombreSel(b, i)">{{ nombreSel(b, i) ?? 'Sin asignar' }}</span><small>{{ c.profesional }}</small></li>
+                          }
+                        </ol>
+                        <fieldset [disabled]="b.reservado || m.id !== ultimoResultado()">
+                          <legend>Trabajadores con reconocimiento pendiente</legend>
+                          <ul class="workers">
+                            @for (w of clienteActual()?.trabajadores ?? []; track w.id) {
+                              <li><label class="dk-check"><input type="checkbox" [checked]="b.seleccion.includes(w.id)" (change)="toggleTrabajador(m, w.id)">
+                                <span>{{ w.nombre }} <small>{{ w.puesto }} · vence {{ fmtFecha(w.vence) }}</small></span></label></li>
+                            }
+                          </ul>
+                        </fieldset>
+                        @if (b.restantes) { <p class="hint">Quedan {{ b.restantes }} personas para otro bloque.</p> }
+                        @if (b.reservado) { <span class="done">✓ Bloque reservado</span> }
+                        @else { <button type="button" class="dk-btn primary" [disabled]="!b.seleccion.length || m.id !== ultimoResultado()" (click)="reservarBloque(m)">Reservar {{ b.seleccion.length }} {{ b.seleccion.length === 1 ? 'cita' : 'citas' }}</button> }
+                      </section>
+                    }
+
+                    @if (m.ayuda) {
+                      <ul class="ayuda">
+                        <li><b>Buscar</b> por cliente, centro, día («el jueves», «14 de diciembre»), franja o profesional.</li>
+                        <li><b>Refinar</b> sin repetir: «más tarde», «otro centro», «con una doctora», «más opciones».</li>
+                        <li><b>Grupos</b>: «cita para 6 trabajadores» propone un bloque y eliges a quién.</li>
+                        <li><b>Deshacer</b> la última reserva escribiendo «deshaz» o con el botón.</li>
+                      </ul>
+                    }
+
+                    @if (m.reservas && !m.deshecho) {
+                      <button type="button" class="dk-btn sm undo" (click)="deshacer(m)">↶ Deshacer</button>
+                    }
+
+                    @if (m.chips?.length) {
+                      <div class="chips" role="group" aria-label="Respuestas sugeridas">
+                        @for (c of m.chips; track c.label) { <button type="button" class="chip sm" (click)="pulsarChip(c)">{{ c.label }}</button> }
+                      </div>
+                    }
+
+                    @if (m.de === 'bot') {
+                      <div class="fb" role="group" aria-label="Valorar respuesta">
+                        <button type="button" [attr.aria-pressed]="m.feedback === 'up'" (click)="valorar(m, 'up')" aria-label="Respuesta útil">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 10v11H3V10zM7 10l4-8a3 3 0 013 3v4h6a2 2 0 012 2l-2 8a2 2 0 01-2 2H7"/></svg></button>
+                        <button type="button" [attr.aria-pressed]="m.feedback === 'down'" (click)="valorar(m, 'down')" aria-label="Respuesta no útil">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 14V3h4v11zM17 14l-4 8a3 3 0 01-3-3v-4H4a2 2 0 01-2-2l2-8a2 2 0 012-2h11"/></svg></button>
+                      </div>
+                    }
+                  }
+                </div>
+              </div>
+            }
+          }
+          @if (escribiendo()) { <p class="typing"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="sr">El asistente está escribiendo</span></p> }
+        </div>
+        <p class="sr" aria-live="polite">{{ anuncio() }}</p>
+
+        <form class="composer" (submit)="$event.preventDefault(); enviar()">
+          <label for="entrada" class="sr">Escribe tu petición</label>
+          <textarea id="entrada" #entrada rows="2" [(ngModel)]="texto" name="texto" (keydown)="teclado($event)" [disabled]="!tipo()"
+            [placeholder]="tipo() ? 'Escribe tu petición o un ajuste («más tarde», «otro centro»…)' : 'Primero selecciona un tipo de actividad'"></textarea>
+          <button type="submit" class="dk-btn primary" [disabled]="!tipo() || !texto.trim() || escribiendo()">Enviar</button>
+        </form>
+        <p class="foot"><kbd>Enter</kbd> envía · <kbd>Mayús</kbd>+<kbd>Enter</kbd> salto de línea · <kbd>↑</kbd> recupera tu último mensaje</p>
+      }
+
+      @case ('recomendadas') {
+        <h1>Acciones recomendadas</h1>
+        <p class="lead">El asistente detecta vencimientos y bolsas sin planificar y propone qué hacer antes de que se lo pidas.</p>
+        <div class="recs">
+          @for (r of recomendaciones(); track r.cliente) {
+            <article class="rec dk-card">
+              <h2>{{ r.cliente }}</h2>
+              <div class="tags"><span class="pr" [attr.data-p]="r.prioridad">{{ r.prioridad }}</span><span class="orig">{{ r.origen }}</span></div>
+              <p class="ctx">{{ r.contexto }}<b>{{ r.detalle }}</b></p>
+              <p>{{ r.propuesta }}</p>
+              <button type="button" class="dk-btn ghost sm" (click)="generar(r)">Generar opciones →</button>
+            </article>
+          } @empty {
+            <div class="dk-empty"><b>No hay acciones pendientes</b><span>Has revisado todas las recomendaciones.</span></div>
+          }
+        </div>
+      }
+
+      @case ('reservas') {
+        <div class="res-head">
+          <h1>Reservas temporales</h1>
+          <button type="button" class="dk-btn primary" [disabled]="!temporales().length" (click)="confirmarTodas()">Confirmar todas ({{ temporales().length }})</button>
+        </div>
+        <p class="lead">Los huecos elegidos quedan bloqueados un tiempo para no pisar a otros planificadores. Si no se confirman, se liberan solos.</p>
+        <div class="filters" role="group" aria-label="Filtrar por tiempo restante">
+          <button type="button" class="chip" [class.on]="filtroReservas() === 'todas'" [attr.aria-pressed]="filtroReservas() === 'todas'" (click)="filtroReservas.set('todas')">Todas</button>
+          <button type="button" class="chip" [class.on]="filtroReservas() === '15'" [attr.aria-pressed]="filtroReservas() === '15'" (click)="filtroReservas.set('15')">Caducan en &lt; 15 min</button>
+          <button type="button" class="chip" [class.on]="filtroReservas() === '60'" [attr.aria-pressed]="filtroReservas() === '60'" (click)="filtroReservas.set('60')">&lt; 1 h</button>
+        </div>
+        <div class="dk-table-wrap">
+          <table class="dk-table">
+            <caption class="sr">Reservas temporales con su tiempo restante</caption>
+            <thead><tr><th scope="col">Reserva</th><th scope="col">Cliente</th><th scope="col">Trabajador</th><th scope="col">Cita</th><th scope="col">Centro</th><th scope="col">Caduca en</th><th scope="col">Acción</th></tr></thead>
+            <tbody>
+              @for (r of reservasVisibles(); track r.id) {
+                <tr>
+                  <td class="mono">{{ r.id }}</td><td><b>{{ r.cliente }}</b></td><td>{{ r.trabajador ?? '—' }}</td>
+                  <td>{{ fmtFecha(r.fecha) }} · {{ fmtHora(r.fecha) }}</td><td>{{ r.centro }}</td>
+                  <td>
+                    @switch (r.estado) {
+                      @case ('temporal') { <span class="mono cd" [class.urg]="urgente(r)" role="timer">{{ restante(r) }}</span> }
+                      @case ('confirmada') { <span class="st st-cobrado">Confirmada</span> }
+                      @case ('liberada') { <span class="st st-cerrado">Liberada</span> }
+                      @case ('caducada') { <span class="st st-juridico">Caducada</span> }
+                    }
+                  </td>
+                  <td>
+                    @if (r.estado === 'temporal') {
+                      <div class="acts">
+                        <button type="button" class="dk-btn sm primary" (click)="resolver(r, 'confirmada')" [attr.aria-label]="'Confirmar ' + r.id">Confirmar</button>
+                        <button type="button" class="dk-btn sm" (click)="resolver(r, 'liberada')" [attr.aria-label]="'Liberar ' + r.id">Liberar</button>
+                      </div>
+                    } @else { <span class="muted">—</span> }
+                  </td>
+                </tr>
+              } @empty {
+                <tr><td colspan="7"><div class="dk-empty">Ninguna reserva caduca en ese plazo.</div></td></tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    }
+  </main>
+
+  @if (vista() === 'chat' && ctx().cliente && panelAbierto()) {
+    <aside class="panel" id="panel-ctx" aria-labelledby="panel-t">
+      <h2 id="panel-t">Lo que he entendido</h2>
+      <p class="panel-sub">Cambia cualquier criterio y el asistente vuelve a buscar.</p>
+      <div class="dk-field"><label for="p-cli">Cliente</label>
+        <select id="p-cli" class="dk-select" [ngModel]="ctx().cliente" (ngModelChange)="ajustar('cliente', $event, 'el cliente a ' + $event)">
+          @for (c of clientes; track c.nombre) { <option [value]="c.nombre">{{ c.nombre }}</option> }
+        </select></div>
+      <div class="dk-field"><label for="p-centro">Centro</label>
+        <select id="p-centro" class="dk-select" [ngModel]="ctx().centro ?? ''" (ngModelChange)="ajustar('centro', $event || null, $event ? 'el centro a ' + $event : 'el centro a «el habitual»')">
+          <option value="">Habitual ({{ clienteActual()?.centroHabitual }})</option>
+          @for (c of centros; track c) { <option [value]="c">{{ c }}</option> }
+        </select></div>
+      <div class="dk-field"><label for="p-fecha">Fecha</label>
+        <input id="p-fecha" type="date" class="dk-input" [min]="hoyInput" [value]="fechaInput()" (change)="ajustarFecha($any($event.target).value)"></div>
+      <fieldset class="dk-field seg"><legend class="dk-label">Franja</legend>
+        <div>
+          <button type="button" [attr.aria-pressed]="!ctx().franja" (click)="ajustar('franja', null, 'la franja a «cualquiera»')">Cualquiera</button>
+          <button type="button" [attr.aria-pressed]="ctx().franja === 'mañana'" (click)="ajustar('franja', 'mañana', 'la franja a «mañana»')">Mañana</button>
+          <button type="button" [attr.aria-pressed]="ctx().franja === 'tarde'" (click)="ajustar('franja', 'tarde', 'la franja a «tarde»')">Tarde</button>
+        </div>
+      </fieldset>
+      <div class="dk-field"><label for="p-prof">Profesional</label>
+        <select id="p-prof" class="dk-select" [ngModel]="valorProfesional()" (ngModelChange)="ajustarProfesional($event)">
+          <option value="">Cualquiera</option><option value="f">Una doctora</option><option value="m">Un doctor</option>
+          @for (p of profesionales; track p.nombre) { <option [value]="p.nombre">{{ p.nombre }}</option> }
+        </select></div>
+      <div class="dk-field"><label for="p-n">Número de citas</label>
+        <input id="p-n" type="number" min="1" max="30" class="dk-input" [value]="ctx().personas" (change)="ajustar('personas', +$any($event.target).value || 1, 'el número de citas a ' + ($any($event.target).value || 1))"></div>
+      @if (ctx().trabajador) { <p class="chip-ctx">Para <b>{{ ctx().trabajador }}</b> <button type="button" (click)="ajustar('trabajador', null, 'el trabajador a «sin asignar»')" aria-label="Quitar trabajador">✕</button></p> }
+    </aside>
+  }
+</div>
+<app-toasts />

@@ -1,0 +1,119 @@
+@if (exp(); as e) {
+  <div class="crumbs">
+    <a routerLink="/demos/cobros">← Expedientes</a>
+    <div class="nav-exp" aria-label="Navegar entre expedientes">
+      <span class="pos">{{ vecinos().pos }} de {{ vecinos().total }}</span>
+      <button type="button" class="dk-btn sm" [disabled]="!vecinos().prev" (click)="ir(vecinos().prev)" aria-label="Expediente anterior">‹</button>
+      <button type="button" class="dk-btn sm" [disabled]="!vecinos().next" (click)="ir(vecinos().next)" aria-label="Expediente siguiente">›</button>
+    </div>
+  </div>
+
+  <div class="title">
+    <h1>{{ e.cliente }}</h1>
+    <span class="exp">Exp. {{ e.id }}</span>
+    <span [class]="estadoClass(e.estado)">{{ e.estado }}</span>
+    <div class="estado-ctl">
+      <label for="estado" class="dk-label">Cambiar estado</label>
+      <select id="estado" class="dk-select" [value]="e.estado" (change)="cambiarEstado($any($event.target).value)">
+        @for (x of estados; track x) { <option [value]="x" [selected]="x === e.estado">{{ x }}</option> }
+      </select>
+    </div>
+  </div>
+
+  @if (e.bajaEnCurso) { <div class="dk-alert warn" role="note"><b>Atención:</b> el cliente tiene una solicitud de baja en curso.</div> }
+
+  <div class="kpis">
+    <div class="dk-card"><span>Importe pendiente</span><b>{{ eur(e.deuda) }}</b></div>
+    <div class="dk-card"><span>Importe negativo</span><b>{{ eur(e.negativo) }}</b></div>
+    <div class="dk-card"><span>Recobrado</span><b>{{ eur(recobrado()) }}</b></div>
+    <div class="dk-card"><span>Scoring</span><b>{{ e.scoring }} <small>/ 5</small></b></div>
+  </div>
+
+  <section class="datos dk-card" aria-labelledby="datos-t">
+    <h2 id="datos-t">Datos del expediente</h2>
+    <dl>
+      <div><dt>NIF</dt><dd>{{ e.nif }}</dd></div>
+      <div><dt>Gestor</dt><dd>{{ e.gestor }}</dd></div>
+      <div><dt>Campaña</dt><dd>{{ e.campana }}</dd></div>
+      <div><dt>Entidad</dt><dd>{{ e.entidad }}</dd></div>
+      <div><dt>Provincia</dt><dd>{{ e.provincia }}</dd></div>
+      <div><dt>Email de cobro</dt><dd>{{ e.contacto }}</dd></div>
+    </dl>
+  </section>
+
+  <div class="tabs" role="tablist" aria-label="Información del expediente" (keydown)="teclaPestana($event)">
+    <button role="tab" id="t-seg" [attr.aria-selected]="pestana() === 'seguimiento'" aria-controls="p-seg" [tabIndex]="pestana() === 'seguimiento' ? 0 : -1" (click)="pestana.set('seguimiento')">Seguimiento <span>{{ e.actuaciones.length }}</span></button>
+    <button role="tab" id="t-fac" [attr.aria-selected]="pestana() === 'facturas'" aria-controls="p-fac" [tabIndex]="pestana() === 'facturas' ? 0 : -1" (click)="pestana.set('facturas')">Facturas pendientes <span>{{ e.facturas.length }}</span></button>
+    <button role="tab" id="t-log" [attr.aria-selected]="pestana() === 'logs'" aria-controls="p-log" [tabIndex]="pestana() === 'logs' ? 0 : -1" (click)="pestana.set('logs')">Histórico <span>{{ e.logs.length }}</span></button>
+  </div>
+
+  @switch (pestana()) {
+    @case ('seguimiento') {
+      <section role="tabpanel" id="p-seg" aria-labelledby="t-seg" class="panel">
+        <div class="panel-head"><h2>Seguimiento del expediente</h2><button type="button" class="dk-btn primary" (click)="abrirAlta()">+ Añadir actuación</button></div>
+        <div class="dk-table-wrap">
+          <table class="dk-table">
+            <caption class="sr">Actuaciones del expediente</caption>
+            <thead><tr><th scope="col">Fecha</th><th scope="col">Actuación</th><th scope="col">Descripción</th><th scope="col" class="r">Recobrado</th><th scope="col"><span class="sr">Acciones</span></th></tr></thead>
+            <tbody>
+              @for (a of e.actuaciones; track a.id) {
+                <tr><td>{{ fecha(a.fecha) }}</td><td><b>{{ a.tipo }}</b></td><td class="wrap">{{ a.descripcion }}</td><td class="r">{{ a.recobrado ? eur(a.recobrado) : '—' }}</td>
+                  <td class="r"><button type="button" class="dk-btn ghost sm del" (click)="borrarId.set(a.id)" [attr.aria-label]="'Borrar actuación ' + a.tipo + ' del ' + fecha(a.fecha)">Borrar</button></td></tr>
+              } @empty {
+                <tr><td colspan="5"><div class="dk-empty">Todavía no hay actuaciones. <button type="button" class="dk-btn sm" (click)="abrirAlta()">Añadir la primera</button></div></td></tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+    }
+    @case ('facturas') {
+      <section role="tabpanel" id="p-fac" aria-labelledby="t-fac" class="panel">
+        <div class="dk-table-wrap">
+          <table class="dk-table">
+            <caption class="sr">Facturas pendientes</caption>
+            <thead><tr><th scope="col">Factura</th><th scope="col">Emisión</th><th scope="col">Vencimiento</th><th scope="col" class="r">Importe</th></tr></thead>
+            <tbody>@for (f of e.facturas; track f.numero) { <tr><td class="mono">{{ f.numero }}</td><td>{{ fecha(f.fecha) }}</td><td>{{ fecha(f.vencimiento) }}</td><td class="r">{{ eur(f.importe) }}</td></tr> }</tbody>
+          </table>
+        </div>
+      </section>
+    }
+    @case ('logs') {
+      <section role="tabpanel" id="p-log" aria-labelledby="t-log" class="panel">
+        <ol class="logs">@for (l of e.logs; track $index) { <li><span class="mono">{{ fecha(l.fecha) }}</span>{{ l.texto }}</li> }</ol>
+      </section>
+    }
+  }
+
+  <app-modal heading="Añadir actuación" [open]="modalAlta()" (closed)="modalAlta.set(false)">
+    <form [formGroup]="form" (ngSubmit)="guardar()" id="f-alta" novalidate class="alta">
+      <div class="dk-field"><label for="a-tipo">Tipo de actuación <span class="req" aria-hidden="true">*</span></label>
+        <select id="a-tipo" class="dk-select" formControlName="tipo" [attr.aria-invalid]="invalid('tipo')" aria-describedby="e-tipo">
+          <option value="">Selecciona</option>@for (t of tipos; track t) { <option [value]="t">{{ t }}</option> }
+        </select>
+        @if (invalid('tipo')) { <span id="e-tipo" class="dk-error">Elige el tipo de actuación.</span> }</div>
+      <div class="dk-field"><label for="a-fecha">Fecha <span class="req" aria-hidden="true">*</span></label>
+        <input id="a-fecha" type="date" class="dk-input" formControlName="fecha" [attr.aria-invalid]="invalid('fecha')" aria-describedby="e-fecha">
+        @if (invalid('fecha')) { <span id="e-fecha" class="dk-error">Indica la fecha.</span> }</div>
+      <div class="dk-field full"><label for="a-descripcion">Descripción <span class="req" aria-hidden="true">*</span></label>
+        <textarea id="a-descripcion" class="dk-textarea" formControlName="descripcion" [attr.aria-invalid]="invalid('descripcion')" aria-describedby="e-desc"></textarea>
+        @if (invalid('descripcion')) { <span id="e-desc" class="dk-error">Describe la actuación (mínimo 5 caracteres).</span> }</div>
+      <div class="dk-field"><label for="a-rec">Importe recobrado (€)</label>
+        <input id="a-rec" class="dk-input" inputmode="decimal" formControlName="recobrado" placeholder="Opcional"></div>
+    </form>
+    <div actions>
+      <button type="button" class="dk-btn" (click)="modalAlta.set(false)">Cancelar</button>
+      <button type="submit" form="f-alta" class="dk-btn primary">Guardar</button>
+    </div>
+  </app-modal>
+
+  <app-modal heading="¿Borrar la actuación?" [open]="borrarId() !== null" (closed)="borrarId.set(null)">
+    <p>Se eliminará del seguimiento y quedará constancia en el histórico.</p>
+    <div actions>
+      <button type="button" class="dk-btn" (click)="borrarId.set(null)">Cancelar</button>
+      <button type="button" class="dk-btn danger" (click)="confirmarBorrado()">Borrar</button>
+    </div>
+  </app-modal>
+} @else {
+  <div class="dk-empty"><b>No existe el expediente {{ id() }}</b><a routerLink="/demos/cobros" class="dk-btn">Volver a expedientes</a></div>
+}
