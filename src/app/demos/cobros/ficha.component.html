@@ -1,117 +1,313 @@
 @if (exp(); as e) {
-  <div class="crumbs">
-    <a routerLink="/demos/cobros">← Expedientes</a>
-    <div class="nav-exp" aria-label="Navegar entre expedientes">
-      <span class="pos">{{ vecinos().pos }} de {{ vecinos().total }}</span>
-      <button type="button" class="dk-btn sm" [disabled]="!vecinos().prev" (click)="ir(vecinos().prev)" aria-label="Expediente anterior">‹</button>
-      <button type="button" class="dk-btn sm" [disabled]="!vecinos().next" (click)="ir(vecinos().next)" aria-label="Expediente siguiente">›</button>
-    </div>
-  </div>
-
-  <div class="title">
+  <div class="hdr">
+    <a routerLink="/demos/cobros" class="back" aria-label="Volver a expedientes"><app-ico name="arrow" [size]="20" /></a>
     <h1>{{ e.cliente }}</h1>
-    <span class="exp">Exp. {{ e.id }}</span>
+    <span class="expn">Exp. {{ e.id }}</span>
     <span [class]="estadoClass(e.estado)">{{ e.estado }}</span>
-    <div class="estado-ctl">
-      <label for="estado" class="dk-label">Cambiar estado</label>
-      <select id="estado" class="dk-select" [value]="e.estado" (change)="cambiarEstado($any($event.target).value)">
-        @for (x of estados; track x) { <option [value]="x" [selected]="x === e.estado">{{ x }}</option> }
-      </select>
+    <div class="nav" aria-label="Navegar entre expedientes">
+      <span class="pos">{{ vecinos().pos }} de {{ vecinos().total }}</span>
+      <div class="btns">
+        <button type="button" (click)="ir(vecinos().first)" [disabled]="!vecinos().prev" aria-label="Primer expediente">«</button>
+        <button type="button" (click)="ir(vecinos().prev)" [disabled]="!vecinos().prev" aria-label="Expediente anterior">‹</button>
+        <button type="button" (click)="ir(vecinos().next)" [disabled]="!vecinos().next" aria-label="Expediente siguiente">›</button>
+        <button type="button" (click)="ir(vecinos().last)" [disabled]="!vecinos().next" aria-label="Último expediente">»</button>
+      </div>
     </div>
   </div>
 
-  @if (e.bajaEnCurso) { <div class="dk-alert warn" role="note"><b>Atención:</b> el cliente tiene una solicitud de baja en curso.</div> }
+  <div class="toolbar">
+    <div class="tb" role="toolbar" aria-label="Acciones del expediente">
+      <button type="button" (click)="abrir('actuacion')" title="Añadir actuación" aria-label="Añadir actuación"><app-ico name="edit" /></button>
+      <button type="button" (click)="abrir('aplazamiento')" title="Añadir aplazamiento" aria-label="Añadir aplazamiento"><app-ico name="calendar" /></button>
+      <button type="button" (click)="aviso('Email preparado', 'Se ha abierto una plantilla con las facturas vencidas')" title="Enviar email con facturas" aria-label="Enviar email con facturas"><app-ico name="mail" /></button>
+      <button type="button" (click)="abrir('documento')" title="Generar documentación" aria-label="Generar documentación"><app-ico name="doc" /></button>
+      <span class="sep" aria-hidden="true"></span>
+      <button type="button" (click)="abrir('contacto')" title="Actualizar contacto de cobros" aria-label="Actualizar contacto de cobros"><app-ico name="phone" /></button>
+      <button type="button" (click)="abrir('reasignar')" title="Reasignar expediente" aria-label="Reasignar expediente"><app-ico name="user-plus" /></button>
+      <button type="button" (click)="abrir('campana')" title="Reasignar campaña" aria-label="Reasignar campaña"><app-ico name="swap" /></button>
+      <button type="button" (click)="pestana.set('facturas')" title="Compromiso de pago" aria-label="Compromiso de pago"><app-ico name="card" /></button>
+      <button type="button" (click)="recalcular()" title="Recalcular scoring" aria-label="Recalcular scoring"><app-ico name="chart" /></button>
+      <span class="sep" aria-hidden="true"></span>
+      <button type="button" class="danger" (click)="abrir('cerrar')" [disabled]="e.estado === 'Cerrado'" title="Cerrar expediente" aria-label="Cerrar expediente"><app-ico name="lock" /></button>
+    </div>
+    <div class="right">
+      <label class="estado-ctl"><span>Estado</span>
+        <select class="dk-select" [value]="e.estado" (change)="cambiarEstado($any($event.target).value)">
+          @for (x of estados; track x) { <option [value]="x" [selected]="x === e.estado">{{ x }}</option> }
+        </select></label>
+      <button type="button" class="dk-btn only-wide" (click)="aviso('Llamada', 'Llamando a ' + e.contacto + ' (simulado)')"><app-ico name="phone" /> Contactar</button>
+      <button type="button" class="dk-btn only-m" (click)="hojaAcciones.set(true)">Más acciones</button>
+    </div>
+  </div>
+
+  @if (e.bajaEnCurso) { <div class="dk-alert warn" role="note"><app-ico name="warn" /> Cliente con una solicitud de <b>baja</b> en curso</div> }
+  @if (e.reclamacion) { <div class="dk-alert info" role="note"><app-ico name="info" /> Hay una <b>reclamación</b> abierta sobre una factura</div> }
 
   <div class="kpis">
-    <div class="dk-card"><span>Importe pendiente</span><b>{{ eur(e.deuda) }}</b></div>
-    <div class="dk-card"><span>Importe negativo</span><b>{{ eur(e.negativo) }}</b></div>
-    <div class="dk-card"><span>Recobrado</span><b>{{ eur(recobrado()) }}</b></div>
-    <div class="dk-card"><span>Scoring</span><b>{{ e.scoring }} <small>/ 5</small></b></div>
+    <div class="kpi"><span>Importe pendiente</span><b>{{ eur(e.deuda) }}</b></div>
+    <div class="kpi"><span>Importe negativo</span><b [class.neg]="e.negativo < 0">{{ eur(e.negativo) }}</b></div>
+    <div class="kpi"><span>Deuda neta</span><b>{{ eur(deudaNeta()) }}</b></div>
+    <div class="kpi"><span>Valor cliente</span><b>{{ e.valorCliente }}</b>
+      <span class="stars" role="img" [attr.aria-label]="e.valorCliente + ' de 5'">@for (on of estrellas(e.valorCliente); track $index) { <app-ico name="star" [size]="12" [fill]="on" [class.on]="on" /> }</span></div>
+    <div class="kpi"><span>Scoring</span><b>{{ e.scoring }}</b>
+      <small>{{ fecha(e.fechaScoring) }} <button type="button" class="mini" (click)="recalcular()" aria-label="Recalcular scoring"><app-ico name="refresh" [size]="12" /></button></small></div>
   </div>
 
-  <section class="datos dk-card" aria-labelledby="datos-t">
-    <h2 id="datos-t">Datos del expediente</h2>
-    <dl>
-      <div><dt>NIF</dt><dd>{{ e.nif }}</dd></div>
-      <div><dt>Gestor</dt><dd>{{ e.gestor }}</dd></div>
-      <div><dt>Campaña</dt><dd>{{ e.campana }}</dd></div>
-      <div><dt>Entidad</dt><dd>{{ e.entidad }}</dd></div>
-      <div><dt>Provincia</dt><dd>{{ e.provincia }}</dd></div>
-      <div><dt>Email de cobro</dt><dd>{{ e.contacto }}</dd></div>
-    </dl>
+  <div class="cards">
+    <section class="card" aria-labelledby="c-exp">
+      <h2 id="c-exp"><app-ico name="doc" /> Datos del expediente</h2>
+      <dl>
+        <div><dt>Cliente</dt><dd>{{ e.numCliente }} · {{ e.nif }}</dd></div>
+        <div><dt>Cartera</dt><dd>{{ e.cartera }}</dd></div>
+        <div><dt>Gestor de cobro</dt><dd>{{ e.gestor }}</dd></div>
+        <div><dt>Comisión gestor</dt><dd>{{ e.comision }} %</dd></div>
+        <div><dt>Entidad</dt><dd>{{ e.entidad }}</dd></div>
+        <div><dt>Motivo de devolución</dt><dd>{{ e.motivoDevolucion }}</dd></div>
+        <div><dt>Gran cuenta</dt><dd>{{ e.granCuenta ? 'Sí' : 'No' }}</dd></div>
+        <div><dt>Grupo cliente</dt><dd>{{ e.grupo ?? '—' }}</dd></div>
+        <div><dt>Campaña</dt><dd>{{ e.campana }}</dd></div>
+      </dl>
+    </section>
+    <section class="card" aria-labelledby="c-cli">
+      <h2 id="c-cli"><app-ico name="user" /> Cliente y contrato</h2>
+      <dl>
+        <div><dt>Persona de contacto</dt><dd>{{ e.contacto }} · {{ e.telefono }}</dd></div>
+        <div class="wide"><dt>Contacto de cobro</dt><dd>{{ e.emailCobro }}</dd></div>
+        <div><dt>Comercial</dt><dd>{{ e.comercial }}</dd></div>
+        <div class="wide"><dt>Productos contratados</dt><dd>{{ e.productos }}</dd></div>
+        <div><dt>Plantilla</dt><dd>{{ e.trabajadores }} personas</dd></div>
+        <div><dt>Forma de pago</dt><dd>{{ e.formaPago }}</dd></div>
+        <div><dt>Términos de pago</dt><dd>{{ e.terminos }}</dd></div>
+      </dl>
+      <p class="foot-line">Bajas: {{ e.bajas.length }} · Reclamaciones: {{ e.reclamaciones.length }} · Asignado el {{ fecha(e.asignado) }}</p>
+    </section>
+    <section class="card" aria-labelledby="c-ext">
+      <h2 id="c-ext"><app-ico name="folder" /> Gestión externa</h2>
+      @if (e.externa; as x) {
+        <dl>
+          <div><dt>Campaña</dt><dd>{{ x.campana }}</dd></div>
+          <div><dt>Estado</dt><dd><span class="st st-aplazado">{{ x.estado }}</span></dd></div>
+          <div><dt>Proveedor</dt><dd>{{ x.proveedor }}</dd></div>
+          <div><dt>Situación judicial</dt><dd>{{ x.situacion }}</dd></div>
+        </dl>
+      } @else {
+        <div class="dk-empty sm">Sin gestión externa
+          <button type="button" class="dk-btn sm" (click)="aviso('Gestión externa', 'Expediente enviado a la agencia (simulado)')">Enviar a agencia</button></div>
+      }
+    </section>
+  </div>
+
+  <div class="ftabs no-scrollbar" role="tablist" aria-label="Información del expediente" (keydown)="teclaPestana($event)">
+    @for (t of pestanas(); track t.k) {
+      <button role="tab" type="button" [id]="'t-' + t.k" [attr.aria-selected]="pestana() === t.k" [attr.aria-controls]="'p-' + t.k" [tabIndex]="pestana() === t.k ? 0 : -1" (click)="pestana.set(t.k)">
+        {{ t.l }} @if (t.w) { <app-ico name="warn" [size]="13" class="w" /> } <span class="n">{{ t.n }}</span></button>
+    }
+  </div>
+
+  <section role="tabpanel" class="panel" [id]="'p-' + pestana()" [attr.aria-labelledby]="'t-' + pestana()" tabindex="0">
+    @switch (pestana()) {
+      @case ('seguimiento') {
+        <div class="ph"><h2>Seguimiento del expediente</h2><button type="button" class="dk-btn primary" (click)="abrir('actuacion')"><app-ico name="plus" /> Añadir actuación</button></div>
+        <div class="dk-table-wrap"><table class="dk-table dense">
+          <caption class="sr">Actuaciones del expediente</caption>
+          <thead><tr><th scope="col">Acciones</th><th scope="col">Fecha</th><th scope="col">Actuación</th><th scope="col">Descripción</th><th scope="col">Gestor</th><th scope="col" class="r">Recobrado</th><th scope="col">Adjunto</th><th scope="col">F. ejecución</th></tr></thead>
+          <tbody>
+            @for (a of e.actuaciones; track a.id) {
+              <tr>
+                <td class="acc">
+                  <button type="button" (click)="abrir('actuacion', a)" [attr.aria-label]="'Modificar actuación del ' + fecha(a.fecha)" title="Modificar"><app-ico name="edit" [size]="15" /></button>
+                  <button type="button" class="del" (click)="borrarId.set(a.id); modal.set('borrar')" [attr.aria-label]="'Borrar actuación del ' + fecha(a.fecha)" title="Borrar"><app-ico name="trash" [size]="15" /></button>
+                </td>
+                <td>{{ fecha(a.fecha) }}</td><td><b>{{ a.tipo }}</b></td><td class="wrap">{{ a.descripcion }}</td><td>{{ a.gestor }}</td>
+                <td class="r">{{ a.recobrado ? eur(a.recobrado) : '—' }}</td>
+                <td>@if (a.adjunto) { <button type="button" class="file" (click)="aviso('Adjunto', a.adjunto + ' (simulado)')"><app-ico name="file" [size]="14" />{{ a.adjunto }}</button> } @else { — }</td>
+                <td>{{ a.ejecucion ? fecha(a.ejecucion) : '—' }}</td>
+              </tr>
+            } @empty { <tr><td colspan="8"><div class="dk-empty">Sin actuaciones. <button type="button" class="dk-btn sm" (click)="abrir('actuacion')">Añadir la primera</button></div></td></tr> }
+          </tbody>
+        </table></div>
+      }
+      @case ('facturas') {
+        <div class="ph"><h2>Facturas pendientes</h2>
+          <button type="button" class="dk-btn primary keep" [disabled]="!facturasSel().size" (click)="abrir('compromiso')"><app-ico name="card" /> Compromiso de pago ({{ facturasSel().size }})</button></div>
+        <div class="dk-table-wrap"><table class="dk-table dense">
+          <caption class="sr">Facturas pendientes; selecciona para registrar un compromiso de pago</caption>
+          <thead><tr><th scope="col" class="ck"><input type="checkbox" aria-label="Seleccionar todas" [checked]="facturasSel().size === e.facturas.length && e.facturas.length > 0" (change)="toggleTodasFacturas()"></th>
+            <th scope="col">Nº documento</th><th scope="col">Concepto</th><th scope="col">Emisión</th><th scope="col">Vencimiento</th><th scope="col" class="r">Importe pendiente</th></tr></thead>
+          <tbody>@for (f of e.facturas; track f.numero) {
+            <tr [class.is-selected]="facturasSel().has(f.numero)"><td class="ck"><input type="checkbox" [checked]="facturasSel().has(f.numero)" (change)="toggleFactura(f.numero)" [attr.aria-label]="'Seleccionar ' + f.numero"></td>
+              <td class="mono">{{ f.numero }}</td><td>{{ f.concepto }}</td><td>{{ fecha(f.fecha) }}</td><td>{{ fecha(f.vencimiento) }}</td><td class="r">{{ eur(f.importe) }}</td></tr>
+          }</tbody>
+        </table></div>
+      }
+      @case ('movimientos') {
+        <div class="dk-table-wrap"><table class="dk-table dense">
+          <caption class="sr">Movimientos bancarios</caption>
+          <thead><tr><th scope="col">Fecha</th><th scope="col">Concepto</th><th scope="col" class="r">Importe</th></tr></thead>
+          <tbody>@for (m of e.movimientos; track $index) { <tr><td>{{ fecha(m.fecha) }}</td><td>{{ m.concepto }}</td><td class="r" [class.neg]="m.importe < 0">{{ eur(m.importe) }}</td></tr> }</tbody>
+        </table></div>
+      }
+      @case ('aplazamientos') {
+        <div class="ph"><h2>Aplazamientos</h2><button type="button" class="dk-btn primary" (click)="abrir('aplazamiento')"><app-ico name="plus" /> Añadir aplazamiento</button></div>
+        <div class="dk-table-wrap"><table class="dk-table dense">
+          <caption class="sr">Aplazamientos</caption>
+          <thead><tr><th scope="col">Acciones</th><th scope="col">Vencimiento</th><th scope="col">Motivo</th><th scope="col">Descripción</th></tr></thead>
+          <tbody>@for (a of e.aplazamientos; track a.id) {
+            <tr><td class="acc"><button type="button" (click)="editarAplazamiento(a)" aria-label="Modificar aplazamiento" title="Modificar"><app-ico name="edit" [size]="15" /></button></td>
+              <td>{{ fecha(a.vencimiento) }}</td><td>{{ a.motivo }}</td><td class="wrap">{{ a.descripcion }}</td></tr>
+          } @empty { <tr><td colspan="4"><div class="dk-empty">Sin aplazamientos.</div></td></tr> }</tbody>
+        </table></div>
+      }
+      @case ('bajas') { <ng-container *ngTemplateOutlet="incid; context: { $implicit: e.bajas, vacio: 'Sin solicitudes de baja.' }" /> }
+      @case ('reclamaciones') { <ng-container *ngTemplateOutlet="incid; context: { $implicit: e.reclamaciones, vacio: 'Sin reclamaciones.' }" /> }
+      @case ('logs') {
+        <ol class="logs">@for (l of e.logs; track $index) { <li><span class="mono">{{ fecha(l.fecha) }}</span>{{ l.texto }}</li> }</ol>
+      }
+    }
   </section>
 
-  <div class="tabs" role="tablist" aria-label="Información del expediente" (keydown)="teclaPestana($event)">
-    <button role="tab" id="t-seg" [attr.aria-selected]="pestana() === 'seguimiento'" aria-controls="p-seg" [tabIndex]="pestana() === 'seguimiento' ? 0 : -1" (click)="pestana.set('seguimiento')">Seguimiento <span>{{ e.actuaciones.length }}</span></button>
-    <button role="tab" id="t-fac" [attr.aria-selected]="pestana() === 'facturas'" aria-controls="p-fac" [tabIndex]="pestana() === 'facturas' ? 0 : -1" (click)="pestana.set('facturas')">Facturas pendientes <span>{{ e.facturas.length }}</span></button>
-    <button role="tab" id="t-log" [attr.aria-selected]="pestana() === 'logs'" aria-controls="p-log" [tabIndex]="pestana() === 'logs' ? 0 : -1" (click)="pestana.set('logs')">Histórico <span>{{ e.logs.length }}</span></button>
+  <ng-template #incid let-items let-vacio="vacio">
+    <div class="dk-table-wrap"><table class="dk-table dense">
+      <thead><tr><th scope="col">Fecha</th><th scope="col">Tipo</th><th scope="col">Estado</th><th scope="col">Detalle</th></tr></thead>
+      <tbody>@for (b of items; track $index) { <tr><td>{{ fecha(b.fecha) }}</td><td><b>{{ b.tipo }}</b></td><td><span class="st st-aplazado">{{ b.estado }}</span></td><td class="wrap">{{ b.detalle }}</td></tr> }
+        @empty { <tr><td colspan="4"><div class="dk-empty">{{ vacio }}</div></td></tr> }</tbody>
+    </table></div>
+  </ng-template>
+
+  <div class="m-bar" role="region" aria-label="Acciones rápidas">
+    <button type="button" class="dk-btn ico-btn" (click)="aviso('Llamada', 'Llamando a ' + e.contacto + ' (simulado)')" aria-label="Contactar con el cliente"><app-ico name="phone" [size]="20" /></button>
+    <button type="button" class="dk-btn primary" (click)="abrir('actuacion')"><app-ico name="plus" /> Añadir actuación</button>
   </div>
 
-  @switch (pestana()) {
-    @case ('seguimiento') {
-      <section role="tabpanel" id="p-seg" aria-labelledby="t-seg" class="panel">
-        <div class="panel-head"><h2>Seguimiento del expediente</h2><button type="button" class="dk-btn primary" (click)="abrirAlta()">+ Añadir actuación</button></div>
-        <div class="dk-table-wrap">
-          <table class="dk-table">
-            <caption class="sr">Actuaciones del expediente</caption>
-            <thead><tr><th scope="col">Fecha</th><th scope="col">Actuación</th><th scope="col">Descripción</th><th scope="col" class="r">Recobrado</th><th scope="col"><span class="sr">Acciones</span></th></tr></thead>
-            <tbody>
-              @for (a of e.actuaciones; track a.id) {
-                <tr><td>{{ fecha(a.fecha) }}</td><td><b>{{ a.tipo }}</b></td><td class="wrap">{{ a.descripcion }}</td><td class="r">{{ a.recobrado ? eur(a.recobrado) : '—' }}</td>
-                  <td class="r"><button type="button" class="dk-btn ghost sm del" (click)="borrarId.set(a.id)" [attr.aria-label]="'Borrar actuación ' + a.tipo + ' del ' + fecha(a.fecha)">Borrar</button></td></tr>
-              } @empty {
-                <tr><td colspan="5"><div class="dk-empty">Todavía no hay actuaciones. <button type="button" class="dk-btn sm" (click)="abrirAlta()">Añadir la primera</button></div></td></tr>
-              }
-            </tbody>
-          </table>
-        </div>
-      </section>
-    }
-    @case ('facturas') {
-      <section role="tabpanel" id="p-fac" aria-labelledby="t-fac" class="panel">
-        <div class="dk-table-wrap">
-          <table class="dk-table">
-            <caption class="sr">Facturas pendientes</caption>
-            <thead><tr><th scope="col">Factura</th><th scope="col">Emisión</th><th scope="col">Vencimiento</th><th scope="col" class="r">Importe</th></tr></thead>
-            <tbody>@for (f of e.facturas; track f.numero) { <tr><td class="mono">{{ f.numero }}</td><td>{{ fecha(f.fecha) }}</td><td>{{ fecha(f.vencimiento) }}</td><td class="r">{{ eur(f.importe) }}</td></tr> }</tbody>
-          </table>
-        </div>
-      </section>
-    }
-    @case ('logs') {
-      <section role="tabpanel" id="p-log" aria-labelledby="t-log" class="panel">
-        <ol class="logs">@for (l of e.logs; track $index) { <li><span class="mono">{{ fecha(l.fecha) }}</span>{{ l.texto }}</li> }</ol>
-      </section>
-    }
-  }
+  <app-sheet heading="Acciones del expediente" [open]="hojaAcciones()" (closed)="hojaAcciones.set(false)" [side]="false">
+    <ul class="row-list">
+      <li><button type="button" (click)="desdeHoja('aplazamiento')"><app-ico name="calendar" [size]="20" /><span>Añadir aplazamiento</span><span class="chev" aria-hidden="true">›</span></button></li>
+      <li><button type="button" (click)="hojaAcciones.set(false); aviso('Email preparado', 'Plantilla con las facturas vencidas')"><app-ico name="mail" [size]="20" /><span>Enviar email con facturas</span><span class="chev" aria-hidden="true">›</span></button></li>
+      <li><button type="button" (click)="desdeHoja('documento')"><app-ico name="doc" [size]="20" /><span>Generar documentación</span><span class="chev" aria-hidden="true">›</span></button></li>
+      <li><button type="button" (click)="desdeHoja('contacto')"><app-ico name="phone" [size]="20" /><span>Actualizar contacto de cobros</span><span class="chev" aria-hidden="true">›</span></button></li>
+      <li><button type="button" (click)="desdeHoja('reasignar')"><app-ico name="user-plus" [size]="20" /><span>Reasignar expediente</span><span class="chev" aria-hidden="true">›</span></button></li>
+      <li><button type="button" (click)="desdeHoja('campana')"><app-ico name="swap" [size]="20" /><span>Reasignar campaña</span><span class="chev" aria-hidden="true">›</span></button></li>
+      <li><button type="button" (click)="hojaAcciones.set(false); pestana.set('facturas')"><app-ico name="card" [size]="20" /><span>Compromiso de pago</span><span class="chev" aria-hidden="true">›</span></button></li>
+      <li><button type="button" (click)="hojaAcciones.set(false); recalcular()"><app-ico name="chart" [size]="20" /><span>Recalcular scoring</span><span class="chev" aria-hidden="true">›</span></button></li>
+      @if (e.estado !== 'Cerrado') { <li><button type="button" class="danger" (click)="desdeHoja('cerrar')"><app-ico name="lock" [size]="20" /><span>Cerrar expediente</span><span class="chev" aria-hidden="true">›</span></button></li> }
+    </ul>
+  </app-sheet>
 
-  <app-modal heading="Añadir actuación" [open]="modalAlta()" (closed)="modalAlta.set(false)">
-    <form [formGroup]="form" (ngSubmit)="guardar()" id="f-alta" novalidate class="alta">
-      <div class="dk-field"><label for="a-tipo">Tipo de actuación <span class="req" aria-hidden="true">*</span></label>
-        <select id="a-tipo" class="dk-select" formControlName="tipo" [attr.aria-invalid]="invalid('tipo')" aria-describedby="e-tipo">
-          <option value="">Selecciona</option>@for (t of tipos; track t) { <option [value]="t">{{ t }}</option> }
-        </select>
-        @if (invalid('tipo')) { <span id="e-tipo" class="dk-error">Elige el tipo de actuación.</span> }</div>
-      <div class="dk-field"><label for="a-fecha">Fecha <span class="req" aria-hidden="true">*</span></label>
-        <input id="a-fecha" type="date" class="dk-input" formControlName="fecha" [attr.aria-invalid]="invalid('fecha')" aria-describedby="e-fecha">
-        @if (invalid('fecha')) { <span id="e-fecha" class="dk-error">Indica la fecha.</span> }</div>
-      <div class="dk-field full"><label for="a-descripcion">Descripción <span class="req" aria-hidden="true">*</span></label>
-        <textarea id="a-descripcion" class="dk-textarea" formControlName="descripcion" [attr.aria-invalid]="invalid('descripcion')" aria-describedby="e-desc"></textarea>
-        @if (invalid('descripcion')) { <span id="e-desc" class="dk-error">Describe la actuación (mínimo 5 caracteres).</span> }</div>
-      <div class="dk-field"><label for="a-rec">Importe recobrado (€)</label>
-        <input id="a-rec" class="dk-input" inputmode="decimal" formControlName="recobrado" placeholder="Opcional"></div>
-    </form>
+  <!-- Modales -->
+  <app-modal [heading]="heading()" [open]="modal() !== null" (closed)="cerrarModal()">
+    @switch (modal()) {
+      @case ('actuacion') {
+        <form [formGroup]="fAct" id="form-modal" (ngSubmit)="guardarActuacion()" novalidate class="fgrid">
+          <div class="dk-field"><label for="m-gestor">Gestor <span class="req">*</span></label>
+            <select id="m-gestor" class="dk-select" formControlName="gestor" [attr.aria-invalid]="err('act','gestor')">@for (g of gestores; track g) { <option [value]="g">{{ g }}</option> }</select></div>
+          <div class="dk-field"><label for="m-tipo">Tipo de actuación <span class="req">*</span></label>
+            <select id="m-tipo" class="dk-select" formControlName="tipo" [attr.aria-invalid]="err('act','tipo')" aria-describedby="e-tipo"><option value="">Seleccionar</option>@for (t of tipos; track t) { <option [value]="t">{{ t }}</option> }</select>
+            @if (err('act','tipo')) { <span id="e-tipo" class="dk-error">Elige el tipo.</span> }</div>
+          <div class="dk-field"><label for="m-fecha">Fecha <span class="req">*</span></label>
+            <input id="m-fecha" type="date" class="dk-input" formControlName="fecha" [attr.aria-invalid]="err('act','fecha')"></div>
+          <div class="dk-field full"><label for="m-descripcion">Descripción <span class="req">*</span></label>
+            <textarea id="m-descripcion" class="dk-textarea" formControlName="descripcion" [attr.aria-invalid]="err('act','descripcion')" aria-describedby="e-desc"></textarea>
+            @if (err('act','descripcion')) { <span id="e-desc" class="dk-error">Describe la actuación (mínimo 5 caracteres).</span> }</div>
+          <fieldset class="dk-field radios"><legend class="dk-label">¿Recupera parte de la deuda?</legend>
+            <label class="dk-check"><input type="radio" value="no" formControlName="recupera"> No</label>
+            <label class="dk-check"><input type="radio" value="si" formControlName="recupera"> Sí</label></fieldset>
+          @if (fAct.value.recupera === 'si') {
+            <div class="dk-field"><label for="m-importe">Importe recobrado (€) <span class="req">*</span></label>
+              <input id="m-importe" class="dk-input" inputmode="decimal" formControlName="importe" placeholder="0,00" aria-describedby="e-imp">
+              @if (enviado && !importeValido()) { <span id="e-imp" class="dk-error">Indica un importe mayor que 0.</span> }</div>
+          }
+          <fieldset class="dk-field radios full"><legend class="dk-label">Aplazamiento</legend>
+            <label class="dk-check"><input type="radio" value="no" formControlName="aplazamiento"> No</label>
+            <label class="dk-check"><input type="radio" value="add" formControlName="aplazamiento"> Añadir</label></fieldset>
+          @if (fAct.value.aplazamiento === 'add') {
+            <div class="dk-field"><label for="m-venc">Fecha de vencimiento <span class="req">*</span></label>
+              <input id="m-venc" type="date" class="dk-input" formControlName="vencimiento">
+              @if (enviado && !fAct.value.vencimiento) { <span class="dk-error">Indica hasta cuándo se aplaza.</span> }</div>
+          }
+          <label class="dk-check full"><input type="checkbox" formControlName="grupo"> Añadir la actuación para todo el grupo de clientes</label>
+          <div class="dk-field full"><span class="dk-label">Documento adjunto</span>
+            <label class="drop" [class.over]="arrastrando" (dragover)="$event.preventDefault(); arrastrando = true" (dragleave)="arrastrando = false" (drop)="soltar($event)">
+              <input type="file" class="sr" (change)="elegirArchivo($event)" accept=".pdf,.xls,.xlsx,.rar">
+              <app-ico name="folder" [size]="22" />
+              @if (archivo) { <b>{{ archivo }}</b><small>Pulsa para cambiarlo</small> } @else { <span>Arrastra el archivo aquí o haz clic para seleccionar</span><small>PDF, Excel o RAR</small> }
+            </label></div>
+          @if (editando() !== null) { <p class="hist full">Creado por {{ fAct.value.gestor }} · las modificaciones quedan en el histórico (Logs)</p> }
+        </form>
+      }
+      @case ('aplazamiento') {
+        <form [formGroup]="fAp" id="form-modal" (ngSubmit)="guardarAplazamiento()" novalidate class="fgrid">
+          <div class="dk-field"><label for="m-vencimiento">Fecha de vencimiento <span class="req">*</span></label>
+            <input id="m-vencimiento" type="date" class="dk-input" formControlName="vencimiento" [attr.aria-invalid]="err('ap','vencimiento')">
+            @if (err('ap','vencimiento')) { <span class="dk-error">Indica la fecha.</span> }</div>
+          <div class="dk-field"><label for="m-motivo">Motivo de aplazamiento <span class="req">*</span></label>
+            <select id="m-motivo" class="dk-select" formControlName="motivo" [attr.aria-invalid]="err('ap','motivo')"><option value="">Seleccionar</option>@for (m of motivosAplaz; track m) { <option [value]="m">{{ m }}</option> }</select>
+            @if (err('ap','motivo')) { <span class="dk-error">Elige el motivo.</span> }</div>
+          <div class="dk-field full"><label for="m-descripcion">Descripción <span class="req">*</span></label>
+            <textarea id="m-descripcion" class="dk-textarea" formControlName="descripcion" [attr.aria-invalid]="err('ap','descripcion')"></textarea>
+            @if (err('ap','descripcion')) { <span class="dk-error">Añade una descripción.</span> }</div>
+        </form>
+      }
+      @case ('reasignar') {
+        <form id="form-modal" (submit)="$event.preventDefault(); guardarSimple()" class="fgrid one">
+          <div class="dk-field"><label for="s-gestor">Gestor <span class="req">*</span></label>
+            <select id="s-gestor" class="dk-select" [(ngModel)]="simple.gestor" name="g" [attr.aria-invalid]="enviado && !simple.gestor"><option value="">Selecciona un gestor…</option>@for (g of gestores; track g) { <option [value]="g" [disabled]="g === e.gestor">{{ g }}{{ g === e.gestor ? ' (actual)' : '' }}</option> }</select>
+            @if (enviado && !simple.gestor) { <span class="dk-error">Elige un gestor.</span> }</div>
+        </form>
+      }
+      @case ('campana') {
+        <form id="form-modal" (submit)="$event.preventDefault(); guardarSimple()" class="fgrid one">
+          <div class="dk-field"><label for="s-campana">Campaña <span class="req">*</span></label>
+            <select id="s-campana" class="dk-select" [(ngModel)]="simple.campana" name="c"><option value="">Selecciona una campaña…</option>@for (c of campanas; track c) { <option [value]="c" [disabled]="c === e.campana">{{ c }}</option> }</select>
+            @if (enviado && !simple.campana) { <span class="dk-error">Elige una campaña.</span> }</div>
+        </form>
+      }
+      @case ('cerrar') {
+        <form id="form-modal" (submit)="$event.preventDefault(); guardarSimple()" class="fgrid one">
+          <div class="dk-field"><label for="s-motivo">Motivo de cierre <span class="req">*</span></label>
+            <select id="s-motivo" class="dk-select" [(ngModel)]="simple.motivo" name="m"><option value="">Seleccionar</option>@for (m of motivosCierre; track m) { <option [value]="m">{{ m }}</option> }</select>
+            @if (enviado && !simple.motivo) { <span class="dk-error">Elige el motivo.</span> }</div>
+          <div class="dk-field"><label for="s-desc">Descripción <span class="req">*</span></label>
+            <textarea id="s-desc" class="dk-textarea" [(ngModel)]="simple.descripcion" name="d"></textarea>
+            @if (enviado && !simple.descripcion.trim()) { <span class="dk-error">Explica el cierre.</span> }</div>
+        </form>
+      }
+      @case ('contacto') {
+        <form id="form-modal" (submit)="$event.preventDefault(); guardarSimple()" class="fgrid">
+          <div class="dk-field"><label for="s-cont">Persona de contacto <span class="req">*</span></label><input id="s-cont" class="dk-input" [(ngModel)]="simple.contacto" name="c">
+            @if (enviado && !simple.contacto.trim()) { <span class="dk-error">Indica la persona.</span> }</div>
+          <div class="dk-field"><label for="s-tel">Teléfono</label><input id="s-tel" type="tel" class="dk-input" [(ngModel)]="simple.telefono" name="t"></div>
+          <div class="dk-field full"><label for="s-mail">Email de cobro <span class="req">*</span></label><input id="s-mail" type="email" class="dk-input" [(ngModel)]="simple.email" name="e">
+            @if (enviado && !simple.email.includes('@')) { <span class="dk-error">Escribe un email válido.</span> }</div>
+        </form>
+      }
+      @case ('documento') {
+        <form id="form-modal" (submit)="$event.preventDefault(); guardarSimple()" class="fgrid">
+          <div class="dk-field"><label for="s-tdoc">Tipo de documento <span class="req">*</span></label>
+            <select id="s-tdoc" class="dk-select" [(ngModel)]="simple.tipoDoc" name="td"><option value="">Seleccionar</option>@for (t of tiposDoc; track t) { <option [value]="t">{{ t }}</option> }</select>
+            @if (enviado && !simple.tipoDoc) { <span class="dk-error">Elige el tipo.</span> }</div>
+          <div class="dk-field"><label for="s-dest">A la atención de</label><input id="s-dest" class="dk-input" [(ngModel)]="simple.destinatario" name="de"></div>
+          <div class="dk-field full"><label for="s-asunto">Asunto <span class="req">*</span></label><textarea id="s-asunto" class="dk-textarea" [(ngModel)]="simple.asunto" name="as"></textarea>
+            @if (enviado && !simple.asunto.trim()) { <span class="dk-error">Escribe el asunto.</span> }</div>
+        </form>
+      }
+      @case ('compromiso') {
+        <form id="form-modal" (submit)="$event.preventDefault(); guardarSimple()" class="fgrid">
+          <p class="full">Facturas incluidas: <b>{{ facturasSel().size }}</b></p>
+          <div class="dk-field"><label for="s-venc">Nueva fecha de vencimiento <span class="req">*</span></label><input id="s-venc" type="date" class="dk-input" [(ngModel)]="simple.vencimiento" name="v">
+            @if (enviado && !simple.vencimiento) { <span class="dk-error">Indica la fecha.</span> }</div>
+          <div class="dk-field"><label for="s-tcomp">Tipo de compromiso <span class="req">*</span></label>
+            <select id="s-tcomp" class="dk-select" [(ngModel)]="simple.tipoCompromiso" name="tc"><option value="">Seleccionar</option><option>Pago único</option><option>Pago fraccionado</option></select>
+            @if (enviado && !simple.tipoCompromiso) { <span class="dk-error">Elige el tipo.</span> }</div>
+        </form>
+      }
+      @case ('borrar') { <p>Se eliminará del seguimiento y quedará constancia en los logs del expediente.</p> }
+    }
     <div actions>
-      <button type="button" class="dk-btn" (click)="modalAlta.set(false)">Cancelar</button>
-      <button type="submit" form="f-alta" class="dk-btn primary">Guardar</button>
-    </div>
-  </app-modal>
-
-  <app-modal heading="¿Borrar la actuación?" [open]="borrarId() !== null" (closed)="borrarId.set(null)">
-    <p>Se eliminará del seguimiento y quedará constancia en el histórico.</p>
-    <div actions>
-      <button type="button" class="dk-btn" (click)="borrarId.set(null)">Cancelar</button>
-      <button type="button" class="dk-btn danger" (click)="confirmarBorrado()">Borrar</button>
+      <button type="button" class="dk-btn" (click)="cerrarModal()">Cerrar</button>
+      @if (modal() === 'borrar') { <button type="button" class="dk-btn danger" (click)="confirmarBorrado()">Borrar</button> }
+      @else if (modal() === 'cerrar') { <button type="submit" form="form-modal" class="dk-btn danger">Cerrar expediente</button> }
+      @else if (modal() === 'documento') { <button type="submit" form="form-modal" class="dk-btn primary">Generar</button> }
+      @else { <button type="submit" form="form-modal" class="dk-btn primary">Guardar</button> }
     </div>
   </app-modal>
 } @else {

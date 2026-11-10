@@ -64,3 +64,5 @@ p code,dd code{background:var(--ultra-soft);color:var(--ultra);padding:1px 5px;b
 .spec-label{font-family:var(--f-mono);font-size:var(--t-xs);color:var(--spec)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
+html.embed,html.embed *{scrollbar-width:none}
+html.embed ::-webkit-scrollbar{display:none}

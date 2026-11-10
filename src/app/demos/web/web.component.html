@@ -1,11 +1,31 @@
-<app-demo-bar title="Caso 03 · Web corporativa (marca ficticia)" />
+<app-demo-bar title="Caso 03 · Web corporativa (marca ficticia)" responsive="web-publica" />
 <div class="site">
-  <header class="hdr">
-    <button type="button" class="logo" (click)="vista.set('inicio')" aria-label="Normia, inicio">Normia<span>·</span></button>
-    <nav aria-label="Principal"><a href="#areas" (click)="vista.set('inicio')">Áreas</a><span>Plataforma</span><span>Blog</span><span>Contacto</span></nav>
+  <header class="hdr" #hdr>
+    <button type="button" class="logo" (click)="irInicio()" aria-label="Normia, inicio">Normia<span>·</span></button>
+    <nav class="nav-d" aria-label="Principal"><a href="#areas" (click)="vista.set('inicio')">Áreas</a><span>Plataforma</span><span>Blog</span><span>Contacto</span></nav>
     <button type="button" class="cta" (click)="irPresupuesto()">Pide presupuesto @if (elegidas().size) { <span class="badge">{{ elegidas().size }}</span> }</button>
+    <button type="button" class="burger" (click)="toggleMenu(hdr)" [attr.aria-expanded]="menu()" aria-controls="menu-movil" [attr.aria-label]="menu() ? 'Cerrar menú' : 'Abrir menú'">
+      <span aria-hidden="true" [class.x]="menu()"><i></i><i></i><i></i></span>
+    </button>
   </header>
 
+  @if (menu()) {
+    <div class="menu" id="menu-movil" [style.top.px]="menuTop()" role="dialog" aria-modal="true" aria-label="Menú" (keydown.escape)="menu.set(false)">
+      <nav aria-label="Principal (móvil)">
+        <a href="#areas" (click)="vista.set('inicio'); menu.set(false)">Áreas de trabajo <span aria-hidden="true">›</span></a>
+        <button type="button" (click)="menu.set(false)">Plataforma <span aria-hidden="true">›</span></button>
+        <button type="button" (click)="menu.set(false)">Kit Digital <span aria-hidden="true">›</span></button>
+        <button type="button" (click)="menu.set(false)">Blog <span aria-hidden="true">›</span></button>
+        <button type="button" (click)="menu.set(false)">Contacto <span aria-hidden="true">›</span></button>
+      </nav>
+      <div class="menu-ctas">
+        <button type="button" class="b primary" (click)="irPresupuesto()">Pedir presupuesto →</button>
+        <button type="button" class="b ghost-d" (click)="menu.set(false)">Solicitar una demo →</button>
+      </div>
+    </div>
+  }
+
+  <main id="contenido">
   @if (vista() === 'inicio') {
     <section class="hero">
       <div class="in">
@@ -162,5 +182,12 @@
     </section>
   }
 
+  </main>
+  @if (vista() === 'inicio' && !menu()) {
+    <div class="bottom-bar" role="region" aria-label="Acciones rápidas">
+      <button type="button" class="b ghost-d" (click)="aviso()">Contactar</button>
+      <button type="button" class="b primary" (click)="irPresupuesto()">Pedir presupuesto @if (elegidas().size) { ({{ elegidas().size }}) }</button>
+    </div>
+  }
   <footer class="ftr"><div class="in"><span>Normia<span class="dot">·</span> es una marca ficticia creada para esta demo.</span><span>Aviso legal · Privacidad · Cookies</span></div></footer>
 </div>

@@ -8,7 +8,7 @@ import { Hueco, fmtFecha, fmtHora } from './asistente.engine';
   host: { role: 'listitem' },
   template: `
     <article class="opt" [class.best]="recomendada() && !bloqueada()" [class.chosen]="elegida()" [class.muted]="bloqueada() && !elegida()" [attr.aria-labelledby]="tid">
-      <h3 [id]="tid">Opción {{ rank() }} @if (recomendada()) { <span class="tag">recomendada</span> }</h3>
+      <h2 [id]="tid">Opción {{ rank() }} @if (recomendada()) { <span class="tag">recomendada</span> }</h2>
       <ul>
         <li><b>{{ fmtFecha(hueco().fecha) }} · {{ fmtHora(hueco().fecha) }}</b></li>
         <li>{{ hueco().centro }}</li>
@@ -31,7 +31,7 @@ import { Hueco, fmtFecha, fmtHora } from './asistente.engine';
     .opt.best,.opt.chosen{border-color:var(--ultra);box-shadow:0 0 0 1px var(--ultra)}
     .opt.chosen{border-color:var(--ok);box-shadow:0 0 0 1px var(--ok)}
     .opt.muted{opacity:.5}
-    h3{margin:0;font-size:.9375rem;display:flex;justify-content:space-between;align-items:center;gap:8px}
+    h2{margin:0;font-size:.9375rem;letter-spacing:-.01em;display:flex;justify-content:space-between;align-items:center;gap:8px}
     .tag{font:500 .625rem var(--f-mono);color:var(--ultra);background:var(--ultra-soft);border-radius:999px;padding:1px 8px}
     ul{list-style:none;margin:0;padding:0;color:var(--ink-soft);font-size:.8125rem;display:grid;gap:2px}
     ul b{color:var(--ink);font-weight:600}

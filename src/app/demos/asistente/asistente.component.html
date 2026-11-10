@@ -1,5 +1,31 @@
-<app-demo-bar title="Caso 01 · Asistente IA de planificación" />
+<app-demo-bar title="Caso 01 · Asistente IA de planificación" responsive="asistente" />
 <div class="app dk" [class.con-panel]="vista() === 'chat' && panelAbierto() && ctx().cliente">
+  @if (compacto()) {
+    <header class="m-top">
+      <span class="brand"><span class="spark" aria-hidden="true">✦</span>Planifica</span>
+      <button type="button" class="m-ico" (click)="nuevaConversacion(); menu.set(false)" aria-label="Nueva petición">+</button>
+      <button type="button" class="burger" (click)="menu.set(!menu())" [attr.aria-expanded]="menu()" aria-controls="menu-asis" [attr.aria-label]="menu() ? 'Cerrar menú' : 'Abrir menú'">
+        <span aria-hidden="true" [class.x]="menu()"><i></i><i></i><i></i></span>
+        @if (temporales().length && !menu()) { <span class="dot" aria-hidden="true"></span> }
+      </button>
+    </header>
+    @if (menu()) {
+      <div class="m-menu" id="menu-asis" (keydown.escape)="menu.set(false)">
+        <ul class="row-list">
+          <li><button type="button" (click)="ir('chat')"><span class="ic" aria-hidden="true">✦</span><span>Chat</span><span class="chev" aria-hidden="true">›</span></button></li>
+          <li><button type="button" (click)="ir('recomendadas')"><span class="ic" aria-hidden="true">◎</span><span>Acciones recomendadas</span><span class="end"><span class="n">{{ recomendaciones().length }}</span><span class="chev" aria-hidden="true">›</span></span></button></li>
+          <li><button type="button" (click)="ir('reservas')"><span class="ic" aria-hidden="true">◷</span><span>Reservas temporales</span><span class="end"><span class="n" [class.hot]="temporales().length">{{ temporales().length }}</span><span class="chev" aria-hidden="true">›</span></span></button></li>
+        </ul>
+        <h2 class="m-h">Conversaciones recientes</h2>
+        <ul class="row-list">
+          @for (h of historial; track h.titulo) {
+            <li><button type="button" (click)="abrirHistorial(h); menu.set(false)"><span class="ic" aria-hidden="true">↺</span><span>{{ h.titulo }}<small>{{ h.cuando }} · {{ h.tipo }}</small></span><span class="chev" aria-hidden="true">›</span></button></li>
+          }
+        </ul>
+        <p class="m-foot">Citas confirmadas hoy <b>{{ confirmadas() }}</b></p>
+      </div>
+    }
+  }
   <aside class="side" aria-label="Navegación del asistente">
     <div class="brand"><span class="spark" aria-hidden="true">✦</span>Planifica <small>asistente</small></div>
     <button type="button" class="dk-btn primary new" (click)="nuevaConversacion()">+ Nueva petición</button>
@@ -30,8 +56,8 @@
             </label>
           }
           @if (ctx().cliente) {
-            <button type="button" class="dk-btn sm panel-btn" (click)="panelAbierto.set(!panelAbierto())" [attr.aria-expanded]="panelAbierto()" aria-controls="panel-ctx">
-              {{ panelAbierto() ? 'Ocultar criterios' : 'Ver criterios' }}
+            <button type="button" class="dk-btn sm panel-btn" (click)="compacto() ? hojaCriterios.set(true) : panelAbierto.set(!panelAbierto())" [attr.aria-expanded]="compacto() ? hojaCriterios() : panelAbierto()" aria-controls="panel-ctx">
+              {{ compacto() ? 'Criterios' : (panelAbierto() ? 'Ocultar criterios' : 'Ver criterios') }}
             </button>
           }
         </div>
@@ -212,10 +238,16 @@
     }
   </main>
 
-  @if (vista() === 'chat' && ctx().cliente && panelAbierto()) {
+  @if (!compacto() && vista() === 'chat' && ctx().cliente && panelAbierto()) {
     <aside class="panel" id="panel-ctx" aria-labelledby="panel-t">
       <h2 id="panel-t">Lo que he entendido</h2>
       <p class="panel-sub">Cambia cualquier criterio y el asistente vuelve a buscar.</p>
+      <ng-container *ngTemplateOutlet="criterios" />
+    </aside>
+  }
+</div>
+
+<ng-template #criterios>
       <div class="dk-field"><label for="p-cli">Cliente</label>
         <select id="p-cli" class="dk-select" [ngModel]="ctx().cliente" (ngModelChange)="ajustar('cliente', $event, 'el cliente a ' + $event)">
           @for (c of clientes; track c.nombre) { <option [value]="c.nombre">{{ c.nombre }}</option> }
@@ -242,7 +274,13 @@
       <div class="dk-field"><label for="p-n">Número de citas</label>
         <input id="p-n" type="number" min="1" max="30" class="dk-input" [value]="ctx().personas" (change)="ajustar('personas', +$any($event.target).value || 1, 'el número de citas a ' + ($any($event.target).value || 1))"></div>
       @if (ctx().trabajador) { <p class="chip-ctx">Para <b>{{ ctx().trabajador }}</b> <button type="button" (click)="ajustar('trabajador', null, 'el trabajador a «sin asignar»')" aria-label="Quitar trabajador">✕</button></p> }
-    </aside>
-  }
-</div>
+</ng-template>
+
+@if (compacto()) {
+  <app-sheet heading="Lo que he entendido" [open]="hojaCriterios()" (closed)="hojaCriterios.set(false)">
+    <p class="panel-sub">Cambia cualquier criterio y el asistente vuelve a buscar.</p>
+    <div class="sheet-crit"><ng-container *ngTemplateOutlet="criterios" /></div>
+    <div actions class="sheet-acts"><button type="button" class="dk-btn primary" (click)="hojaCriterios.set(false)">Ver resultados</button></div>
+  </app-sheet>
+}
 <app-toasts />

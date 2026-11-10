@@ -11,4 +11,9 @@ import { ThemeService } from './core/theme.service';
 export class AppComponent {
   // Se instancia al arrancar para aplicar el tema guardado antes del primer pintado.
   private readonly theme = inject(ThemeService);
+
+  constructor() {
+    // Dentro de la vista responsive (iframe) se ocultan las barras de scroll del sistema.
+    if (window.self !== window.top) document.documentElement.classList.add('embed');
+  }
 }

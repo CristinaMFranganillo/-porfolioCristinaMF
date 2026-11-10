@@ -11,6 +11,7 @@
         <ul>
           <li><a routerLink="/" fragment="trabajo">Trabajo</a></li>
           <li class="hide-sm"><a routerLink="/" fragment="proceso">Proceso</a></li>
+          <li class="hide-sm"><a routerLink="/" fragment="detalles">Detalles</a></li>
           <li class="hide-sm"><a routerLink="/" fragment="trayectoria">Trayectoria</a></li>
           <li class="hide-sm"><a routerLink="/" fragment="colofon">Esta web</a></li>
           <li><a routerLink="/" fragment="contacto">Contacto</a></li>
@@ -27,7 +28,7 @@
 <section class="hero" id="inicio" aria-labelledby="hero-title">
   <div class="wrap">
     <div>
-      <span class="status"><span class="dot" aria-hidden="true"></span>disponible · 100&nbsp;% remoto</span>
+      <p class="hero-name">Cristina Martínez Franganillo <span class="status"><span class="dot" aria-hidden="true"></span>disponible · 100&nbsp;% remoto</span></p>
       <h1 id="hero-title">Diseño la interfaz y la <span class="hl">programo</span>. <span class="tagc" aria-hidden="true">&lt;/&gt;</span></h1>
       <p class="lede">Soy <strong>Frontend UX/UI &amp; Design Systems Engineer</strong>. Construyo interfaces en <strong>Angular y TypeScript</strong> sobre design systems con tokens, accesibles por defecto (WCAG&nbsp;2.2&nbsp;AA), y conecto Figma con el repositorio mediante Claude Code&nbsp;(MCP) para pasar de diseño a producción en días.</p>
       <div class="cta-row">
@@ -80,10 +81,10 @@
 <div class="facts">
   <div class="wrap">
     <ul>
-      <li><strong class="num">+15 <em>años</em></strong><span>entre diseño gráfico, producto digital y frontend</span></li>
-      <li><strong>días<em>,</em> no semanas</strong><span>de Figma a código en producción con Claude Code</span></li>
-      <li><strong class="num">+100</strong><span>módulos OSGi en el workspace Liferay en el que desarrollo</span></li>
-      <li><strong>AA</strong><span>WCAG 2.1 / 2.2 como requisito de partida, no como revisión final</span></li>
+      <li><strong class="num">+15 <em>años</em></strong><span>de experiencia en diseño gráfico, producto digital y frontend</span></li>
+      <li><strong>días<em>,</em> no semanas</strong><span>es lo que tardo en llevar un diseño de Figma a producción con Claude Code</span></li>
+      <li><strong class="num">+100</strong><span>módulos OSGi en el workspace Liferay en el que programo a diario</span></li>
+      <li><strong>AA</strong><span>trabajo con WCAG 2.1 / 2.2 desde el primer boceto, no como revisión final</span></li>
     </ul>
   </div>
 </div>
@@ -93,8 +94,16 @@
     <div class="sec-head">
       <span class="path" aria-hidden="true"><span class="p">~/</span>portfolio<span class="p">/</span><span class="b">casos-de-estudio</span></span>
       <h2 id="trabajo-title">Cinco proyectos, del token a producción</h2>
-      <p>Son productos internos y SaaS B2B, así que he recreado las interfaces con datos ficticios. El código es representativo de cómo trabajo; el proceso y las decisiones son reales.</p>
+      <p>Son productos internos y SaaS B2B en los que he trabajado, así que he recreado las interfaces con datos ficticios. El código es representativo de cómo trabajo; el proceso y las decisiones son reales.</p>
     </div>
+
+    <nav class="case-index" aria-label="Resumen de los casos">
+      <a routerLink="/" fragment="c0"><span class="ci-n">01</span><b>Asistente IA de planificación</b><span>UX conversacional · respuestas comparables y reservables</span><em>Demo interactiva</em></a>
+      <a routerLink="/" fragment="c3"><span class="ci-n">02</span><b>Intranet de gestión y cobros</b><span>Pantallas densas, filtros, fichas y tablas con columnas fijas</span><em>Demo interactiva</em></a>
+      <a routerLink="/" fragment="cw"><span class="ci-n">03</span><b>Web corporativa</b><span>Arquitectura de información y presupuesto en tres pasos</span><em>Demo interactiva</em></a>
+      <a routerLink="/" fragment="c1"><span class="ci-n">04</span><b>Pipeline Figma ↔ código</b><span>Claude Code (MCP): de semanas a días</span></a>
+      <a routerLink="/" fragment="c2"><span class="ci-n">05</span><b>Design system multiempresa</b><span>Tokens semánticos en Figma y en código</span></a>
+    </nav>
 
     <!-- Caso 0: asistente IA -->
     <article class="case" aria-labelledby="c0">
@@ -110,8 +119,8 @@
           </div>
         </div>
         <div class="plate-body">
-          <div role="tabpanel" id="c0-ps" aria-labelledby="c0-s" tabindex="0" hidden>
-            <div class="ai">
+          <div role="tabpanel" id="c0-ps" aria-labelledby="c0-s" tabindex="0" hidden><p class="sr">Pantalla de inicio del asistente: se elige el tipo de actividad antes de escribir.</p>
+            <div class="ai" aria-hidden="true">
               <div class="ai-top"><span class="ai-title">Chat</span><span class="ai-hint">sin tipo seleccionado</span></div>
               <div class="start">
                 <b>¿Con qué quieres empezar?</b>
@@ -122,8 +131,8 @@
               <span class="ai-hint" style="text-align:center">El asistente interpreta cliente, trabajadores, centro, fecha, hora y restricciones, y consulta la disponibilidad real.</span>
             </div>
           </div>
-          <div role="tabpanel" id="c0-pv" aria-labelledby="c0-v" tabindex="0">
-            <div class="ai">
+          <div role="tabpanel" id="c0-pv" aria-labelledby="c0-v" tabindex="0"><p class="sr">Conversación de ejemplo: el asistente devuelve tres opciones de cita con su porcentaje de ajuste y el motivo de lo que no coincide.</p>
+            <div class="ai" aria-hidden="true">
               <div class="ai-top"><span class="ai-title">Chat <span class="ai-type">Reconocimiento VIP</span></span><span class="ai-hint">datos ficticios</span></div>
               <p class="bubble me">Busca cita para Metalúrgica Guadiana en el centro Mérida Norte el 14 de junio por la mañana.</p>
               <p class="bubble bot">Estas son las opciones ordenadas por coincidencia con tu petición:</p>
@@ -154,8 +163,8 @@
               <div class="composer"><span>Escribe un mensaje…</span><kbd>Enter</kbd></div>
             </div>
           </div>
-          <div role="tabpanel" id="c0-pr" aria-labelledby="c0-r" tabindex="0" hidden>
-            <div class="ai">
+          <div role="tabpanel" id="c0-pr" aria-labelledby="c0-r" tabindex="0" hidden><p class="sr">Acciones recomendadas: tarjetas por cliente con prioridad, contexto y una propuesta.</p>
+            <div class="ai" aria-hidden="true">
               <div class="ai-top"><span class="ai-title">Acciones recomendadas</span><span class="ai-hint">3 pendientes</span></div>
               <div class="recs">
                 <div class="rec"><b>METALÚRGICA GUADIANA</b><div class="tags"><span class="tg hi">Alta</span><span class="tg pro">Proactivo</span></div><div class="ctx">Reconocimientos periódicos próximos a vencer<strong>18 trabajadores</strong></div><p>Agrupar en un bloque el martes con 6 citas.</p><span class="go2">Generar opciones →</span></div>
@@ -164,9 +173,9 @@
               </div>
             </div>
           </div>
-          <div role="tabpanel" id="c0-pt" aria-labelledby="c0-t" tabindex="0" hidden>
-            <div class="ranges" aria-label="Filtrar por caducidad"><span class="on">&lt; 15 min</span><span>&lt; 1 h</span><span>&lt; 4 h</span><span>&lt; 48 h</span></div>
-            <div class="res-wrap">
+          <div role="tabpanel" id="c0-pt" aria-labelledby="c0-t" tabindex="0" hidden><p class="sr">Reservas temporales con cuenta atrás; las que están a punto de caducar se resaltan.</p>
+            <div aria-hidden="true" class="ranges" aria-label="Filtrar por caducidad"><span class="on">&lt; 15 min</span><span>&lt; 1 h</span><span>&lt; 4 h</span><span>&lt; 48 h</span></div>
+            <div class="res-wrap" aria-hidden="true">
               <table class="res">
                 <caption class="sr">Reservas temporales de ejemplo con su tiempo hasta caducar</caption>
                 <thead><tr><th scope="col">Reserva</th><th scope="col">Cliente</th><th scope="col">Fecha</th><th scope="col">Caduca en</th><th scope="col">Acción</th></tr></thead>
@@ -196,11 +205,11 @@
         <dl class="story">
           <div><dt>problema</dt><dd>Planificar un reconocimiento obligaba a cruzar en varias pantallas cliente, trabajadores, centro, fecha, profesional y restricciones. Un chat de texto libre no bastaba: la IA necesitaba contexto y el usuario, respuestas que pudiera comparar.</dd></div>
           <div><dt>qué hice</dt><dd>Diseñé el flujo completo: inicio guiado, conversación, acciones recomendadas, reservas temporales, trazabilidad e historial, con sus estados, errores y confirmaciones como componentes.</dd></div>
-          <div><dt>decisión</dt><dd>Respuestas estructuradas en vez de párrafos: cada opción es una tarjeta con su porcentaje de ajuste y el motivo de lo que no coincide. Además, el usuario elige el tipo de actividad antes de escribir, lo que reduce la ambigüedad desde el diseño.</dd></div>
-          <div><dt>decisión</dt><dd>Las opciones elegidas quedan como reservas temporales con cuenta atrás, para no bloquear la agenda de otros planificadores.</dd></div>
+          <div><dt>decisión</dt><dd>Opté por respuestas estructuradas en vez de párrafos: cada opción es una tarjeta con su porcentaje de ajuste y el motivo de lo que no coincide. Además, hice que el usuario elija el tipo de actividad antes de escribir, para reducir la ambigüedad desde el diseño.</dd></div>
+          <div><dt>decisión</dt><dd>Convertí las opciones elegidas en reservas temporales con cuenta atrás, para no bloquear la agenda de otros planificadores.</dd></div>
         </dl>
-        <p class="result">Buscar, comparar y reservar en un solo flujo, sin salir de la conversación.</p>
-        <a class="btn btn-primary demo-link" routerLink="/demos/asistente">Probar la demo interactiva →</a>
+        <p class="result">Conseguí que buscar, comparar y reservar sea un solo flujo, sin salir de la conversación.</p>
+        <span class="demo-links"><a class="btn btn-primary demo-link" routerLink="/demos/asistente">Probar la demo interactiva →</a><a class="btn btn-ghost demo-link" routerLink="/responsive/asistente">Ver en móvil y tablet</a></span>
       </div>
     </article>
 
@@ -217,8 +226,8 @@
           </div>
         </div>
         <div class="plate-body">
-          <div role="tabpanel" id="c3-pv" aria-labelledby="c3-v" tabindex="0">
-            <div class="erp">
+          <div role="tabpanel" id="c3-pv" aria-labelledby="c3-v" tabindex="0"><p class="sr">Bandeja de expedientes con filtros, resumen de deuda y acciones masivas.</p>
+            <div class="erp" aria-hidden="true">
               <div class="erp-bar"><span class="erp-logo">Gestión de cobros</span><span class="erp-nav">Expedientes · Recobro · Ingresos diarios · Importar movimientos</span></div>
               <div class="erp-body">
                 <div class="erp-h">Expedientes <span class="ai-hint">datos ficticios</span></div>
@@ -227,7 +236,7 @@
                   <span><small>Zona</small>Todas ▾</span><span><small>Importe (€)</small>Desde – hasta</span><span class="more">+14 filtros</span>
                 </div>
                 <div class="erp-sum"><b class="num">248 expedientes · deuda total 1.284.392,17 €</b><span class="erp-acts"><span>Reasignación múltiple</span><span>Exportar Excel</span></span></div>
-                <div class="res-wrap">
+                <div class="res-wrap" aria-hidden="true">
                   <table class="res">
                     <caption class="sr">Bandeja de expedientes de ejemplo</caption>
                     <thead><tr><th scope="col"><span class="cb on"></span></th><th scope="col">Exp.</th><th scope="col">Cliente</th><th scope="col">Provincia</th><th scope="col">Estado</th><th scope="col" style="text-align:right">Deuda</th></tr></thead>
@@ -243,8 +252,8 @@
               </div>
             </div>
           </div>
-          <div role="tabpanel" id="c3-pf" aria-labelledby="c3-f" tabindex="0" hidden>
-            <div class="erp">
+          <div role="tabpanel" id="c3-pf" aria-labelledby="c3-f" tabindex="0" hidden><p class="sr">Ficha de expediente con aviso de baja, indicadores clave y pestañas.</p>
+            <div class="erp" aria-hidden="true">
               <div class="erp-bar"><span class="erp-logo">Gestión de cobros</span><span class="erp-nav">← Expedientes</span></div>
               <div class="erp-body">
                 <div class="erp-h">Construcciones Alcántara <span class="num" style="color:var(--ink-soft);font-weight:500">Exp. 184557</span> <span class="est ap">Aplazado</span></div>
@@ -256,7 +265,7 @@
                   <div><small>Scoring</small><b class="num">1</b></div>
                 </div>
                 <div class="ftabs" aria-hidden="true"><span class="on">Seguimiento</span><span>Fact. pendientes</span><span>Movimientos</span><span>Aplazamientos</span><span>Bajas ⚠</span><span>Reclamaciones</span><span>Logs</span></div>
-                <div class="res-wrap">
+                <div class="res-wrap" aria-hidden="true">
                   <table class="res">
                     <caption class="sr">Seguimiento del expediente de ejemplo</caption>
                     <thead><tr><th scope="col">Fecha</th><th scope="col">Actuación</th><th scope="col">Descripción</th><th scope="col" style="text-align:right">Recobrado</th></tr></thead>
@@ -270,8 +279,8 @@
               </div>
             </div>
           </div>
-          <div role="tabpanel" id="c3-pk" aria-labelledby="c3-k" tabindex="0" hidden>
-            <div class="kit">
+          <div role="tabpanel" id="c3-pk" aria-labelledby="c3-k" tabindex="0" hidden><p class="sr">Componentes de la aplicación: botones, campos, estados, avisos y un modal de confirmación.</p>
+            <div class="kit" aria-hidden="true">
               <div class="kit-row"><span class="kb p">Botón</span><span class="kb p">+ Botón</span><span class="kb s">Botón</span><span class="kb d">Eliminar</span></div>
               <div class="kit-row"><span class="kf"><small>Etiqueta</small>Seleccionar ▾</span><span class="kf"><small>Fecha (desde / hasta)</small>Desde – Hasta</span><span class="kf"><small>Importe</small>Desde – Hasta €</span></div>
               <div class="kit-row"><span class="est ab">Abierto</span><span class="est ap">Aplazado</span><span class="est ju">Jurídico</span><span class="est co">Cobrado</span></div>
@@ -301,10 +310,11 @@
         <dl class="story">
           <div><dt>problema</dt><dd>Los equipos de administración trabajan todo el día con cientos de expedientes, filtros cruzados e importes. Cada vista nueva se resolvía con estilos a medida y la información importante quedaba enterrada.</dd></div>
           <div><dt>qué hice</dt><dd>Diseñé el flujo completo de una aplicación de cobros: bandeja de expedientes, ficha de cliente con nueve pestañas, importación de movimientos, ingresos diarios y facturas sin cliente. Lo llevé a componentes globales (filtros, fichas, avisos, modales y DataTables) alineados con los iconos y piezas que ya usaba desarrollo.</dd></div>
-          <div><dt>decisión</dt><dd>Lo urgente arriba: avisos de estado y cifras clave en la cabecera de la ficha, importes alineados con números tabulares y acciones masivas siempre visibles. Cualquier pantalla nueva se maqueta solo con clases y tokens.</dd></div>
+          <div><dt>decisión</dt><dd>Puse lo urgente arriba: avisos de estado y cifras clave en la cabecera de la ficha, importes alineados con números tabulares y acciones masivas siempre visibles. Además, preparé las piezas para que cualquier pantalla nueva se maquete solo con clases y tokens.</dd></div>
+          <div><dt>detalle</dt><dd>En los informes con muchas columnas dejé fijas la primera columna, la cabecera de dos niveles y la fila de totales al desplazar en horizontal. Añadí una sombra que solo aparece cuando hay columnas ocultas debajo e hice que la tabla se pueda recorrer con el teclado.</dd></div>
         </dl>
-        <p class="result">Pantallas densas que se leen de un vistazo y vistas nuevas montadas con piezas existentes.</p>
-        <a class="btn btn-primary demo-link" routerLink="/demos/cobros">Probar la demo interactiva →</a>
+        <p class="result">Logré pantallas densas que se leen de un vistazo y vistas nuevas que se montan con piezas existentes.</p>
+        <span class="demo-links"><a class="btn btn-primary demo-link" routerLink="/demos/cobros">Probar la demo interactiva →</a><a class="btn btn-ghost demo-link" routerLink="/demos/cobros/recaptacion">Ver el detalle de la tabla fija</a><a class="btn btn-ghost demo-link" routerLink="/responsive/cobros">Ver en móvil y tablet</a></span>
       </div>
     </article>
 
@@ -320,8 +330,8 @@
           </div>
         </div>
         <div class="plate-body">
-          <div role="tabpanel" id="cw-pv" aria-labelledby="cw-v" tabindex="0">
-            <div class="pub">
+          <div role="tabpanel" id="cw-pv" aria-labelledby="cw-v" tabindex="0"><p class="sr">Inicio de la web: cabecera, propuesta de valor y catálogo de áreas filtrable.</p>
+            <div class="pub" aria-hidden="true">
               <div class="pub-bar"><b>Normia<span>·</span></b><span class="pub-nav">Áreas · Kit Digital · Blog · Contacto</span><span class="pub-cta">Pide presupuesto</span></div>
               <div class="pub-hero">
                 <div><span class="pub-eyebrow">Plataforma de cumplimiento</span><b>Todo tu cumplimiento normativo en una sola plataforma.</b><span class="pub-btns"><span class="kb p">Empieza por un área</span><span class="kb s">Ver la plataforma</span></span></div>
@@ -336,8 +346,8 @@
               </div>
             </div>
           </div>
-          <div role="tabpanel" id="cw-pp" aria-labelledby="cw-p" tabindex="0" hidden>
-            <div class="wiz">
+          <div role="tabpanel" id="cw-pp" aria-labelledby="cw-p" tabindex="0" hidden><p class="sr">Paso 2 del presupuesto: sector, tamaño de plantilla, situación actual y plazo.</p>
+            <div class="wiz" aria-hidden="true">
               <ol class="wiz-steps">
                 <li class="done"><b>Necesidades</b><span>2 áreas</span></li>
                 <li class="on"><b>Tu organización</b><span>Sector y tamaño</span></li>
@@ -373,10 +383,10 @@
         <dl class="story">
           <div><dt>problema</dt><dd>La web anterior presentaba los servicios como una lista suelta y no explicaba que todos se gestionan desde la misma plataforma. Pedir presupuesto era un formulario largo y genérico.</dd></div>
           <div><dt>qué hice</dt><dd>Hice el inventario de la web actual, propuse una nueva arquitectura con la plataforma en el centro y diseñé todas las plantillas: inicio, área de trabajo, blog, contacto, presupuesto, legales, cookies, 404 y acceso de clientes, con su versión responsive.</dd></div>
-          <div><dt>decisión</dt><dd>Un presupuesto en tres pasos con resumen lateral de lo elegido: primero qué necesitas, luego tu organización y al final tus datos. Se piden los datos personales solo cuando el usuario ya ha invertido en el proceso.</dd></div>
+          <div><dt>decisión</dt><dd>Planteé el presupuesto en tres pasos con un resumen lateral de lo elegido: primero qué necesitas, luego tu organización y al final tus datos. Así pido los datos personales solo cuando el usuario ya ha invertido en el proceso.</dd></div>
         </dl>
-        <p class="result">Una web que explica el producto como sistema y convierte la visita en una petición de presupuesto cualificada.</p>
-        <a class="btn btn-primary demo-link" routerLink="/demos/web-publica">Probar la demo interactiva →</a>
+        <p class="result">Conseguí una web que explica el producto como un sistema y convierte la visita en una petición de presupuesto cualificada.</p>
+        <span class="demo-links"><a class="btn btn-primary demo-link" routerLink="/demos/web-publica">Probar la demo interactiva →</a><a class="btn btn-ghost demo-link" routerLink="/responsive/web-publica">Ver en móvil y tablet</a></span>
       </div>
     </article>
 
@@ -421,7 +431,7 @@
           <div><dt>qué hice</dt><dd>Configuré el entorno MCP para que Claude Code leyera los frames de Figma y documenté las convenciones del repositorio en un <code>CLAUDE.md</code>, de modo que el código generado reutiliza clases y tokens en lugar de inventar estilos.</dd></div>
           <div><dt>decisión</dt><dd>La IA propone y yo reviso. Ningún componente entra sin pasar la revisión de código y de accesibilidad.</dd></div>
         </dl>
-        <p class="result">Entregas que antes llevaban semanas se cierran ahora en días, con código limpio y validado.</p>
+        <p class="result">Ahora cierro en días entregas que antes llevaban semanas, con código limpio y validado.</p>
       </div>
     </article>
 
@@ -476,15 +486,15 @@
         <dl class="story">
           <div><dt>problema</dt><dd>Cada producto resolvía los mismos patrones (filtros, fichas, avisos, tablas) a su manera, con interfaces incoherentes y estilos duplicados.</dd></div>
           <div><dt>qué hice</dt><dd>Definí tokens semánticos de color, tipografía y espaciado, monté una librería atómica en Figma con su equivalente en SCSS y Angular, y escribí la documentación de uso.</dd></div>
-          <div><dt>decisión</dt><dd>Nombrar los tokens por función (<code>action-primary</code>) y no por valor (<code>blue-600</code>). Así una marca nueva o un tema oscuro cambian valores sin tocar componentes.</dd></div>
+          <div><dt>decisión</dt><dd>Nombré los tokens por función (<code>action-primary</code>) y no por valor (<code>blue-600</code>). Así, una marca nueva o un tema oscuro cambian valores sin tocar componentes.</dd></div>
         </dl>
-        <p class="result">Una sola fuente de verdad: diseño y desarrollo usan los mismos nombres.</p>
+        <p class="result">Conseguí una sola fuente de verdad: diseño y desarrollo usan los mismos nombres.</p>
       </div>
     </article>
 
     <div class="more-work">
       <h3>Otros proyectos</h3>
-      <div class="mw-item"><span class="case-no">e-learning · IA generativa</span><b>Generador de actividades formativas con IA</b><p>Plataforma en TypeScript y Vite que genera actividades a partir de un tema y un nivel con Gemini API. El contenido llega en un esquema JSON cerrado y se valida antes de pintarse, así que la estructura y la accesibilidad siempre las fija el código.</p><ul class="chips"><li class="chip">TypeScript</li><li class="chip">Vite</li><li class="chip">Gemini API</li><li class="chip">SCORM</li></ul></div>
+      <div class="mw-item"><span class="case-no">e-learning · IA generativa</span><b>Generador de actividades formativas con IA</b><p>Desarrollé en TypeScript y Vite una plataforma que genera actividades a partir de un tema y un nivel con Gemini API. Hice que el contenido llegue en un esquema JSON cerrado y se valide antes de pintarse, para que la estructura y la accesibilidad siempre las fije el código.</p><ul class="chips"><li class="chip">TypeScript</li><li class="chip">Vite</li><li class="chip">Gemini API</li><li class="chip">SCORM</li></ul></div>
     </div>
   </div>
 </section>
@@ -496,11 +506,67 @@
       <h2 id="proceso-title">Un mismo hilo del boceto a producción</h2>
     </div>
     <ol class="steps">
-      <li><h3>Entender</h3><p>Requisitos con negocio y usuarios, jerarquía de información y flujos antes de dibujar nada.</p></li>
-      <li><h3>Diseñar con tokens</h3><p>Prototipo en Figma sobre el design system, con estados de error, vacío y carga.</p></li>
-      <li><h3>Programar</h3><p>Angular, TypeScript y SCSS. Claude Code vía MCP acelera el paso de <code>frame</code> a <code>componente</code>.</p></li>
-      <li><h3>Auditar</h3><p>Contraste, teclado, lector de pantalla y responsive. Si no cumple WCAG AA, no se publica.</p></li>
+      <li><h3>Entender</h3><p>Hablo con negocio y con usuarios, ordeno la información y defino los flujos antes de dibujar nada.</p></li>
+      <li><h3>Diseñar con tokens</h3><p>Prototipo en Figma sobre el design system e incluyo los estados de error, vacío y carga.</p></li>
+      <li><h3>Programar</h3><p>Programo en Angular, TypeScript y SCSS. Con Claude Code vía MCP acelero el paso de <code>frame</code> a <code>componente</code>.</p></li>
+      <li><h3>Auditar</h3><p>Reviso contraste, teclado, lector de pantalla y responsive. Si no cumple WCAG AA, no lo publico.</p></li>
     </ol>
+  </div>
+</section>
+
+<section class="block detalles" id="detalles" aria-labelledby="det-title" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="path" aria-hidden="true"><span class="p">~/</span>portfolio<span class="p">/</span><span class="b">detalles</span></span>
+      <h2 id="det-title">Los detalles que nadie pide y todos notan</h2>
+      <p>Cuido lo que separa una interfaz correcta de una que se usa a gusto ocho horas al día. Todos estos detalles los he implementado en las demos.</p>
+    </div>
+    <ul class="det-grid">
+      <li>
+        <div class="det-demo" aria-hidden="true">
+          <div class="mini-sticky"><span class="fixed">Delegación</span><span class="sh"></span><span>Nº</span><span>€</span><span>%</span><span>Nº</span><span>€</span></div>
+        </div>
+        <h3>Columnas y totales fijos</h3>
+        <p>En tablas muy anchas fijo la columna clave, la cabecera y los totales para que no se pierdan al desplazar. La sombra solo aparece cuando hay contenido oculto.</p>
+        <a routerLink="/demos/cobros/recaptacion">Verlo en la demo →</a>
+      </li>
+      <li>
+        <div class="det-demo" aria-hidden="true"><span class="mini-num"><b>1.200,00 €</b><b>14.711,74 €</b><b>&nbsp;&nbsp;&nbsp;971,00 €</b></span></div>
+        <h3>Números que se alinean</h3>
+        <p>Uso cifras tabulares alineadas a la derecha y con separador de miles siempre, para que los importes se comparen de un vistazo.</p>
+        <a routerLink="/demos/cobros">Verlo en la demo →</a>
+      </li>
+      <li>
+        <div class="det-demo" aria-hidden="true"><span class="mini-err"><i></i><em>Elige el tipo de actuación.</em></span></div>
+        <h3>Errores que te llevan al sitio</h3>
+        <p>Si un formulario tiene errores, llevo el foco al primer campo inválido con un mensaje que explica cómo corregirlo.</p>
+        <a routerLink="/demos/web-publica">Verlo en la demo →</a>
+      </li>
+      <li>
+        <div class="det-demo" aria-hidden="true"><span class="mini-chip">Cambios sin aplicar</span></div>
+        <h3>Filtros que no se disparan solos</h3>
+        <p>En listados pesados, los filtros se preparan y se aplican a la vez. Aviso de los cambios pendientes y doy un botón para restablecer.</p>
+        <a routerLink="/demos/cobros">Verlo en la demo →</a>
+      </li>
+      <li>
+        <div class="det-demo" aria-hidden="true"><span class="mini-undo">↶ Deshacer</span></div>
+        <h3>Deshacer en lugar de confirmar</h3>
+        <p>Cuando una acción es reversible, ofrezco deshacerla al momento en lugar de pedir confirmación.</p>
+        <a routerLink="/demos/asistente">Verlo en la demo →</a>
+      </li>
+      <li>
+        <div class="det-demo" aria-hidden="true"><span class="mini-kbd"><kbd>←</kbd><kbd>→</kbd><kbd>Esc</kbd><kbd>↑</kbd></span></div>
+        <h3>Todo funciona con teclado</h3>
+        <p>Pestañas con flechas, modales que atrapan y devuelven el foco, tablas desplazables con teclado y atajos en el chat: todo se usa sin ratón.</p>
+        <a routerLink="/demos/asistente">Verlo en la demo →</a>
+      </li>
+    </ul>
+    <a class="resp-banner" routerLink="/responsive/cobros">
+      <span class="rb-devs" aria-hidden="true"><i class="d"></i><i class="t"></i><i class="m"></i></span>
+      <span class="rb-txt"><b>También pienso en móvil y tablet</b>
+        <span>Diseño y programo las aplicaciones para las tres pantallas: en móvil la tabla de la intranet pasa a tarjetas y los filtros se pliegan, la web sigue su especificación responsive (menú, rejillas y barra inferior) y el asistente apila sus paneles.</span></span>
+      <span class="rb-go">Ver las demos en tres pantallas →</span>
+    </a>
   </div>
 </section>
 
@@ -569,7 +635,7 @@
     <div class="sec-head">
       <span class="path" aria-hidden="true"><span class="p">~/</span>portfolio<span class="p">/</span><span class="b">colofon</span></span>
       <h2 id="colo-title">Cómo está hecha esta web</h2>
-      <p>La propia página es una muestra de trabajo. Los datos de esta sección los calcula el navegador en este momento a partir de los tokens del tema activo; cambia el tema y se recalculan.</p>
+      <p>Esta web es en sí misma una muestra de mi trabajo. Los datos de esta sección los calcula el navegador en este momento a partir de los tokens del tema activo; cambia el tema y se recalculan.</p>
     </div>
     <div class="colo-grid">
       <div class="tbl-wrap">
@@ -599,11 +665,11 @@
   <div class="wrap contact-grid">
     <div>
       <span class="path" aria-hidden="true"><span class="p">~/</span>portfolio<span class="p">/</span><span class="b">contacto</span></span>
-      <h2 id="contacto-title" style="margin-top:var(--s2)">¿Construimos tu <span class="hl">próximo producto</span>?</h2>
+      <h2 id="contacto-title" style="margin-top:var(--s2)">¿Buscas a alguien que <span class="hl">diseñe y programe</span> tu producto?</h2>
       <p class="lede">Busco un puesto 100&nbsp;% remoto como Frontend UX/UI o Design Systems Engineer en una empresa de producto.</p>
     </div>
     <div class="c-list">
-      <div class="c-item"><div><small>Email</small><span class="val" #mailEl>crisfranganillo1982&#64;gmail.com</span></div><button class="copy" type="button" (click)="copyMail(mailEl)">{{ copyLabel() }}</button></div>
+      <div class="c-item"><div><small>Email</small><a class="val" #mailEl href="mailto:crisfranganillo1982&#64;gmail.com">crisfranganillo1982&#64;gmail.com</a></div><button class="copy" type="button" (click)="copyMail(mailEl)">{{ copyLabel() }}</button></div>
       <div class="c-item"><div><small>LinkedIn</small><a class="val" href="https://www.linkedin.com/in/cristina-mart%C3%ADnez-franganillo/" target="_blank" rel="noopener">in/cristina-martínez-franganillo</a></div></div>
       <div class="demo-note"><span aria-hidden="true" style="color:var(--spec);font-family:var(--f-mono)">▸</span><p><b>Demo en directo.</b> Te enseño en una sesión técnica cómo paso un diseño de Figma a código de producción con Claude Code.</p></div>
       <p class="sr" aria-live="polite">{{ copyStatus() }}</p>
@@ -613,6 +679,6 @@
 </main>
 
 <footer>
-  <div class="wrap"><span>© 2026 Cristina Martínez Franganillo</span><span>Diseñada en Figma · programada en Angular · Geist &amp; Geist Mono</span></div>
+  <div class="wrap"><span>© 2026 Cristina Martínez Franganillo</span><span>Diseñada en Figma y programada en Angular por mí · Geist &amp; Geist Mono</span></div>
 </footer>
 

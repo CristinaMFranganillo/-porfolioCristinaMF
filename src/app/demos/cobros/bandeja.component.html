@@ -1,110 +1,238 @@
 <div class="head">
   <h1>Expedientes</h1>
-  <button type="button" class="dk-btn sm" (click)="filtrosAbiertos.set(!filtrosAbiertos())" [attr.aria-expanded]="filtrosAbiertos()" aria-controls="filtros">
-    Filtros @if (s.filtrosActivos()) { <span class="count">{{ s.filtrosActivos() }}</span> }
-  </button>
+  <span class="hint only-wide">Datos ficticios · los filtros se aplican al pulsar «Filtrar»</span>
 </div>
 
-@if (filtrosAbiertos()) {
-  <form id="filtros" class="filtros dk-card" (submit)="$event.preventDefault()" aria-label="Filtros de expedientes">
+<ng-template #campos>
+  <div class="grid">
     <div class="dk-field"><label for="f-gestor">Gestor de cobro</label>
-      <select id="f-gestor" class="dk-select" [ngModel]="s.filtros().gestor" (ngModelChange)="s.setFiltro('gestor', $event)" name="gestor">
-        <option value="">Todos</option>@for (g of gestores; track g) { <option [value]="g">{{ g }}</option> }
-      </select></div>
+      <select id="f-gestor" class="dk-select" [(ngModel)]="b.gestor" name="gestor"><option value="">Todos</option>@for (x of gestores; track x) { <option [value]="x">{{ x }}</option> }</select></div>
     <div class="dk-field"><label for="f-campana">Campaña</label>
-      <select id="f-campana" class="dk-select" [ngModel]="s.filtros().campana" (ngModelChange)="s.setFiltro('campana', $event)" name="campana">
-        <option value="">Todas</option>@for (c of campanas; track c) { <option [value]="c">{{ c }}</option> }
-      </select></div>
-    <div class="dk-field"><label for="f-estado">Estado</label>
-      <select id="f-estado" class="dk-select" [ngModel]="s.filtros().estado" (ngModelChange)="s.setFiltro('estado', $event)" name="estado">
-        <option value="">Todos</option>@for (e of estados; track e) { <option [value]="e">{{ e }}</option> }
-      </select></div>
-    <div class="dk-field"><label for="f-prov">Provincia</label>
-      <select id="f-prov" class="dk-select" [ngModel]="s.filtros().provincia" (ngModelChange)="s.setFiltro('provincia', $event)" name="provincia">
-        <option value="">Todas</option>@for (p of provincias; track p) { <option [value]="p">{{ p }}</option> }
-      </select></div>
-    <div class="dk-field span2"><label for="f-texto">Cliente, NIF o nº de expediente</label>
-      <input id="f-texto" class="dk-input" type="search" placeholder="Ej.: Ribera o 184520" [ngModel]="s.filtros().texto" (ngModelChange)="s.setFiltro('texto', $event)" name="texto"></div>
-    <fieldset class="dk-field rango"><legend class="dk-label">Deuda (€)</legend>
-      <input class="dk-input" inputmode="decimal" placeholder="Desde" aria-label="Deuda desde" [ngModel]="s.filtros().desde ?? ''" (ngModelChange)="s.setFiltro('desde', num($event))" name="desde">
-      <input class="dk-input" inputmode="decimal" placeholder="Hasta" aria-label="Deuda hasta" [ngModel]="s.filtros().hasta ?? ''" (ngModelChange)="s.setFiltro('hasta', num($event))" name="hasta">
-    </fieldset>
-    <div class="acciones-filtro">
-      <label class="dk-check"><input type="checkbox" [ngModel]="s.filtros().soloBaja" (ngModelChange)="s.setFiltro('soloBaja', $event)" name="soloBaja"> Solo con baja en curso</label>
-      <button type="button" class="dk-btn ghost sm" (click)="s.limpiarFiltros()" [disabled]="!s.filtrosActivos()">Limpiar filtros</button>
+      <select id="f-campana" class="dk-select" [(ngModel)]="b.campana" name="campana"><option value="">Todas</option>@for (x of campanas; track x) { <option [value]="x">{{ x }}</option> }</select></div>
+    <div class="dk-field"><label for="f-estado">Estado expediente</label>
+      <select id="f-estado" class="dk-select" [(ngModel)]="b.estado" name="estado"><option value="">Todos</option>@for (x of estados; track x) { <option [value]="x">{{ x }}</option> }</select></div>
+    <div class="dk-field"><label for="f-motivo">Motivo de aplazamiento</label>
+      <select id="f-motivo" class="dk-select" [(ngModel)]="b.motivo" name="motivo"><option value="">Todos</option>@for (x of motivos; track x) { <option [value]="x">{{ x }}</option> }</select></div>
+    <div class="dk-field"><label for="f-deuda">Deuda</label>
+      <select id="f-deuda" class="dk-select" [(ngModel)]="b.deuda" name="deuda"><option value="">Todas</option><option value="lt1000">Menos de 1.000 €</option><option value="1000-5000">De 1.000 a 5.000 €</option><option value="gt5000">Más de 5.000 €</option></select></div>
+    <div class="dk-field"><label for="f-forma">Forma de pago</label>
+      <select id="f-forma" class="dk-select" [(ngModel)]="b.formaPago" name="formaPago"><option value="">Todas</option>@for (x of formas; track x) { <option [value]="x">{{ x }}</option> }</select></div>
+
+    @if (masFiltros()) {
+      <div class="dk-field"><label for="f-prov">Zona geográfica</label>
+        <select id="f-prov" class="dk-select" [(ngModel)]="b.provincia" name="provincia"><option value="">Todas</option>@for (x of provincias; track x) { <option [value]="x">{{ x }}</option> }</select></div>
+      <div class="dk-field"><label for="f-ent">Entidad</label>
+        <select id="f-ent" class="dk-select" [(ngModel)]="b.entidad" name="entidad"><option value="">Todas</option>@for (x of entidades; track x) { <option [value]="x">{{ x }}</option> }</select></div>
+      <div class="dk-field"><label for="f-grupo">Grupo de clientes</label>
+        <input id="f-grupo" class="dk-input" [(ngModel)]="b.grupo" name="grupo" placeholder="Mín. 3 caracteres"></div>
+      <div class="dk-field mk">
+        <span class="dk-label" id="mk-l">Filtrar por</span>
+        <button type="button" class="dk-select mk-btn" aria-labelledby="mk-l" [attr.aria-expanded]="marcadoresAbierto()" aria-controls="mk-pop" (click)="marcadoresAbierto.set(!marcadoresAbierto())">
+          <span>{{ etiquetaMarcadores() }}</span> @if (b.marcadores.length) { <span class="cnt">{{ b.marcadores.length }}</span> }
+        </button>
+        @if (marcadoresAbierto()) {
+          <div id="mk-pop" class="pop" role="group" aria-label="Expedientes que tengan">
+            <p class="pop-t">Expedientes que tengan</p>
+            <div class="seg" role="radiogroup" aria-label="Combinar marcadores">
+              <label [class.on]="b.modoMarcadores === 'todos'"><input type="radio" name="modo" value="todos" [(ngModel)]="b.modoMarcadores">Todos</label>
+              <label [class.on]="b.modoMarcadores === 'alguno'"><input type="radio" name="modo" value="alguno" [(ngModel)]="b.modoMarcadores">Alguno</label>
+            </div>
+            @for (m of marcadores; track m.k) {
+              <label class="dk-check"><input type="checkbox" [checked]="b.marcadores.includes(m.k)" (change)="toggleMarcador(m.k)">{{ m.label }}</label>
+            }
+          </div>
+        }
+      </div>
+      <fieldset class="dk-field rango"><legend class="dk-label">Exp. asignados</legend>
+        <input type="date" class="dk-input" [(ngModel)]="b.asignadoDesde" name="ad" aria-label="Asignados desde">
+        <input type="date" class="dk-input" [(ngModel)]="b.asignadoHasta" name="ah" aria-label="Asignados hasta">
+      </fieldset>
+      <fieldset class="dk-field rango"><legend class="dk-label">Importe (€)</legend>
+        <input class="dk-input" inputmode="decimal" placeholder="Desde" aria-label="Importe desde" [ngModel]="b.importeDesde ?? ''" (ngModelChange)="b.importeDesde = num($event)" name="id">
+        <input class="dk-input" inputmode="decimal" placeholder="Hasta" aria-label="Importe hasta" [ngModel]="b.importeHasta ?? ''" (ngModelChange)="b.importeHasta = num($event)" name="ih">
+      </fieldset>
+    }
+    <div class="dk-field span2"><label for="f-cli">Cliente</label>
+      <input id="f-cli" class="dk-input" [(ngModel)]="b.cliente" name="cliente" placeholder="Nombre, NIF o nº de cliente"></div>
+  </div>
+</ng-template>
+
+@if (!compacto()) {
+<form class="filtros dk-card" (submit)="$event.preventDefault(); filtrar()" aria-label="Filtros de expedientes">
+  <ng-container *ngTemplateOutlet="campos" />
+  <div class="bar">
+    <div class="left">
+      <label class="dk-check"><input type="checkbox" [(ngModel)]="b.sinAsignar30" name="s30"> +30 días sin asignar</label>
+      <button type="button" class="dk-btn ghost sm" (click)="masFiltros.set(!masFiltros())" [attr.aria-expanded]="masFiltros()">{{ masFiltros() ? 'Menos filtros' : 'Más filtros (6)' }}</button>
     </div>
-  </form>
-}
+    <div class="right">
+      @if (pendientes) { <span class="dirty">Cambios sin aplicar</span> }
+      <button type="button" class="dk-btn icon" (click)="limpiar()" aria-label="Restablecer filtros" title="Restablecer filtros"><app-ico name="refresh" /></button>
+      <button type="submit" class="dk-btn primary"><app-ico name="search" /> Filtrar @if (s.filtrosActivos()) { <span class="cnt inv">{{ s.filtrosActivos() }}</span> }</button>
+    </div>
+  </div>
+</form>
 
 <div class="resumen">
-  <p aria-live="polite"><b>{{ s.filtrados().length }} expedientes</b> · deuda total <b class="num">{{ eur(s.deudaTotal()) }}</b></p>
-  <div class="bulk">
-    @if (s.seleccion().size) { <span class="sel">{{ s.seleccion().size }} seleccionados <button type="button" class="dk-btn ghost sm" (click)="s.limpiarSeleccion()">Quitar selección</button></span> }
-    <button type="button" class="dk-btn" [disabled]="!s.seleccion().size" (click)="abrirReasignar()">Reasignación múltiple</button>
-    <button type="button" class="dk-btn" (click)="exportar()" [disabled]="!s.filtrados().length">Exportar CSV</button>
+  <p aria-live="polite"><b>{{ s.filtrados().length }} expedientes</b> · Deuda total <b class="num">{{ eur(s.deudaTotal()) }}</b>
+    @if (s.seleccion().size) { · <span class="sel">{{ s.seleccion().size }} seleccionados</span> }</p>
+  <div class="acts">
+    <button type="button" class="dk-btn" (click)="s.toggleTodos()">Marcar/Desmarcar todo</button>
+    <button type="button" class="dk-btn" [disabled]="!s.seleccion().size" (click)="abrirReasignar()"><app-ico name="user-plus" /> Reasignación múltiple</button>
+    <button type="button" class="dk-btn" (click)="exportar()" [disabled]="!s.filtrados().length"><app-ico name="download" /> Exportar Excel</button>
   </div>
 </div>
 
-<div class="dk-table-wrap">
-  <table class="dk-table">
-    <caption class="sr">Expedientes de cobro. Las columnas se pueden ordenar.</caption>
+
+<div class="tools">
+  <label class="dk-check">Mostrar
+    <select class="dk-select sm" [ngModel]="s.pageSize()" (ngModelChange)="s.pageSize.set(+$event); s.page.set(1)" aria-label="Registros por página">
+      <option [ngValue]="10">10</option><option [ngValue]="25">25</option><option [ngValue]="50">50</option>
+    </select> registros</label>
+  <label class="search"><span>Buscar:</span>
+    <span class="in"><app-ico name="search" /><input class="dk-input" type="search" [ngModel]="s.busqueda()" (ngModelChange)="s.busqueda.set($event); s.page.set(1)" aria-label="Buscar en los resultados"></span></label>
+</div>
+
+
+<div class="sticky-wrap only-d" appScrollShadow role="region" aria-label="Tabla de expedientes; desplázate en horizontal para ver más columnas">
+  <table class="dk-table dense">
+    <caption class="sr">Expedientes de cobro. Las columnas Expediente y Cliente quedan fijas al desplazar; las columnas se pueden ordenar.</caption>
     <thead>
       <tr>
-        <th scope="col" class="cb"><input type="checkbox" aria-label="Seleccionar todos los de esta página"
-          [checked]="s.paginaSeleccionada() === 'all'" [indeterminate]="s.paginaSeleccionada() === 'some'" (change)="s.togglePagina()"></th>
+        <th scope="col" class="fx c-ck"><input type="checkbox" aria-label="Seleccionar los de esta página" [checked]="s.paginaSeleccionada() === 'all'" [indeterminate]="s.paginaSeleccionada() === 'some'" (change)="s.togglePagina()"></th>
+        <th scope="col" class="fx c-exp" [attr.aria-sort]="ariaSort('id')"><button type="button" class="dk-sort" (click)="s.ordenar('id')">Exp.<span class="ar" aria-hidden="true">{{ ariaSort('id') === 'descending' ? '↓' : '↑' }}</span></button></th>
+        <th scope="col" class="fx fx-last c-cli" [attr.aria-sort]="ariaSort('cliente')"><button type="button" class="dk-sort" (click)="s.ordenar('cliente')">Cliente<span class="ar" aria-hidden="true">{{ ariaSort('cliente') === 'descending' ? '↓' : '↑' }}</span></button></th>
         @for (c of columnas; track c.key) {
-          <th scope="col" [class.r]="c.r" [attr.aria-sort]="ariaSort(c.key)">
-            <button type="button" class="dk-sort" (click)="s.ordenar(c.key)">{{ c.label }}
-              <span class="ar" aria-hidden="true">{{ ariaSort(c.key) === 'descending' ? '↓' : '↑' }}</span></button>
-          </th>
+          <th scope="col" [attr.aria-sort]="ariaSort(c.key)"><button type="button" class="dk-sort" (click)="s.ordenar(c.key)">{{ c.label }}<span class="ar" aria-hidden="true">{{ ariaSort(c.key) === 'descending' ? '↓' : '↑' }}</span></button></th>
         }
+        <th scope="col" title="Gran cuenta">G.C.</th>
+        <th scope="col">Motivo aplaz.</th>
+        <th scope="col">Observaciones</th>
+        <th scope="col" class="r" [attr.aria-sort]="ariaSort('deuda')"><button type="button" class="dk-sort" (click)="s.ordenar('deuda')">Deuda total<span class="ar" aria-hidden="true">{{ ariaSort('deuda') === 'descending' ? '↓' : '↑' }}</span></button></th>
+        <th scope="col" class="r" [attr.aria-sort]="ariaSort('negativo')"><button type="button" class="dk-sort" (click)="s.ordenar('negativo')">Imp. negativo<span class="ar" aria-hidden="true">{{ ariaSort('negativo') === 'descending' ? '↓' : '↑' }}</span></button></th>
       </tr>
     </thead>
     <tbody>
       @for (e of s.pagina(); track e.id) {
         <tr [class.is-selected]="s.seleccion().has(e.id)">
-          <td class="cb"><input type="checkbox" [checked]="s.seleccion().has(e.id)" (change)="s.toggle(e.id)" [attr.aria-label]="'Seleccionar expediente ' + e.id"></td>
-          <td><a [routerLink]="['expediente', e.id]" class="exp">{{ e.id }}</a></td>
-          <td><b>{{ e.cliente }}</b> @if (e.bajaEnCurso) { <span class="baja" title="Solicitud de baja en curso">baja</span> }</td>
+          <td class="fx c-ck"><input type="checkbox" [checked]="s.seleccion().has(e.id)" (change)="s.toggle(e.id)" [attr.aria-label]="'Seleccionar expediente ' + e.id"></td>
+          <th scope="row" class="fx c-exp"><a [routerLink]="['expediente', e.id]" class="exp" [attr.aria-label]="'Abrir expediente ' + e.id + ', ' + e.cliente"><app-ico name="doc" [size]="15" />{{ e.id }}</a></th>
+          <td class="fx fx-last c-cli"><b>{{ e.cliente }}</b>
+            @if (e.bajaEnCurso) { <span class="flag warn" title="Solicitud de baja en curso">baja</span> }
+            @if (e.reclamacion) { <span class="flag" title="Reclamación abierta">recl.</span> }</td>
+          <td>{{ e.campana }}</td>
+          <td class="mono">{{ e.numCliente }}</td>
+          <td>{{ e.entidad }}</td>
           <td>{{ e.gestor }}</td>
           <td>{{ e.provincia }}</td>
           <td><span [class]="estadoClass(e.estado)">{{ e.estado }}</span></td>
+          <td>{{ e.granCuenta ? 'Sí' : 'No' }}</td>
+          <td class="trunc" [title]="e.motivoAplazamiento ?? ''">{{ e.motivoAplazamiento ?? '—' }}</td>
+          <td class="trunc" [title]="e.observaciones ?? ''">{{ e.observaciones ?? '—' }}</td>
           <td class="r">{{ eur(e.deuda) }}</td>
+          <td class="r" [class.neg]="e.negativo < 0">{{ eur(e.negativo) }}</td>
         </tr>
       } @empty {
-        <tr><td colspan="7"><div class="dk-empty"><b>No hay expedientes con estos filtros</b><span>Prueba a quitar alguno.</span>
-          <button type="button" class="dk-btn sm" (click)="s.limpiarFiltros()">Limpiar filtros</button></div></td></tr>
+        <tr><td colspan="14"><div class="dk-empty"><b>No hay expedientes con estos filtros</b><span>Prueba a quitar alguno.</span>
+          <button type="button" class="dk-btn sm" (click)="limpiar()">Restablecer filtros</button></div></td></tr>
       }
     </tbody>
+    @if (s.filtrados().length) {
+      <tfoot>
+        <tr>
+          <td class="fx c-ck"></td>
+          <td class="fx c-exp">Total</td>
+          <td class="fx fx-last c-cli">{{ s.filtrados().length }} expedientes</td>
+          <td colspan="9"></td>
+          <td class="r">{{ eur(s.deudaTotal()) }}</td>
+          <td class="r neg">{{ eur(negativoTotal()) }}</td>
+        </tr>
+      </tfoot>
+    }
   </table>
 </div>
-
-<nav class="pager" aria-label="Paginación">
-  <label class="dk-check">Mostrar
-    <select class="dk-select sm" [ngModel]="s.pageSize()" (ngModelChange)="s.pageSize.set(+$event); s.page.set(1)" aria-label="Registros por página">
-      <option [ngValue]="10">10</option><option [ngValue]="25">25</option><option [ngValue]="50">50</option>
-    </select> registros</label>
-  <div class="pages">
-    <button type="button" class="dk-btn sm" (click)="s.page.set(s.page() - 1)" [disabled]="s.page() <= 1" aria-label="Página anterior">‹</button>
-    @for (p of paginas(); track p) {
-      <button type="button" class="dk-btn sm" [class.primary]="p === s.page()" [attr.aria-current]="p === s.page() ? 'page' : null" (click)="s.page.set(p)">{{ p }}</button>
-    }
-    <button type="button" class="dk-btn sm" (click)="s.page.set(s.page() + 1)" [disabled]="s.page() >= s.totalPaginas()" aria-label="Página siguiente">›</button>
+<p class="scroll-hint only-d"><span>Desplázate en horizontal: <b>Exp.</b> y <b>Cliente</b> quedan fijos, igual que la cabecera y la fila de totales.</span><span>Con teclado: enfoca la tabla y usa <span class="kbd">←</span> <span class="kbd">→</span></span></p>
+<app-paginador [(page)]="s.page" [total]="s.filtrados().length" [size]="s.pageSize()" />
+} @else {
+<div class="c-tools">
+  <label class="c-search"><app-ico name="search" /><span class="sr">Buscar en los expedientes</span>
+    <input class="dk-input" type="search" placeholder="Buscar cliente, expediente…" [ngModel]="s.busqueda()" (ngModelChange)="s.busqueda.set($event); visibles.set(10)"></label>
+  <button type="button" class="dk-btn c-filter" (click)="abrirFiltros()" [attr.aria-label]="'Filtros' + (s.filtrosActivos() ? ', ' + s.filtrosActivos() + ' activos' : '')">
+    <app-ico name="filter" /> <span class="only-tab">Filtros</span> @if (s.filtrosActivos()) { <span class="cnt">{{ s.filtrosActivos() }}</span> }</button>
+</div>
+<div class="c-sum">
+  <p aria-live="polite"><b>{{ s.filtrados().length }} expedientes</b> · {{ eur(s.deudaTotal()) }}</p>
+  <label class="c-sort"><span class="sr">Ordenar por</span>
+    <select class="dk-select" [ngModel]="s.sort().key + ':' + s.sort().dir" (ngModelChange)="ordenMovil($event)">
+      <option value="deuda:-1">Mayor deuda</option><option value="deuda:1">Menor deuda</option><option value="cliente:1">Cliente A-Z</option><option value="id:-1">Más recientes</option>
+    </select></label>
+</div>
+@if (s.filtrosActivos()) {
+  <div class="c-active"><span>{{ s.filtrosActivos() }} {{ s.filtrosActivos() === 1 ? 'filtro activo' : 'filtros activos' }}</span><button type="button" class="dk-btn ghost sm" (click)="limpiar()">Limpiar</button></div>
+}
+<div class="c-sel">
+  <label class="dk-check"><input type="checkbox" [checked]="seleccionVisibles() === 'all'" [indeterminate]="seleccionVisibles() === 'some'" (change)="toggleVisibles()"> Seleccionar los visibles</label>
+  <div class="c-sel-acts">
+    @if (s.seleccion().size) { <button type="button" class="dk-btn sm only-tab" (click)="abrirReasignar()"><app-ico name="user-plus" /> Reasignar ({{ s.seleccion().size }})</button> }
+    <button type="button" class="dk-btn sm only-tab" (click)="exportar()"><app-ico name="download" /> Exportar</button>
   </div>
-</nav>
+</div>
+<ul class="cards-c" aria-label="Expedientes">
+  @for (e of listaCompacta(); track e.id) {
+    <li class="card-c" [class.is-selected]="s.seleccion().has(e.id)">
+      <input type="checkbox" [checked]="s.seleccion().has(e.id)" (change)="s.toggle(e.id)" [attr.aria-label]="'Seleccionar expediente ' + e.id">
+      <a [routerLink]="['expediente', e.id]" class="card-link">
+        <span class="top"><span class="mono">Exp. {{ e.id }}</span><span [class]="estadoClass(e.estado)">{{ e.estado }}</span></span>
+        <b class="cli">{{ e.cliente }}</b>
+        <span class="meta">{{ e.gestor }} · {{ e.provincia }} · {{ e.campana }}</span>
+        <span class="bottom">
+          <span class="amt">{{ eur(e.deuda) }}</span>
+          @if (e.bajaEnCurso) { <span class="flag warn">baja</span> }
+          @if (e.reclamacion) { <span class="flag">reclamación</span> }
+          <span class="chev" aria-hidden="true">›</span>
+        </span>
+      </a>
+    </li>
+  } @empty {
+    <li class="dk-empty"><b>No hay expedientes con estos filtros</b><button type="button" class="dk-btn sm" (click)="limpiar()">Limpiar filtros</button></li>
+  }
+</ul>
+@if (s.filtrados().length > visibles()) {
+  <button type="button" class="dk-btn c-more" (click)="visibles.set(visibles() + 10)">Mostrar más · quedan {{ s.filtrados().length - visibles() }}</button>
+}
+
+<div class="m-bar" role="region" aria-label="Acciones rápidas">
+  <button type="button" class="dk-btn ico-btn" (click)="abrirFiltros()" aria-label="Filtros"><app-ico name="filter" [size]="20" />@if (s.filtrosActivos()) { <span class="cnt">{{ s.filtrosActivos() }}</span> }</button>
+  @if (s.seleccion().size) {
+    <button type="button" class="dk-btn primary" (click)="abrirReasignar()"><app-ico name="user-plus" /> Reasignar {{ s.seleccion().size }} {{ s.seleccion().size === 1 ? 'expediente' : 'expedientes' }}</button>
+  } @else {
+    <button type="button" class="dk-btn primary" (click)="exportar()"><app-ico name="download" /> Exportar Excel</button>
+  }
+</div>
+
+<app-sheet heading="Filtros" [open]="hojaFiltros()" (closed)="hojaFiltros.set(false)">
+  <div class="sheet-fields">
+    <ng-container *ngTemplateOutlet="campos" />
+    <label class="dk-check s30"><input type="checkbox" [(ngModel)]="b.sinAsignar30" name="s30m"> +30 días sin asignar</label>
+  </div>
+  <div actions class="sheet-acts">
+    <button type="button" class="dk-btn" (click)="limpiar()">Restablecer</button>
+    <button type="button" class="dk-btn primary" (click)="filtrar()">Ver {{ previa() }} {{ previa() === 1 ? 'resultado' : 'resultados' }}</button>
+  </div>
+</app-sheet>
+}
 
 <app-modal heading="Reasignación múltiple" [open]="modalReasignar()" (closed)="modalReasignar.set(false)">
   <p>Vas a reasignar <b>{{ s.seleccion().size }} expedientes</b>. Quedará registrado en el histórico de cada uno.</p>
   <div class="dk-field">
-    <label for="m-gestor">Nuevo gestor <span class="req" aria-hidden="true">*</span></label>
-    <select id="m-gestor" class="dk-select" [(ngModel)]="nuevoGestor" name="nuevoGestor" required
-      [attr.aria-invalid]="intentoReasignar && !nuevoGestor" aria-describedby="m-gestor-err">
-      <option value="">Selecciona un gestor</option>@for (g of gestores; track g) { <option [value]="g">{{ g }}</option> }
+    <label for="m-gestor">Gestor <span class="req" aria-hidden="true">*</span></label>
+    <select id="m-gestor" class="dk-select" [(ngModel)]="nuevoGestor" name="nuevoGestor" [attr.aria-invalid]="intento && !nuevoGestor" aria-describedby="m-gestor-err">
+      <option value="">Selecciona un gestor…</option>@for (g of gestores; track g) { <option [value]="g">{{ g }}</option> }
     </select>
-    @if (intentoReasignar && !nuevoGestor) { <span id="m-gestor-err" class="dk-error">Elige a quién reasignar los expedientes.</span> }
+    @if (intento && !nuevoGestor) { <span id="m-gestor-err" class="dk-error">Elige a quién reasignar los expedientes.</span> }
   </div>
   <div actions>
-    <button type="button" class="dk-btn" (click)="modalReasignar.set(false)">Cancelar</button>
-    <button type="button" class="dk-btn primary" (click)="confirmarReasignar()">Reasignar</button>
+    <button type="button" class="dk-btn" (click)="modalReasignar.set(false)">Cerrar</button>
+    <button type="button" class="dk-btn primary" (click)="confirmarReasignar()">Guardar</button>
   </div>
 </app-modal>

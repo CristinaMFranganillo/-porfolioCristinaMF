@@ -10,6 +10,9 @@ export const routes: Routes = [
     children: [
       { path: '', loadComponent: () => import('./demos/cobros/bandeja.component').then((m) => m.BandejaComponent) },
       { path: 'expediente/:id', loadComponent: () => import('./demos/cobros/ficha.component').then((m) => m.FichaComponent) },
+      { path: 'ingresos', loadComponent: () => import('./demos/cobros/ingresos.component').then((m) => m.IngresosComponent) },
+      { path: 'recaptacion', loadComponent: () => import('./demos/cobros/recaptacion.component').then((m) => m.RecaptacionComponent) },
+      { path: 'facturas', loadComponent: () => import('./demos/cobros/facturas.component').then((m) => m.FacturasComponent) },
     ],
   },
   {
@@ -21,6 +24,11 @@ export const routes: Routes = [
     path: 'demos/web-publica',
     title: 'Demo · Web corporativa',
     loadComponent: () => import('./demos/web/web.component').then((m) => m.WebComponent),
+  },
+  {
+    path: 'responsive/:demo',
+    title: 'Vista responsive de las demos',
+    loadComponent: () => import('./pages/responsive/responsive.component').then((m) => m.ResponsiveComponent),
   },
   { path: '**', redirectTo: '' },
 ];

@@ -36,8 +36,53 @@ th[aria-sort="ascending"] .ar,th[aria-sort="descending"] .ar{opacity:1;color:var
 .st-abierto{background:var(--ultra-soft);color:var(--ultra)}
 .st-aplazado{background:color-mix(in srgb,#C77700 18%,transparent);color:var(--ink)}
 .st-juridico{background:var(--spec-soft);color:var(--spec)}
-.st-cobrado{background:color-mix(in srgb,var(--ok) 15%,transparent);color:var(--ok)}
+.st-cobrado{background:color-mix(in srgb,var(--ok) 15%,transparent);color:color-mix(in srgb,var(--ok) 70%,var(--ink))}
 .st-cerrado{background:var(--paper);color:var(--ink-soft);border:1px solid var(--rule)}
 .dk-empty{padding:40px 16px;text-align:center;color:var(--ink-soft);display:grid;gap:8px;justify-items:center}
 .dk-alert{display:flex;gap:8px;align-items:center;padding:10px 14px;border-radius:6px;border-left:3px solid;font-size:.8125rem}
 .dk-alert.warn{background:color-mix(in srgb,#C77700 12%,transparent);border-color:#C77700}
+app-modal [actions]{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+
+/* ——— Tablas anchas con columnas y cabecera fijas ——————————————————————————
+   El contenedor hace scroll en ambos ejes; la cabecera y las primeras columnas son sticky.
+   border-collapse: separate es necesario para que los bordes viajen con las celdas fijas. */
+.sticky-wrap{overflow:auto;max-height:min(70vh,640px);border:1px solid var(--rule);border-radius:10px;background:var(--sheet);position:relative;overscroll-behavior-x:contain}
+.sticky-wrap:focus-visible{outline:2px solid var(--ultra);outline-offset:2px}
+.sticky-wrap table{border-collapse:separate;border-spacing:0;width:max-content;min-width:100%}
+.sticky-wrap th,.sticky-wrap td{background:var(--sheet);border-bottom:1px solid var(--rule)}
+.sticky-wrap thead th{position:sticky;top:0;z-index:2}
+.sticky-wrap tfoot td{position:sticky;bottom:0;z-index:2;border-top:2px solid var(--rule);border-bottom:0;font-weight:700;background:var(--paper)}
+.sticky-wrap .fx{position:sticky;z-index:1}
+.sticky-wrap thead .fx,.sticky-wrap tfoot .fx{z-index:3}
+.sticky-wrap tbody tr:hover td{background:color-mix(in srgb,var(--ultra-soft) 55%,var(--sheet))}
+.sticky-wrap tbody tr.is-selected td{background:var(--ultra-soft)}
+/* Sombra a la derecha de la última columna fija, solo cuando hay algo debajo */
+.sticky-wrap .fx-last::after{content:"";position:absolute;top:0;bottom:-1px;right:-14px;width:14px;pointer-events:none;opacity:0;transition:opacity .15s;background:linear-gradient(to right,rgb(14 15 30 / .14),transparent)}
+.sticky-wrap.is-scrolled-x .fx-last::after{opacity:1}
+.sticky-wrap .fx-last{border-right:1px solid var(--rule)}
+/* Sombra bajo la cabecera al desplazar en vertical */
+.sticky-wrap.is-scrolled-y thead tr:last-child th{box-shadow:0 6px 8px -6px rgb(14 15 30 / .25)}
+/* Pista de que queda contenido a la derecha */
+.scroll-hint{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:.75rem;color:var(--ink-soft);margin:6px 2px 0}
+.scroll-hint .kbd{font:500 .6875rem var(--f-mono);border:1px solid var(--rule);border-radius:4px;padding:0 4px;background:var(--sheet)}
+@media (prefers-reduced-motion:reduce){.sticky-wrap .fx-last::after{transition:none}}
+
+/* ——— Patrones de app comercial en móvil y tablet ——————————————————————————— */
+/* Barra inferior fija con acción principal (móvil) */
+.m-bar{display:none}
+@media (max-width:640px){
+  .m-bar{display:grid;grid-template-columns:auto 1fr;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--sheet);border-top:1px solid var(--rule);box-shadow:0 -10px 30px -18px rgb(0 0 0 / .35)}
+  .m-bar .dk-btn{height:46px;justify-content:center;font-size:.875rem;border-radius:10px}
+  .m-bar .ico-btn{width:46px;padding:0;position:relative}
+  .m-bar .ico-btn .cnt{position:absolute;top:-6px;right:-6px}
+  .m-pad{padding-bottom:84px}
+}
+/* Filas de lista estilo menú (icono, texto, chevron) */
+.row-list{list-style:none;margin:0;padding:0}
+.row-list button,.row-list a{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:14px 4px;border-bottom:1px solid var(--rule);font-size:.9375rem;font-weight:500;color:var(--ink)}
+.row-list button:focus-visible,.row-list a:focus-visible{outline:2px solid var(--ultra);outline-offset:-2px;border-radius:6px}
+.row-list .chev{color:var(--ink-soft)}
+.row-list .danger{color:var(--spec)}
+/* Scrollbars discretas */
+.no-scrollbar{scrollbar-width:none}
+.no-scrollbar::-webkit-scrollbar{display:none}

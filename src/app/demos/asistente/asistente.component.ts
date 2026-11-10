@@ -1,5 +1,7 @@
 import { Component, DestroyRef, ElementRef, computed, inject, signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { NgTemplateOutlet } from '@angular/common';
+import { SheetComponent } from '../../shared/ui/sheet.component';
 import { DemoBarComponent } from '../../shared/ui/demo-bar.component';
 import { ToastService, ToastsComponent } from '../../shared/ui/toast.service';
 import { OpcionCardComponent } from './opcion-card.component';
@@ -39,7 +41,7 @@ const POR_PAGINA = 3;
 @Component({
   selector: 'app-asistente',
   standalone: true,
-  imports: [FormsModule, DemoBarComponent, ToastsComponent, OpcionCardComponent],
+  imports: [FormsModule, NgTemplateOutlet, DemoBarComponent, ToastsComponent, OpcionCardComponent, SheetComponent],
   templateUrl: './asistente.component.html',
   styleUrl: './asistente.component.scss',
 })
@@ -65,6 +67,11 @@ export class AsistenteComponent {
   readonly anuncio = signal('');
   readonly ahora = signal(Date.now());
   readonly panelAbierto = signal(true);
+  /** Tablet y móvil: barra superior con menú, criterios en hoja y chat a pantalla completa. */
+  private readonly mq = matchMedia('(max-width: 1024px)');
+  readonly compacto = signal(this.mq.matches);
+  readonly menu = signal(false);
+  readonly hojaCriterios = signal(false);
   texto = '';
 
   readonly reservas = signal<Reserva[]>([
@@ -108,8 +115,12 @@ export class AsistenteComponent {
 
   constructor() {
     const t = setInterval(() => this.tick(), 1000);
-    inject(DestroyRef).onDestroy(() => clearInterval(t));
+    const cb = (e: MediaQueryListEvent) => this.compacto.set(e.matches);
+    this.mq.addEventListener('change', cb);
+    inject(DestroyRef).onDestroy(() => { clearInterval(t); this.mq.removeEventListener('change', cb); });
   }
+
+  ir(v: Vista): void { this.vista.set(v); this.menu.set(false); }
 
   /* ——— entrada ——— */
 

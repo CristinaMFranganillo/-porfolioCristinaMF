@@ -18,6 +18,8 @@ export class WebComponent {
   readonly plantillas = PLANTILLAS; readonly implantado = IMPLANTADO; readonly plazos = PLAZOS;
 
   readonly vista = signal<Vista>('inicio');
+  readonly menu = signal(false);
+  readonly menuTop = signal(68);
   readonly categoria = signal<Categoria | null>(null);
   readonly busqueda = signal('');
   readonly elegidas = signal<Set<string>>(new Set());
@@ -40,7 +42,16 @@ export class WebComponent {
     this.elegidas.update((s) => { const n = new Set(s); n.has(a.id) ? n.delete(a.id) : n.add(a.id); return n; });
   }
 
-  irPresupuesto(): void { this.vista.set('presupuesto'); this.paso.set(1); this.intento.set(false); scrollTo({ top: 0 }); this.enfocar(); }
+  toggleMenu(hdr: HTMLElement): void {
+    this.menuTop.set(Math.max(0, hdr.getBoundingClientRect().bottom));
+    this.menu.set(!this.menu());
+    if (this.menu()) setTimeout(() => document.querySelector<HTMLElement>('.menu nav a')?.focus());
+  }
+
+  irInicio(): void { this.vista.set('inicio'); this.menu.set(false); scrollTo({ top: 0 }); }
+  aviso(): void { document.querySelector('.ftr')?.scrollIntoView({ behavior: 'smooth' }); }
+
+  irPresupuesto(): void { this.menu.set(false); this.vista.set('presupuesto'); this.paso.set(1); this.intento.set(false); scrollTo({ top: 0 }); this.enfocar(); }
 
   errores(): Record<string, string> {
     const e: Record<string, string> = {};
