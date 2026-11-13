@@ -1,0 +1,102 @@
+/* Estilo «cuaderno de diseño» para la home: papel cálido, grafito, ocre del retrato
+   y anotaciones a lápiz. Se activa con la clase .cuaderno en <html> (solo en la home),
+   así las demos conservan su propio estilo de producto. */
+:root.cuaderno{
+  --paper:#F5EFE4;--sheet:#FBF8F2;--ink:#1F1C18;--ink-soft:#5B544A;--rule:#DDD2BF;
+  --ultra:#8C5A16;--ultra-soft:#F0E2C8;--on-ultra:#FFFFFF;
+  --spec:#AE3A2C;--spec-soft:#F5DDD4;--ok:#2F6B3A;
+  --code-bg:#24211C;--code-fg:#EDE6D8;--code-k:#E6B56E;--code-a:#F0937F;--code-s:#A9CF95;--code-c:#9C9384;
+  --f-serif:"Fraunces Variable","Fraunces",Georgia,serif;
+  --f-hand:"Caveat","Segoe Print","Bradley Hand",cursive;
+  --radius:4px;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .28 0 0 0 0 .18 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --subrayado:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 20' preserveAspectRatio='none'%3E%3Cpath d='M4 13 C 60 6, 120 15, 180 9 S 270 7, 296 11' fill='none' stroke='%23C9923F' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+@mixin cuaderno-oscuro{
+  --paper:#1B1915;--sheet:#24211C;--ink:#EFE8DA;--ink-soft:#BBB1A0;--rule:#3B362E;
+  --ultra:#E2B36B;--ultra-soft:#3A2F1F;--on-ultra:#1B1915;
+  --spec:#F0937F;--spec-soft:#3B241F;--ok:#8CCB97;
+  --code-bg:#12100D;color-scheme:dark;
+}
+@media (prefers-color-scheme: dark){ :root.cuaderno:not([data-theme="light"]){ @include cuaderno-oscuro; } }
+:root.cuaderno[data-theme="dark"]{ @include cuaderno-oscuro; }
+
+.cuaderno{
+  body{background:var(--paper) var(--grain);}
+  h1,h2,h3{font-family:var(--f-serif);font-weight:560;letter-spacing:-.02em;font-variation-settings:"SOFT" 60,"WONK" 0}
+  ::selection{background:var(--ultra-soft);color:var(--ink)}
+
+  /* cabecera */
+  header.top{background:color-mix(in srgb,var(--paper) 90%,transparent)}
+  .mark .tag{font-family:var(--f-hand);font-size:1.6rem;font-weight:600;color:var(--spec);line-height:1}
+  .mark .full{font-family:var(--f-serif);font-weight:600;letter-spacing:-.01em}
+
+  /* etiquetas de sección: nota a lápiz rojo con flecha */
+  .path{font-family:var(--f-hand);font-size:1.45rem;color:var(--spec);gap:8px;line-height:1}
+  .path::before{content:"";width:34px;height:16px;flex:none;background:currentColor;
+    -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 16'%3E%3Cpath d='M2 9 C 10 4, 20 13, 30 8 M24 3 L31 8 L25 13' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+            mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 16'%3E%3Cpath d='M2 9 C 10 4, 20 13, 30 8 M24 3 L31 8 L25 13' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
+  .studio .path{color:var(--code-k)}
+
+  /* hero */
+  .hero::before{display:none}
+  .hero h1{font-weight:540;letter-spacing:-.035em;line-height:1.04}
+  .hero h1 .hl{color:inherit;font-style:italic;font-variation-settings:"SOFT" 100,"WONK" 1;
+    background:var(--subrayado) 0 92%/100% .32em no-repeat;padding-bottom:.04em}
+  .hero h1 .tagc{font-family:var(--f-hand);font-size:.5em;font-weight:600;color:var(--spec);vertical-align:.35em}
+  .hero-name{font-family:var(--f-serif)}
+  .status{font-family:var(--f-sans);background:transparent;border-color:var(--rule)}
+  .hero-id{position:relative}
+  .hero-id .nota{position:absolute;left:96px;top:-26px;font-family:var(--f-hand);font-size:1.35rem;color:var(--spec);transform:rotate(-4deg);white-space:nowrap;pointer-events:none}
+  @media (max-width:559px){.hero-id .nota{left:76px;top:-34px;font-size:1.2rem}}
+  .hero-id .nota svg{position:absolute;left:-30px;top:10px;width:26px;height:22px;transform:scaleX(-1)}
+
+  /* botones */
+  .btn{border-radius:var(--radius)}
+  .btn-primary{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  .btn-primary:hover{background:color-mix(in srgb,var(--ink) 85%,var(--ultra))}
+  .btn-ghost{background:transparent;border-color:var(--ink-soft)}
+
+  /* hojas: tarjetas como papel apilado, con cinta en la esquina */
+  .spec-card,.plate,.steps li,.manual,.tbl-wrap,.checks,.ficha,.c-item{
+    border-radius:3px;box-shadow:3px 3px 0 var(--rule)}
+  .spec-card,.plate{position:relative;overflow:visible}
+  .spec-card::before,.plate::before{content:"";position:absolute;z-index:2;top:-11px;left:28px;width:84px;height:22px;
+    background:color-mix(in srgb,#E2C48E 70%,transparent);transform:rotate(-3deg);
+    box-shadow:0 1px 2px rgb(0 0 0 / .08);pointer-events:none}
+  .case:nth-of-type(even) .plate::before{left:auto;right:28px;transform:rotate(3deg)}
+  .plate{overflow:visible}
+  .plate > .plate-body{overflow:hidden}
+
+  /* cifras */
+  .facts{background:transparent}
+  .facts strong{font-family:var(--f-serif);font-weight:500}
+  .facts strong em{font-style:italic;color:var(--ultra)}
+
+  /* casos */
+  .case-no{font-family:var(--f-hand);font-size:1.3rem;line-height:1}
+  dl.story dt{font-family:var(--f-hand);font-size:1.25rem;line-height:1.1}
+  dl.story dt::before{content:"— "}
+  .result{background:transparent;border:0;border-left:3px solid var(--ultra);border-radius:0;font-family:var(--f-serif);font-style:italic;font-size:var(--t-lg)}
+  .result::before{content:none}
+  .case-index b{font-family:var(--f-serif);font-weight:600;letter-spacing:-.01em;font-size:1.05rem}
+  .case-index .ci-n{font-family:var(--f-hand);font-size:1.2rem}
+  .ficha dt{font-family:var(--f-sans);letter-spacing:.06em}
+
+  /* proceso */
+  .steps li::before{content:counter(s) ".";font-family:var(--f-serif);font-style:italic;font-size:2rem;line-height:1;color:var(--ultra)}
+
+  /* estudio (bloque oscuro) */
+  .studio{background:#24211C;color:#EFE8DA}
+
+  /* trayectoria */
+  .timeline .yr{font-family:var(--f-serif);font-style:italic;font-size:var(--t-md);color:var(--ultra)}
+  .chip{font-family:var(--f-sans);border-radius:999px;background:transparent}
+
+  /* contacto */
+  .contact{background:transparent}
+  .contact h2 .hl{color:inherit;font-style:italic;background:var(--subrayado) 0 92%/100% .3em no-repeat}
+  .demo-note{border-color:var(--ultra)}
+  .demo-note b{color:var(--ultra)}
+  footer .wrap{font-family:var(--f-hand);font-size:1.15rem}
+}

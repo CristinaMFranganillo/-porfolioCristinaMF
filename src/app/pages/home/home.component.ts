@@ -1,10 +1,11 @@
-import { AfterViewInit, Component, ElementRef, effect, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, ElementRef, effect, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ThemeService } from '../../core/theme.service';
 import { TabsDirective } from '../../shared/tabs.directive';
 import { contrastRatio, formatRatio, wcagLevel } from '../../core/contrast';
 import { CODE } from './code-snippets';
+import { RetratoPerfilComponent } from '../../shared/ui/retrato-perfil.component';
 
 interface ContrastRow { name: string; fg: string; bg: string; value: number; ratio: string; level: string; }
 
@@ -20,7 +21,7 @@ const PAIRS: [string, string, string][] = [
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, TabsDirective],
+  imports: [RouterLink, TabsDirective, RetratoPerfilComponent],
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements AfterViewInit {
@@ -40,6 +41,9 @@ export class HomeComponent implements AfterViewInit {
   readonly copyStatus = signal('');
 
   constructor() {
+    // Estilo «cuaderno» solo mientras se ve la home (las demos mantienen el suyo)
+    document.documentElement.classList.add('cuaderno');
+    inject(DestroyRef).onDestroy(() => document.documentElement.classList.remove('cuaderno'));
     // Recalcula el contraste cada vez que cambia el tema
     effect(() => {
       this.theme.isDark();

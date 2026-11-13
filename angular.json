@@ -59,6 +59,9 @@
             "styles": [
               "@fontsource-variable/geist/index.css",
               "@fontsource-variable/geist-mono/index.css",
+              "@fontsource-variable/fraunces/full.css",
+              "@fontsource/caveat/500.css",
+              "@fontsource/caveat/600.css",
               "src/styles.scss"
             ],
             "scripts": []

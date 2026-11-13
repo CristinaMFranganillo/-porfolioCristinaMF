@@ -23,6 +23,8 @@ nav a:hover{color:var(--ink)}
 @media (min-width:980px){.hero .wrap{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center;padding-block:96px 104px}}
 .status{display:inline-flex;align-items:center;gap:var(--s1);font-family:var(--f-mono);font-size:var(--t-xs);background:var(--sheet);border:1px solid var(--rule);padding:6px 12px;border-radius:999px;color:var(--ink-soft)}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px color-mix(in srgb,var(--ok) 22%,transparent)}
+.hero-id{display:flex;align-items:center;gap:var(--s2)}
+@media (max-width:559px){.hero-id app-retrato-perfil{--perfil-size:64px}}
 .hero h1{font-size:var(--t-hero);font-weight:600;letter-spacing:-.045em;line-height:1.02;margin-top:var(--s3)}
 .hero h1 .hl{color:var(--ultra)}
 .hero h1 .tagc{font-family:var(--f-mono);font-weight:400;color:var(--spec);font-size:.62em;letter-spacing:-.04em;vertical-align:.12em}
