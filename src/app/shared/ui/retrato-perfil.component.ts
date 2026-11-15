@@ -9,9 +9,10 @@ const CENTER = (FRAMES - 1) / 2;
 const RADIO = 520;
 
 /**
- * Foto de perfil ilustrada. Gira la cabeza unos grados hacia el cursor solo cuando
- * está cerca; si se aleja, vuelve suavemente al frente. Sin movimiento en táctil
- * ni con prefers-reduced-motion.
+ * Foto de perfil ilustrada. Con ratón gira la cabeza hacia el cursor cuando está cerca
+ * y vuelve suavemente al frente al alejarse. En táctil saluda con una mirada a cada lado
+ * al aparecer en pantalla, repite al tocarla y sigue el dedo mientras se arrastra cerca.
+ * Sin movimiento con prefers-reduced-motion.
  */
 @Component({
   selector: 'app-retrato-perfil',
@@ -35,8 +36,10 @@ export class RetratoPerfilComponent {
   constructor() {
     const destroyRef = inject(DestroyRef);
     afterNextRender(() => {
-      if (matchMedia('(prefers-reduced-motion: reduce), (hover: none)').matches) return;
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const el = this.host.nativeElement;
       let target = CENTER, current = CENTER, raf = 0;
+      const timers: number[] = [];
 
       const loop = () => {
         current += (target - current) * 0.1;
@@ -44,17 +47,46 @@ export class RetratoPerfilComponent {
         if (f !== this.frame()) this.frame.set(f);
         raf = Math.abs(target - current) > 0.02 ? requestAnimationFrame(loop) : 0;
       };
-      const move = (e: PointerEvent) => {
-        const r = this.host.nativeElement.getBoundingClientRect();
-        const dx = e.clientX - (r.left + r.width / 2);
-        const dy = e.clientY - (r.top + r.height / 2);
+      const aim = (t: number) => { target = t; if (!raf) raf = requestAnimationFrame(loop); };
+
+      /** Gira hacia un punto de la pantalla según lo cerca que esté del retrato. */
+      const lookAt = (x: number, y: number) => {
+        const r = el.getBoundingClientRect();
+        const dx = x - (r.left + r.width / 2);
+        const dy = y - (r.top + r.height / 2);
         const cerca = Math.max(0, 1 - Math.hypot(dx, dy) / RADIO);     // 1 encima, 0 lejos
         const lado = Math.max(-1, Math.min(1, dx / 220));
-        target = CENTER + lado * CENTER * cerca;
-        if (!raf) raf = requestAnimationFrame(loop);
+        aim(CENTER + lado * CENTER * cerca);
       };
-      window.addEventListener('pointermove', move, { passive: true });
-      destroyRef.onDestroy(() => { window.removeEventListener('pointermove', move); cancelAnimationFrame(raf); });
+
+      if (!matchMedia('(hover: none)').matches) {
+        const move = (e: PointerEvent) => lookAt(e.clientX, e.clientY);
+        window.addEventListener('pointermove', move, { passive: true });
+        destroyRef.onDestroy(() => { window.removeEventListener('pointermove', move); cancelAnimationFrame(raf); });
+        return;
+      }
+
+      // Táctil: una mirada a cada lado y vuelta al frente
+      const glance = () => {
+        timers.splice(0).forEach(clearTimeout);
+        aim(0);
+        timers.push(window.setTimeout(() => aim(FRAMES - 1), 650), window.setTimeout(() => aim(CENTER), 1300));
+      };
+      const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) glance(); }, { threshold: 0.6 });
+      io.observe(el);
+      const touch = (e: TouchEvent) => { const t = e.touches[0]; if (t) lookAt(t.clientX, t.clientY); };
+      const release = () => aim(CENTER);
+      el.addEventListener('click', glance);
+      window.addEventListener('touchmove', touch, { passive: true });
+      window.addEventListener('touchend', release, { passive: true });
+      destroyRef.onDestroy(() => {
+        io.disconnect();
+        timers.forEach(clearTimeout);
+        el.removeEventListener('click', glance);
+        window.removeEventListener('touchmove', touch);
+        window.removeEventListener('touchend', release);
+        cancelAnimationFrame(raf);
+      });
     });
   }
 }

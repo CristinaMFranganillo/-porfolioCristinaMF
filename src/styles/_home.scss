@@ -486,18 +486,34 @@ app-home {
   h3[id]{scroll-margin-top:96px}
 }
 
-/* lámina del retrato ilustrado en el hero */
-.hero-art{margin:0}
-.hero-art .card-head{padding-block:12px}
-.ha-tag{font:var(--t-xs) var(--f-mono);color:var(--spec)}
-.ha-body{display:grid;place-items:center;padding:56px var(--s3) 40px}
-.ha-stage{position:relative}
-.hero-art app-retrato-perfil{--perfil-size:200px}
-.ha-dim{position:absolute;left:0;right:0;top:-26px;border-top:1px solid var(--spec);font:.6875rem var(--f-mono);color:var(--spec);text-align:center}
-.ha-dim::before,.ha-dim::after{content:"";position:absolute;top:-5px;height:9px;border-left:1px solid var(--spec)}
-.ha-dim::before{left:0}.ha-dim::after{right:0}
-.ha-dim span{position:relative;top:-9px;background:var(--sheet);padding:0 6px}
-.hero-art .spec-notes{padding:0 var(--s3) var(--s3)}
+/* retrato ilustrado en el hero: el recorrido funcional → Figma → Angular alrededor */
+.hero-art{position:relative;width:min(100%,460px);aspect-ratio:460/420;justify-self:center;--ha-accent:var(--accent,var(--ultra))}
+.hero-art app-retrato-perfil{--perfil-size:240px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1}
+.ha-path{position:absolute;inset:0;width:100%;height:100%;color:var(--ha-accent);overflow:visible}
+.ha-path path{fill:none;stroke:currentColor;stroke-width:1.6;stroke-dasharray:5 6}
+.ha-label{position:absolute;left:60%;top:0;font:var(--t-xs) var(--f-mono);color:var(--ha-accent);background:var(--paper);padding:0 6px;white-space:nowrap}
+.ha-chip{position:absolute;z-index:2;display:grid;gap:7px;width:158px;padding:10px 12px;background:var(--sheet);border:2px solid var(--rule);
+  box-shadow:4px 4px 0 var(--ha-accent);animation:ha-float 7s ease-in-out infinite}
+.ha-k{font:500 .6875rem var(--f-mono);color:var(--ink-soft);letter-spacing:.02em}
+.ha-1{left:-12px;top:7%}
+.ha-2{right:-36px;top:38%;animation-delay:-2.3s}
+.ha-3{left:4%;bottom:3%;animation-delay:-4.6s}
+.ha-doc{display:grid;gap:5px}
+.ha-doc i{display:block;height:4px;background:var(--hair,#D6D6D6)}
+.ha-doc i:nth-child(1){width:70%;background:var(--ink)}.ha-doc i:nth-child(3){width:85%}.ha-doc i:nth-child(4){width:55%}
+.ha-frame{display:grid;grid-template-columns:1fr 1.6fr;grid-template-rows:6px 22px;gap:4px}
+.ha-frame i{display:block;background:var(--accent-soft,var(--ultra-soft));border:1px solid var(--ha-accent)}
+.ha-frame i:first-child{grid-column:1/-1;background:var(--ha-accent)}
+.ha-3 code{font:500 .8125rem var(--f-mono);color:var(--ha-accent);background:none;padding:0}
+@keyframes ha-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@media (prefers-reduced-motion:reduce){.ha-chip{animation:none}}
+@media (max-width:559px){
+  .hero-art{aspect-ratio:auto;display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+  .hero-art app-retrato-perfil{--perfil-size:200px;position:relative;left:auto;top:auto;transform:none;flex:0 0 100%;max-width:200px;margin:0 calc(50% - 100px) 12px}
+  .ha-path,.ha-label{display:none}
+  .ha-chip{position:static;width:auto;flex:1 1 30%;min-width:96px;animation:none;padding:8px}
+  .ha-k,.ha-3 code{font-size:.625rem;white-space:nowrap}
+}
 
 /* tarjeta de contacto con la foto real (la foto ya viene en b/n: sin filter, para no apagar el calco) */
 .c-card{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;align-items:center;border:1px solid var(--rule);border-radius:8px;padding:16px;background:var(--paper)}

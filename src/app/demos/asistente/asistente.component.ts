@@ -34,7 +34,7 @@ interface Reserva { id: string; cliente: string; trabajador: string | null; tipo
 interface Recomendacion { cliente: string; prioridad: 'Alta' | 'Media' | 'Baja'; origen: string; contexto: string; detalle: string; propuesta: string; prompt: string; }
 interface Historial { titulo: string; cuando: string; prompts: string[]; tipo: string; }
 
-const TIPOS = ['Reconocimiento', 'Actividad técnica', 'Reconocimiento VIP', 'Extracción previa'];
+const TIPOS = ['Revisión', 'Visita técnica', 'Revisión prioritaria', 'Prueba previa'];
 const MIN = 60_000;
 const POR_PAGINA = 3;
 
@@ -75,28 +75,28 @@ export class AsistenteComponent {
   texto = '';
 
   readonly reservas = signal<Reserva[]>([
-    this.reservaSemilla('R-3039', 'Frutas Vegas Altas', 4, 'Mérida Sur', 6),
-    this.reservaSemilla('R-3040', 'Transportes Sierra Sur', 6, 'Cáceres Centro', 38),
-    this.reservaSemilla('R-3041', 'Cerámicas del Zújar', 9, 'Badajoz Oeste', 190),
+    this.reservaSemilla('R-3039', 'Frutas Vegas Altas', 4, 'Sede Sur', 6),
+    this.reservaSemilla('R-3040', 'Transportes Sierra Sur', 6, 'Sede Centro', 38),
+    this.reservaSemilla('R-3041', 'Cerámicas del Zújar', 9, 'Sede Oeste', 190),
   ]);
   readonly filtroReservas = signal<'15' | '60' | 'todas'>('todas');
 
   readonly recomendaciones = signal<Recomendacion[]>([
-    { cliente: 'Metalúrgica Guadiana', prioridad: 'Alta', origen: 'Proactivo', contexto: 'Reconocimientos periódicos a punto de vencer', detalle: '18 trabajadores', propuesta: 'Agrupar en un bloque de 6 citas la semana que viene.', prompt: 'Cita para 6 trabajadores de Metalúrgica Guadiana la semana que viene por la mañana' },
-    { cliente: 'Frutas Vegas Altas', prioridad: 'Media', origen: 'Reactivo', contexto: 'Bolsa de reconocimientos contratada', detalle: '12 sin planificar', propuesta: 'Repartir en dos mañanas antes de fin de mes.', prompt: 'Necesito huecos para Frutas Vegas Altas en Mérida Sur por la mañana la semana que viene' },
-    { cliente: 'Transportes Sierra Sur', prioridad: 'Baja', origen: 'Proactivo', contexto: 'Altas recientes sin reconocimiento inicial', detalle: '4 conductores', propuesta: 'Proponer citas en el centro más cercano.', prompt: 'Cita para Transportes Sierra Sur en Cáceres mañana por la tarde' },
+    { cliente: 'Metalúrgica Guadiana', prioridad: 'Alta', origen: 'Proactivo', contexto: 'Revisiones periódicas a punto de vencer', detalle: '18 trabajadores', propuesta: 'Agrupar en un bloque de 6 citas la semana que viene.', prompt: 'Cita para 6 trabajadores de Metalúrgica Guadiana la semana que viene por la mañana' },
+    { cliente: 'Frutas Vegas Altas', prioridad: 'Media', origen: 'Reactivo', contexto: 'Bolsa de revisiones contratada', detalle: '12 sin planificar', propuesta: 'Repartir en dos mañanas antes de fin de mes.', prompt: 'Necesito huecos para Frutas Vegas Altas en Sede Sur por la mañana la semana que viene' },
+    { cliente: 'Transportes Sierra Sur', prioridad: 'Baja', origen: 'Proactivo', contexto: 'Altas recientes sin revisión inicial', detalle: '4 conductores', propuesta: 'Proponer citas en el centro más cercano.', prompt: 'Cita para Transportes Sierra Sur en Cáceres mañana por la tarde' },
   ]);
 
   readonly historial: Historial[] = [
-    { titulo: 'Frutas Vegas Altas', cuando: 'Ayer', tipo: 'Reconocimiento', prompts: ['Huecos para Frutas Vegas Altas el jueves', 'mejor por la tarde', 'con una doctora'] },
-    { titulo: 'Cerámicas del Zújar', cuando: 'Lunes', tipo: 'Extracción previa', prompts: ['Cerámicas del Zújar en Badajoz por la tarde'] },
-    { titulo: 'Talleres Ribera · 5 citas', cuando: 'Semana pasada', tipo: 'Reconocimiento', prompts: ['5 trabajadores de Talleres Ribera en Mérida Norte'] },
+    { titulo: 'Frutas Vegas Altas', cuando: 'Ayer', tipo: 'Revisión', prompts: ['Huecos para Frutas Vegas Altas el jueves', 'mejor por la tarde', 'con una profesional'] },
+    { titulo: 'Cerámicas del Zújar', cuando: 'Lunes', tipo: 'Prueba previa', prompts: ['Cerámicas del Zújar en la sede Oeste por la tarde'] },
+    { titulo: 'Talleres Ribera · 5 citas', cuando: 'Semana pasada', tipo: 'Revisión', prompts: ['5 trabajadores de Talleres Ribera en la sede Norte'] },
   ];
 
   readonly sugerencias = [
-    'Busca cita para Metalúrgica Guadiana en Mérida Norte el próximo martes por la mañana',
+    'Busca cita para Metalúrgica Guadiana en la sede Norte el próximo martes por la mañana',
     'Cita para 6 trabajadores de Frutas Vegas Altas la semana que viene',
-    'Necesito un hueco para Transportes Sierra Sur mañana por la tarde con una doctora',
+    'Necesito un hueco para Transportes Sierra Sur mañana por la tarde con una profesional',
     '¿Qué puedes hacer?',
   ];
 
@@ -174,7 +174,7 @@ export class AsistenteComponent {
         return this.bot('Puedo buscar huecos y reservarlos sin salir de la conversación. Prueba alguna de estas peticiones:', { ayuda: true, chips: [
           { label: 'Cita para Talleres Ribera el viernes', texto: 'Cita para Talleres Ribera el viernes' },
           { label: '6 trabajadores de Metalúrgica Guadiana', texto: 'Cita para 6 trabajadores de Metalúrgica Guadiana' },
-          { label: 'Cerámicas del Zújar por la tarde', texto: 'Cerámicas del Zújar en Badajoz por la tarde' },
+          { label: 'Cerámicas del Zújar por la tarde', texto: 'Cerámicas del Zújar en la sede Oeste por la tarde' },
         ] });
       case 'deshacer':
         return this.deshacerUltima();
@@ -215,7 +215,7 @@ export class AsistenteComponent {
       if (!bloque) return this.bot(frases.concat('No encuentro un bloque disponible en los próximos días. Prueba con otro centro.').join(' '), { chips: this.chipsSeguimiento() });
       const n = bloque.citas.length;
       const seleccion = cli.trabajadores.slice(0, n).map((w) => w.id);
-      frases.push(`Para ${c.personas} personas de ${cli.nombre} te propongo un bloque de ${n} citas seguidas el ${fmtFechaLarga(bloque.fecha)} en ${bloque.centro}. He preseleccionado a quienes antes les vence el reconocimiento; puedes cambiarlos.`);
+      frases.push(`Para ${c.personas} personas de ${cli.nombre} te propongo un bloque de ${n} citas seguidas el ${fmtFechaLarga(bloque.fecha)} en ${bloque.centro}. He preseleccionado a quienes antes les vence el revisión; puedes cambiarlos.`);
       return this.bot(frases.join(' '), {
         bloque: { ...bloque, seleccion, reservado: false, restantes: Math.max(0, c.personas - n) },
         chips: [{ label: 'Otro día', texto: 'otro día' }, { label: 'Otro centro', texto: 'otro centro' }, { label: 'Por la tarde', texto: 'por la tarde' }],
@@ -223,7 +223,7 @@ export class AsistenteComponent {
     }
 
     const res = buscar(c);
-    if (res.centroCerradoTarde) frases.push('Badajoz Oeste no abre por la tarde, así que te propongo alternativas.');
+    if (res.centroCerradoTarde) frases.push('Sede Oeste no abre por la tarde, así que te propongo alternativas.');
     else if (res.sinHuecoEnFecha) frases.push(`No queda hueco el ${fmtFechaLarga(c.fecha!)} en ${c.centro ?? cli.centroHabitual}; te enseño lo más cercano.`);
     const para = c.trabajador ? `${c.trabajador} (${cli.nombre})` : cli.nombre;
     frases.push(`Estas son las mejores opciones para ${para}, ordenadas por ajuste a tu petición:`);
@@ -235,7 +235,7 @@ export class AsistenteComponent {
     const chips: Chip[] = [{ label: 'Más opciones', texto: 'más opciones' }];
     chips.push(c.franja === 'tarde' ? { label: 'Por la mañana', texto: 'por la mañana' } : { label: 'Por la tarde', texto: 'por la tarde' });
     chips.push({ label: 'Otro centro', texto: 'otro centro' }, { label: 'Otro día', texto: 'otro día' });
-    if (!c.genero && !c.profesional) chips.push({ label: 'Con una doctora', texto: 'con una doctora' });
+    if (!c.genero && !c.profesional) chips.push({ label: 'Con una profesional', texto: 'con una profesional' });
     return chips;
   }
 
@@ -332,7 +332,7 @@ export class AsistenteComponent {
     this.ajustar('fecha', f, f ? `la fecha a ${fmtFecha(f)}` : 'la fecha a «primer día libre»');
   }
   ajustarProfesional(v: string): void {
-    if (v === 'f' || v === 'm') { this.ctx.update((c) => ({ ...c, profesional: null })); this.ajustar('genero', v, v === 'f' ? 'el profesional a «una doctora»' : 'el profesional a «un doctor»'); }
+    if (v === 'f' || v === 'm') { this.ctx.update((c) => ({ ...c, profesional: null })); this.ajustar('genero', v, v === 'f' ? 'el profesional a «una profesional»' : 'el profesional a «un profesional»'); }
     else { this.ctx.update((c) => ({ ...c, genero: null })); this.ajustar('profesional', v || null, v ? `el profesional a ${v}` : 'el profesional a «cualquiera»'); }
   }
   valorProfesional(): string { const c = this.ctx(); return c.profesional ?? c.genero ?? ''; }
@@ -354,7 +354,7 @@ export class AsistenteComponent {
 
   generar(r: Recomendacion): void {
     this.nuevaConversacion();
-    this.tipo.set('Reconocimiento');
+    this.tipo.set('Revisión');
     this.recomendaciones.update((rs) => rs.filter((x) => x !== r));
     setTimeout(() => this.enviar(r.prompt), 50);
   }
@@ -416,7 +416,7 @@ export class AsistenteComponent {
 
   private nuevaReserva(cliente: string, trabajador: string | null, fecha: Date, centro: string, profesional: string): string {
     const id = `R-${this.nReserva++}`;
-    this.reservas.update((rs) => [{ id, cliente, trabajador, tipo: this.tipo() ?? 'Reconocimiento', fecha, centro, profesional, expira: new Date(Date.now() + 15 * MIN), estado: 'temporal' }, ...rs]);
+    this.reservas.update((rs) => [{ id, cliente, trabajador, tipo: this.tipo() ?? 'Revisión', fecha, centro, profesional, expira: new Date(Date.now() + 15 * MIN), estado: 'temporal' }, ...rs]);
     return id;
   }
 
@@ -431,7 +431,7 @@ export class AsistenteComponent {
 
   private reservaSemilla(id: string, cliente: string, dias: number, centro: string, minutos: number): Reserva {
     const f = siguienteLaborable(addDays(startOfDay(new Date()), dias)); f.setHours(8 + (minutos % 3), 30, 0, 0);
-    return { id, cliente, trabajador: null, tipo: 'Reconocimiento', fecha: f, centro, profesional: 'Dra. Lucía Prieto', expira: new Date(Date.now() + minutos * MIN), estado: 'temporal' };
+    return { id, cliente, trabajador: null, tipo: 'Revisión', fecha: f, centro, profesional: 'Lucía Prieto', expira: new Date(Date.now() + minutos * MIN), estado: 'temporal' };
   }
 }
 

@@ -114,7 +114,7 @@
                           }
                         </ol>
                         <fieldset [disabled]="b.reservado || m.id !== ultimoResultado()">
-                          <legend>Trabajadores con reconocimiento pendiente</legend>
+                          <legend>Trabajadores con revisión pendiente</legend>
                           <ul class="workers">
                             @for (w of clienteActual()?.trabajadores ?? []; track w.id) {
                               <li><label class="dk-check"><input type="checkbox" [checked]="b.seleccion.includes(w.id)" (change)="toggleTrabajador(m, w.id)">
@@ -131,7 +131,7 @@
                     @if (m.ayuda) {
                       <ul class="ayuda">
                         <li><b>Buscar</b> por cliente, centro, día («el jueves», «14 de diciembre»), franja o profesional.</li>
-                        <li><b>Refinar</b> sin repetir: «más tarde», «otro centro», «con una doctora», «más opciones».</li>
+                        <li><b>Refinar</b> sin repetir: «más tarde», «otro centro», «con una profesional», «más opciones».</li>
                         <li><b>Grupos</b>: «cita para 6 trabajadores» propone un bloque y eliges a quién.</li>
                         <li><b>Deshacer</b> la última reserva escribiendo «deshaz» o con el botón.</li>
                       </ul>
@@ -268,7 +268,7 @@
       </fieldset>
       <div class="dk-field"><label for="p-prof">Profesional</label>
         <select id="p-prof" class="dk-select" [ngModel]="valorProfesional()" (ngModelChange)="ajustarProfesional($event)">
-          <option value="">Cualquiera</option><option value="f">Una doctora</option><option value="m">Un doctor</option>
+          <option value="">Cualquiera</option><option value="f">Una profesional</option><option value="m">Un profesional</option>
           @for (p of profesionales; track p.nombre) { <option [value]="p.nombre">{{ p.nombre }}</option> }
         </select></div>
       <div class="dk-field"><label for="p-n">Número de citas</label>

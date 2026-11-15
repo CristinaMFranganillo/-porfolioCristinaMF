@@ -58,6 +58,7 @@
   .hero-id{position:relative}
   .hero-id app-retrato-perfil,.hero-art app-retrato-perfil{background:var(--accent-soft);border:2px solid var(--rule);
     box-shadow:var(--calco) var(--calco) 0 var(--accent)}
+  .hero-art app-retrato-perfil{box-shadow:8px 8px 0 var(--accent)}
   .hero-id .nota{position:absolute;left:96px;top:-26px;font-family:var(--f-hand);font-size:1.35rem;color:var(--spec);transform:rotate(-4deg);white-space:nowrap;pointer-events:none}
   @media (max-width:559px){.hero-id .nota{left:76px;top:-34px;font-size:1.2rem}}
   .hero-id .nota svg{position:absolute;left:-30px;top:10px;width:26px;height:22px;transform:scaleX(-1)}

@@ -34,18 +34,18 @@
       </div>
     </div>
 
-    <figure class="spec-card hero-art">
-      <div class="card-head">
-        <span class="file"><i aria-hidden="true"><b></b><b></b><b></b></i>retrato.component</span>
-        <span class="ha-tag">sigue el cursor</span>
-      </div>
-      <div class="ha-body">
-        <div class="ha-stage">
-          <span class="ha-dim" aria-hidden="true"><span>⌀ 200</span></span>
-          <app-retrato-perfil />
-        </div>
-      </div>
-    </figure>
+    <div class="hero-art">
+      <svg class="ha-path" viewBox="0 0 460 420" aria-hidden="true">
+        <defs><marker id="ha-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="currentColor"/></marker></defs>
+        <path d="M168 52 C 270 0, 380 40, 398 138" marker-end="url(#ha-arrow)"/>
+        <path d="M404 240 C 404 330, 330 382, 214 386" marker-end="url(#ha-arrow)"/>
+      </svg>
+      <span class="ha-label" aria-hidden="true">análisis con Claude</span>
+      <app-retrato-perfil />
+      <div class="ha-chip ha-1" aria-hidden="true"><span class="ha-k">01 · funcional</span><span class="ha-doc"><i></i><i></i><i></i><i></i></span></div>
+      <div class="ha-chip ha-2" aria-hidden="true"><span class="ha-k">02 · Figma</span><span class="ha-frame"><i></i><i></i><i></i></span></div>
+      <div class="ha-chip ha-3" aria-hidden="true"><span class="ha-k">03 · Angular</span><code>&lt;app-tramite /&gt;</code></div>
+    </div>
   </div>
 </section>
 
@@ -122,7 +122,7 @@
               <div class="start">
                 <b>¿Con qué quieres empezar?</b>
                 <span class="ai-hint">Elige un tipo de actividad para que el asistente interprete tu petición y consulte la disponibilidad correcta.</span>
-                <div class="types"><span>Reconocimiento</span><span>Actividad técnica</span><span class="on">Reconocimiento VIP</span><span>Extracción previa</span></div>
+                <div class="types"><span>Revisión</span><span>Visita técnica</span><span class="on">Revisión prioritaria</span><span>Prueba previa</span></div>
               </div>
               <div class="composer locked"><span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="vertical-align:-1px;margin-right:4px"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Primero selecciona un tipo de actividad</span></div>
               <span class="ai-hint" style="text-align:center">El asistente interpreta cliente, trabajadores, centro, fecha, hora y restricciones, y consulta la disponibilidad real.</span>
@@ -130,33 +130,33 @@
           </div>
           <div role="tabpanel" id="c0-pv" aria-labelledby="c0-v" tabindex="0"><p class="sr">Conversación de ejemplo: el asistente devuelve tres opciones de cita con su porcentaje de ajuste y el motivo de lo que no coincide.</p>
             <div class="ai" aria-hidden="true">
-              <div class="ai-top"><span class="ai-title">Chat <span class="ai-type">Reconocimiento VIP</span></span><span class="ai-hint">datos ficticios</span></div>
-              <p class="bubble me">Busca cita para Metalúrgica Guadiana en el centro Mérida Norte el 14 de junio por la mañana.</p>
+              <div class="ai-top"><span class="ai-title">Chat <span class="ai-type">Revisión prioritaria</span></span><span class="ai-hint">datos ficticios</span></div>
+              <p class="bubble me">Busca cita para Metalúrgica Guadiana en la sede Norte el 14 de junio por la mañana.</p>
               <p class="bubble bot">Estas son las opciones ordenadas por coincidencia con tu petición:</p>
               <div class="opts">
                 <div class="opt best">
                   <h4>Opción 1 <span>recomendada</span></h4>
-                  <ul><li>14 jun · 08:00</li><li>Centro Mérida Norte</li><li>Dra. Lucía Prieto</li></ul>
+                  <ul><li>14 jun · 08:00</li><li>Sede Norte</li><li>Lucía Prieto</li></ul>
                   <div class="fit">Ajuste <b>96 %</b><i style="--w:96%"></i></div>
                   <span class="why ok">Cumple todos los criterios</span>
                   <span class="go">Confirmar</span>
                 </div>
                 <div class="opt">
                   <h4>Opción 2</h4>
-                  <ul><li>14 jun · 11:30</li><li>Centro Mérida Norte</li><li>Dr. Andrés Gil</li></ul>
+                  <ul><li>14 jun · 11:30</li><li>Sede Norte</li><li>Andrés Gil</li></ul>
                   <div class="fit">Ajuste <b>72 %</b><i style="--w:72%"></i></div>
                   <span class="why">Fuera de la franja de mañana preferida</span>
                   <span class="go">Confirmar</span>
                 </div>
                 <div class="opt">
                   <h4>Opción 3</h4>
-                  <ul><li>15 jun · 08:30</li><li>Centro Mérida Sur</li><li>Dra. Lucía Prieto</li></ul>
+                  <ul><li>15 jun · 08:30</li><li>Sede Sur</li><li>Lucía Prieto</li></ul>
                   <div class="fit">Ajuste <b>48 %</b><i style="--w:48%;--c:var(--spec)"></i></div>
                   <span class="why">Otro día y otro centro</span>
                   <span class="go">Confirmar</span>
                 </div>
               </div>
-              <div class="done"><b aria-hidden="true">✓</b><span><b>Cita reservada.</b> 14 de junio a las 08:00 en Mérida Norte. Queda como reserva temporal 15 min hasta que la confirmes.</span></div>
+              <div class="done"><b aria-hidden="true">✓</b><span><b>Cita reservada.</b> 14 de junio a las 08:00 en la sede Norte. Queda como reserva temporal 15 min hasta que la confirmes.</span></div>
               <div class="composer"><span>Escribe un mensaje…</span><kbd>Enter</kbd></div>
             </div>
           </div>
@@ -164,9 +164,9 @@
             <div class="ai" aria-hidden="true">
               <div class="ai-top"><span class="ai-title">Acciones recomendadas</span><span class="ai-hint">3 pendientes</span></div>
               <div class="recs">
-                <div class="rec"><b>METALÚRGICA GUADIANA</b><div class="tags"><span class="tg hi">Alta</span><span class="tg pro">Proactivo</span></div><div class="ctx">Reconocimientos periódicos próximos a vencer<strong>18 trabajadores</strong></div><p>Agrupar en un bloque el martes con 6 citas.</p><span class="go2">Generar opciones →</span></div>
-                <div class="rec"><b>FRUTAS VEGAS ALTAS</b><div class="tags"><span class="tg md">Media</span><span class="tg pro">Reactivo</span></div><div class="ctx">Bolsa de reconocimientos contratada<strong>12 sin planificar</strong></div><p>Repartir en dos mañanas antes de fin de mes.</p><span class="go2">Generar opciones →</span></div>
-                <div class="rec"><b>TRANSPORTES SIERRA SUR</b><div class="tags"><span class="tg lo">Baja</span><span class="tg pro">Proactivo</span></div><div class="ctx">Altas recientes sin reconocimiento inicial<strong>4 conductores</strong></div><p>Proponer citas en el centro más cercano.</p><span class="go2">Generar opciones →</span></div>
+                <div class="rec"><b>METALÚRGICA GUADIANA</b><div class="tags"><span class="tg hi">Alta</span><span class="tg pro">Proactivo</span></div><div class="ctx">Revisiones periódicas próximas a vencer<strong>18 trabajadores</strong></div><p>Agrupar en un bloque el martes con 6 citas.</p><span class="go2">Generar opciones →</span></div>
+                <div class="rec"><b>FRUTAS VEGAS ALTAS</b><div class="tags"><span class="tg md">Media</span><span class="tg pro">Reactivo</span></div><div class="ctx">Bolsa de revisiones contratada<strong>12 sin planificar</strong></div><p>Repartir en dos mañanas antes de fin de mes.</p><span class="go2">Generar opciones →</span></div>
+                <div class="rec"><b>TRANSPORTES SIERRA SUR</b><div class="tags"><span class="tg lo">Baja</span><span class="tg pro">Proactivo</span></div><div class="ctx">Altas recientes sin revisión inicial<strong>4 conductores</strong></div><p>Proponer citas en el centro más cercano.</p><span class="go2">Generar opciones →</span></div>
               </div>
             </div>
           </div>
@@ -191,7 +191,7 @@
         </div>
       </div>
       <div class="case-info">
-        <div><span class="case-no">caso 01 · UX conversacional con IA</span><h3 id="c0">Asistente IA para planificar reconocimientos médicos</h3></div>
+        <div><span class="case-no">caso 01 · UX conversacional con IA</span><h3 id="c0">Asistente IA para planificar citas</h3></div>
         <p class="tagline">Diseñé un asistente que entiende peticiones en lenguaje natural, consulta la agenda real y devuelve opciones comparables listas para reservar.</p>
         <dl class="ficha">
           <div><dt>Rol</dt><dd>Diseño UX/UI</dd></div>
@@ -200,7 +200,7 @@
           <div><dt>Usuarios</dt><dd>Equipo interno de planificación</dd></div>
         </dl>
         <dl class="story">
-          <div><dt>problema</dt><dd>Planificar un reconocimiento obligaba a cruzar en varias pantallas cliente, trabajadores, centro, fecha, profesional y restricciones. Un chat de texto libre no bastaba: la IA necesitaba contexto y el usuario, respuestas que pudiera comparar.</dd></div>
+          <div><dt>problema</dt><dd>Planificar una cita obligaba a cruzar en varias pantallas cliente, trabajadores, centro, fecha, profesional y restricciones. Un chat de texto libre no bastaba: la IA necesitaba contexto y el usuario, respuestas que pudiera comparar.</dd></div>
           <div><dt>qué hice</dt><dd>Diseñé el flujo completo: inicio guiado, conversación, acciones recomendadas, reservas temporales, trazabilidad e historial, con sus estados, errores y confirmaciones como componentes.</dd></div>
           <div><dt>decisión</dt><dd>Opté por respuestas estructuradas en vez de párrafos: cada opción es una tarjeta con su porcentaje de ajuste y el motivo de lo que no coincide. Además, hice que el usuario elija el tipo de actividad antes de escribir, para reducir la ambigüedad desde el diseño.</dd></div>
         </dl>
@@ -334,8 +334,8 @@
                 <div style="background:var(--spec-soft);color:var(--spec)">warning</div>
               </div>
               <div class="type-scale" aria-label="Escala tipográfica">
-                <div><span class="t">display/32</span><span class="x" style="font-size:2rem">Prevención</span></div>
-                <div><span class="t">title/20</span><span class="x" style="font-size:1.25rem">Fichas de puesto</span></div>
+                <div><span class="t">display/32</span><span class="x" style="font-size:2rem">Gestión</span></div>
+                <div><span class="t">title/20</span><span class="x" style="font-size:1.25rem">Fichas de cliente</span></div>
                 <div><span class="t">body/16</span><span class="x" style="font-size:1rem;font-weight:400;letter-spacing:0">Texto de lectura, interlineado 1,6</span></div>
               </div>
               <div class="comps" aria-label="Componentes de muestra">
@@ -443,12 +443,12 @@
     <div>
       <span class="path" aria-hidden="true">contacto</span>
       <h2 id="contacto-title" style="margin-top:var(--s2)">¿Buscas a alguien que <span class="hl">diseñe y programe</span> tu producto?</h2>
-      <p class="lede">Busco un puesto 100&nbsp;% remoto como Frontend UX/UI o Design Systems Engineer en una empresa de producto.</p>
+      <p class="lede">Escríbeme por email o por LinkedIn y hablamos de tu proyecto.</p>
     </div>
     <div class="c-list">
       <div class="c-card">
         <img src="/retrato-foto.webp" width="960" height="1200" loading="lazy" decoding="async" alt="Cristina Martínez Franganillo">
-        <div><b>Cristina Martínez Franganillo</b><span>Frontend UX/UI · Design Systems</span><span>Extremadura · en remoto</span></div>
+        <div><b>Cristina Martínez Franganillo</b><span>Frontend UX/UI · Design Systems</span><span>Extremadura, España</span></div>
       </div>
       <div class="c-item"><div><small>Email</small><a class="val" #mailEl href="mailto:crisfranganillo1982&#64;gmail.com">crisfranganillo1982&#64;gmail.com</a></div><button class="copy" type="button" (click)="copyMail(mailEl)">{{ copyLabel() }}</button></div>
       <div class="c-item"><div><small>LinkedIn</small><a class="val" href="https://www.linkedin.com/in/cristina-mart%C3%ADnez-franganillo/" target="_blank" rel="noopener">in/cristina-martínez-franganillo</a></div></div>

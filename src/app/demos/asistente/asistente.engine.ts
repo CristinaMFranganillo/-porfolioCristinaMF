@@ -12,13 +12,13 @@ export interface Trabajador { id: string; nombre: string; puesto: string; vence:
 export interface Cliente { nombre: string; alias: string[]; centroHabitual: string; trabajadores: Trabajador[]; }
 export interface Profesional { nombre: string; genero: 'f' | 'm'; centros: string[]; }
 
-export const CENTROS = ['Mérida Norte', 'Mérida Sur', 'Cáceres Centro', 'Badajoz Oeste'];
+export const CENTROS = ['Sede Norte', 'Sede Sur', 'Sede Centro', 'Sede Oeste'];
 
 export const PROFESIONALES: Profesional[] = [
-  { nombre: 'Dra. Lucía Prieto', genero: 'f', centros: ['Mérida Norte', 'Mérida Sur'] },
-  { nombre: 'Dr. Andrés Gil', genero: 'm', centros: ['Mérida Norte', 'Cáceres Centro'] },
-  { nombre: 'Dra. Marta Calvo', genero: 'f', centros: ['Cáceres Centro', 'Badajoz Oeste'] },
-  { nombre: 'Dr. Javier Soto', genero: 'm', centros: ['Mérida Sur', 'Badajoz Oeste'] },
+  { nombre: 'Lucía Prieto', genero: 'f', centros: ['Sede Norte', 'Sede Sur'] },
+  { nombre: 'Andrés Gil', genero: 'm', centros: ['Sede Norte', 'Sede Centro'] },
+  { nombre: 'Marta Calvo', genero: 'f', centros: ['Sede Centro', 'Sede Oeste'] },
+  { nombre: 'Javier Soto', genero: 'm', centros: ['Sede Sur', 'Sede Oeste'] },
 ];
 
 const NOMBRES = ['Ana Ruiz', 'Pedro Molina', 'Lucía Fernández', 'Javier Sanz', 'Marta Gil', 'Carlos Rey', 'Elena Pozo', 'Raúl Vega',
@@ -36,11 +36,11 @@ function plantilla(cliente: string, n: number): Trabajador[] {
 }
 
 export const CLIENTES: Cliente[] = [
-  { nombre: 'Metalúrgica Guadiana', alias: ['metalurgica', 'guadiana'], centroHabitual: 'Mérida Norte', trabajadores: plantilla('Metalúrgica Guadiana', 18) },
-  { nombre: 'Frutas Vegas Altas', alias: ['frutas', 'vegas altas'], centroHabitual: 'Mérida Sur', trabajadores: plantilla('Frutas Vegas Altas', 12) },
-  { nombre: 'Transportes Sierra Sur', alias: ['transportes', 'sierra sur'], centroHabitual: 'Cáceres Centro', trabajadores: plantilla('Transportes Sierra Sur', 4) },
-  { nombre: 'Cerámicas del Zújar', alias: ['ceramicas', 'zujar'], centroHabitual: 'Badajoz Oeste', trabajadores: plantilla('Cerámicas del Zújar', 7) },
-  { nombre: 'Talleres Ribera', alias: ['talleres', 'ribera'], centroHabitual: 'Mérida Norte', trabajadores: plantilla('Talleres Ribera', 5) },
+  { nombre: 'Metalúrgica Guadiana', alias: ['metalurgica', 'guadiana'], centroHabitual: 'Sede Norte', trabajadores: plantilla('Metalúrgica Guadiana', 18) },
+  { nombre: 'Frutas Vegas Altas', alias: ['frutas', 'vegas altas'], centroHabitual: 'Sede Sur', trabajadores: plantilla('Frutas Vegas Altas', 12) },
+  { nombre: 'Transportes Sierra Sur', alias: ['transportes', 'sierra sur'], centroHabitual: 'Sede Centro', trabajadores: plantilla('Transportes Sierra Sur', 4) },
+  { nombre: 'Cerámicas del Zújar', alias: ['ceramicas', 'zujar'], centroHabitual: 'Sede Oeste', trabajadores: plantilla('Cerámicas del Zújar', 7) },
+  { nombre: 'Talleres Ribera', alias: ['talleres', 'ribera'], centroHabitual: 'Sede Norte', trabajadores: plantilla('Talleres Ribera', 5) },
 ];
 
 /* ——— Contexto e intención ——— */
@@ -52,7 +52,7 @@ export interface Contexto {
   fecha: Date | null;
   franja: Franja | null;
   profesional: string | null;      // nombre concreto
-  genero: 'f' | 'm' | null;        // «con una doctora»
+  genero: 'f' | 'm' | null;        // «con una profesional»
   personas: number;                // nº de citas a buscar
   trabajador: string | null;       // una persona concreta
 }
@@ -95,12 +95,12 @@ export function interpretar(texto: string, previo: Contexto, hoy = new Date()): 
   if (persona) { set('trabajador', persona.nombre, `trabajador: ${persona.nombre}`); set('personas', 1, '1 cita'); }
 
   // Número de personas
-  const n = t.match(/(\d{1,2})\s*(trabajadores|personas|citas|empleados|reconocimientos)/);
+  const n = t.match(/(\d{1,2})\s*(trabajadores|personas|citas|empleados|revisiones)/);
   if (n) { set('personas', Math.min(+n[1], 30), `${n[1]} citas`); ctx.trabajador = null; }
   else if (/(toda la plantilla|todos los (trabajadores|pendientes))/.test(t) && cli) { set('personas', cli.trabajadores.length, `${cli.trabajadores.length} citas`); }
 
   // Centro
-  const ALIAS_CENTRO: [RegExp, string][] = [[/merida norte/, 'Mérida Norte'], [/merida sur/, 'Mérida Sur'], [/caceres/, 'Cáceres Centro'], [/badajoz/, 'Badajoz Oeste'], [/\bmerida\b/, 'Mérida Norte']];
+  const ALIAS_CENTRO: [RegExp, string][] = [[/sede norte/, 'Sede Norte'], [/sede sur/, 'Sede Sur'], [/sede centro/, 'Sede Centro'], [/sede oeste/, 'Sede Oeste']];
   const centro = ALIAS_CENTRO.find(([re]) => re.test(t))?.[1];
   if (centro) set('centro', centro, `centro: ${centro}`);
   else if (/otro centro|en otro sitio|otra sede/.test(t)) {
@@ -130,8 +130,8 @@ export function interpretar(texto: string, previo: Contexto, hoy = new Date()): 
   // Profesional
   const prof = PROFESIONALES.find((p) => t.includes(norm(p.nombre.split(' ').slice(-1)[0])));
   if (prof) set('profesional', prof.nombre, `con ${prof.nombre}`);
-  else if (/(una doctora|con doctora|medica mujer|una mujer)/.test(t)) set('genero', 'f', 'con una doctora');
-  else if (/(un doctor|con doctor|medico hombre|un hombre)/.test(t)) set('genero', 'm', 'con un doctor');
+  else if (/(una profesional|una doctora|con doctora|medica mujer|una mujer)/.test(t)) set('genero', 'f', 'con una profesional');
+  else if (/(un doctor|con doctor|medico hombre|un hombre)/.test(t)) set('genero', 'm', 'con un profesional');
   else if (/(cualquier (medico|profesional)|me da igual (el|la) (medico|doctor))/.test(t)) { set('profesional', null, 'cualquier profesional'); set('genero', null, ''); }
 
   if (/(mas opciones|otras opciones|ver mas|alguna mas|mas huecos)/.test(t) && !cambios.length) return { intencion: 'mas', ctx, cambios };
@@ -147,7 +147,7 @@ function huecosDelDia(centro: string, dia: Date): Hueco[] {
   if (dia.getDay() === 0 || dia.getDay() === 6) return [];
   const horas: [number, number][] = [];
   for (let h = 8; h < 14; h++) horas.push([h, 0], [h, 30]);
-  if (centro !== 'Badajoz Oeste') for (let h = 16; h < 19; h++) horas.push([h, 0], [h, 30]); // Badajoz Oeste cierra por la tarde
+  if (centro !== 'Sede Oeste') for (let h = 16; h < 19; h++) horas.push([h, 0], [h, 30]); // Sede Oeste cierra por la tarde
   const profs = PROFESIONALES.filter((p) => p.centros.includes(centro));
   return horas.flatMap(([h, m]) => profs.map((p) => {
     const f = new Date(dia); f.setHours(h, m, 0, 0);
@@ -172,7 +172,7 @@ export function buscar(ctx: Contexto, hoy = new Date()): Busqueda {
     const tarde = h.fecha.getHours() >= 15;
     if (ctx.franja && (ctx.franja === 'tarde') !== tarde) { s -= 22; motivos.push(`Fuera de la franja de ${ctx.franja}`); }
     if (ctx.profesional && h.profesional !== ctx.profesional) { s -= 15; motivos.push(`Con ${h.profesional}, no con ${ctx.profesional}`); }
-    if (ctx.genero && PROFESIONALES.find((p) => p.nombre === h.profesional)?.genero !== ctx.genero) { s -= 15; motivos.push(ctx.genero === 'f' ? 'Le atiende un doctor' : 'Le atiende una doctora'); }
+    if (ctx.genero && PROFESIONALES.find((p) => p.nombre === h.profesional)?.genero !== ctx.genero) { s -= 15; motivos.push(ctx.genero === 'f' ? 'Le atiende un profesional' : 'Le atiende una profesional'); }
     s -= (h.fecha.getHours() * 60 + h.fecha.getMinutes()) / 600; // desempate: antes es mejor
     return { ...h, ajuste: Math.max(5, Math.min(99, Math.round(s))), motivos };
   }).sort((a, b) => b.ajuste - a.ajuste || a.fecha.getTime() - b.fecha.getTime());
@@ -182,7 +182,7 @@ export function buscar(ctx: Contexto, hoy = new Date()): Busqueda {
   const unicos = puntuados.filter((h) => { const k = h.centro + h.fecha.getTime(); if (vistos.has(k)) return false; vistos.add(k); return true; });
 
   const enFecha = unicos.some((h) => sameDay(h.fecha, fechaPref) && h.centro === centroPref);
-  return { huecos: unicos, sinHuecoEnFecha: !!ctx.fecha && !enFecha, centroCerradoTarde: centroPref === 'Badajoz Oeste' && ctx.franja === 'tarde' };
+  return { huecos: unicos, sinHuecoEnFecha: !!ctx.fecha && !enFecha, centroCerradoTarde: centroPref === 'Sede Oeste' && ctx.franja === 'tarde' };
 }
 
 /** Bloque de citas consecutivas en un mismo centro y día para varias personas. */
