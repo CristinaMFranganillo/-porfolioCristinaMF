@@ -9,11 +9,9 @@
     <div class="top-right">
       <nav aria-label="Principal">
         <ul>
-          <li><a routerLink="/" fragment="trabajo">Trabajo</a></li>
-          <li class="hide-sm"><a routerLink="/" fragment="proceso">Proceso</a></li>
-          <li class="hide-sm"><a routerLink="/" fragment="detalles">Detalles</a></li>
+          <li class="hide-sm"><a routerLink="/" fragment="como-trabajo">Cómo trabajo</a></li>
+          <li><a routerLink="/" fragment="trabajo">Casos</a></li>
           <li class="hide-sm"><a routerLink="/" fragment="trayectoria">Trayectoria</a></li>
-          <li class="hide-sm"><a routerLink="/" fragment="colofon">Esta web</a></li>
           <li><a routerLink="/" fragment="contacto">Contacto</a></li>
         </ul>
       </nav>
@@ -28,85 +26,80 @@
 <section class="hero" id="inicio" aria-labelledby="hero-title">
   <div class="wrap">
     <div>
-      <div class="hero-id">
-        <span class="nota" aria-hidden="true">hola, soy yo<svg viewBox="0 0 26 22"><path d="M3 2 C 6 12, 12 17, 22 19 M15 14 L22 19 L15 21" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <app-retrato-perfil />
-        <p class="hero-name">Cristina Martínez Franganillo <span class="status"><span class="dot" aria-hidden="true"></span>disponible · 100&nbsp;% remoto</span></p>
-      </div>
       <h1 id="hero-title">Diseño la interfaz y la <span class="hl">programo</span>. <span class="tagc" aria-hidden="true">&lt;/&gt;</span></h1>
-      <p class="lede">Soy <strong>Frontend UX/UI &amp; Design Systems Engineer</strong>. Construyo interfaces en <strong>Angular y TypeScript</strong> sobre design systems con tokens, accesibles por defecto (WCAG&nbsp;2.2&nbsp;AA), y conecto Figma con el repositorio mediante Claude Code&nbsp;(MCP) para pasar de diseño a producción en días.</p>
+      <p class="lede">Soy <strong>Frontend UX/UI &amp; Design Systems Engineer</strong>. Convierto un documento funcional en un producto diseñado en Figma y programado en <strong>Angular</strong>, con Claude como compañero de análisis. Accesible por defecto (WCAG&nbsp;2.2&nbsp;AA).</p>
       <div class="cta-row">
         <a class="btn btn-primary" routerLink="/" fragment="trabajo">Ver casos de estudio</a>
-        <a class="btn btn-ghost" routerLink="/" fragment="colofon">Cómo está hecha esta web</a>
+        <a class="btn btn-ghost" routerLink="/" fragment="como-trabajo">Cómo trabajo</a>
       </div>
     </div>
 
-    <div class="spec-card">
+    <figure class="spec-card hero-art">
       <div class="card-head">
-        <span class="file"><i aria-hidden="true"><b></b><b></b><b></b></i>button.component</span>
-        <div class="tabs" role="tablist" appTabs aria-label="Vista del botón primario">
-          <button role="tab" id="h-dis" aria-selected="true" aria-controls="hp-dis">diseño</button>
-          <button role="tab" id="h-tok" aria-selected="false" aria-controls="hp-tok" tabindex="-1">tokens</button>
-          <button role="tab" id="h-cod" aria-selected="false" aria-controls="hp-cod" tabindex="-1">código</button>
+        <span class="file"><i aria-hidden="true"><b></b><b></b><b></b></i>retrato.component</span>
+        <span class="ha-tag">sigue el cursor</span>
+      </div>
+      <div class="ha-body">
+        <div class="ha-stage">
+          <span class="ha-dim" aria-hidden="true"><span>⌀ 200</span></span>
+          <app-retrato-perfil />
         </div>
       </div>
-      <div class="spec-body">
-        <div class="panel" role="tabpanel" id="hp-dis" aria-labelledby="h-dis" tabindex="0">
-          <div class="redline">
-            <span class="rl rl-top" aria-hidden="true"><span>hug · min-height 44</span></span>
-            <span class="rl rl-r" aria-hidden="true">r 8</span>
-            <span class="demo-btn">Guardar cambios</span>
-            <span class="rl rl-h" aria-hidden="true">44</span>
-            <span class="rl rl-pad" aria-hidden="true"><span>24</span></span>
-          </div>
-          <div class="spec-notes">
-            <div><b>fill</b>action/primary</div>
-            <div><b>text</b>label/md · 500</div>
-            <div><b>contraste</b><span class="num" data-ratio="--on-ultra|--ultra">–</span> · AA</div>
-          </div>
-        </div>
-        <div class="panel" role="tabpanel" id="hp-tok" aria-labelledby="h-tok" tabindex="0" hidden>
-          <ul class="token-list">
-            <li><span class="sw" style="background:var(--ultra)"></span><span>color.action.primary</span><span class="v" data-hex="--ultra"></span></li>
-            <li><span class="sw" style="background:var(--on-ultra)"></span><span>color.action.on-primary</span><span class="v" data-hex="--on-ultra"></span></li>
-            <li><span class="sw" style="background:var(--paper)"></span><span>space.inline.lg</span><span class="v">24px</span></li>
-            <li><span class="sw" style="background:var(--paper)"></span><span>radius.control</span><span class="v">8px</span></li>
-          </ul>
-          <span class="badge-aa">✓ WCAG 2.2 · 1.4.3 · 2.5.8 área táctil</span>
-        </div>
-        <div class="panel" role="tabpanel" id="hp-cod" aria-labelledby="h-cod" tabindex="0" hidden>
-<pre class="code"><code [innerHTML]="code['c0']"></code></pre>
-        </div>
-      </div>
-    </div>
+    </figure>
   </div>
 </section>
 
 <div class="facts">
   <div class="wrap">
     <ul>
-      <li><strong class="num">+15 <em>años</em></strong><span>de experiencia en diseño gráfico, producto digital y frontend</span></li>
-      <li><strong>días<em>,</em> no semanas</strong><span>es lo que tardo en llevar un diseño de Figma a producción con Claude Code</span></li>
-      <li><strong class="num">+100</strong><span>módulos OSGi en el workspace Liferay en el que programo a diario</span></li>
+      <li><strong class="num">13 + 3 <em>años</em></strong><span>13 dirigiendo mi estudio de diseño y 3 diseñando y programando producto digital</span></li>
+      <li><strong>horas<em>,</em> no semanas</strong><span>del documento funcional a un diseño completo y documentado</span></li>
+      <li><strong class="num">3</strong><span>demos interactivas que puedes probar aquí mismo, en escritorio, tablet y móvil</span></li>
       <li><strong>AA</strong><span>trabajo con WCAG 2.1 / 2.2 desde el primer boceto, no como revisión final</span></li>
     </ul>
   </div>
 </div>
 
+<section class="block como" id="como-trabajo" aria-labelledby="como-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="path" aria-hidden="true">cómo trabajo</span>
+      <h2 id="como-title">Del documento funcional al producto, sin perder el hilo</h2>
+      <p>Mi punto fuerte es el recorrido completo: analizo, diseño, documento y programo. Uso Claude como compañero de análisis; las decisiones de producto y de diseño son mías.</p>
+    </div>
+    <ol class="steps">
+      <li><h3>Analizar</h3><p>Desmonto el funcional con Claude: perfiles, permisos, estados y reglas. Detecto huecos y riesgos antes de dibujar nada.</p></li>
+      <li><h3>Diseñar</h3><p>Diseño en Figma sobre el design system, con estados de error, vacío y carga, y prototipos navegables.</p></li>
+      <li><h3>Documentar</h3><p>Cada pantalla queda ligada al requisito que cubre, con las decisiones pendientes y su impacto. Desarrollo no tiene que adivinar.</p></li>
+      <li><h3>Programar</h3><p>Programo en Angular y TypeScript, y me adapto a otros stacks cuando el proyecto lo pide. Con Claude Code vía MCP paso de <code>frame</code> a <code>componente</code> y reviso la accesibilidad antes de publicar.</p></li>
+    </ol>
+    <div class="proof">
+      <div class="proof-txt">
+        <span class="case-no">ejemplo reciente · portal interno de trámites de RR. HH.</span>
+        <p>Convertí un funcional técnico en un diseño completo y documentado <b>en horas</b>. Es un proyecto interno, así que no muestro pantallas: cuento el proceso y las cifras.</p>
+      </div>
+      <ul class="proof-stats">
+        <li><strong>6</strong><span>perfiles con permisos distintos</span></li>
+        <li><strong>70+</strong><span>pantallas con estados y errores</span></li>
+        <li><strong>100&nbsp;%</strong><span>requisitos trazados a su pantalla</span></li>
+        <li><strong>12</strong><span>riesgos detectados antes de programar</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <section class="block" id="trabajo" aria-labelledby="trabajo-title">
   <div class="wrap">
     <div class="sec-head">
       <span class="path" aria-hidden="true">casos de estudio</span>
-      <h2 id="trabajo-title">Cinco proyectos, del token a producción</h2>
-      <p>Son productos internos y SaaS B2B en los que he trabajado, así que he recreado las interfaces con datos ficticios. El código es representativo de cómo trabajo; el proceso y las decisiones son reales.</p>
+      <h2 id="trabajo-title">Tres proyectos, del análisis a producción</h2>
+      <p>Son productos internos en los que he trabajado: recreo las interfaces con datos ficticios, pero el proceso y las decisiones son reales.</p>
     </div>
 
     <nav class="case-index" aria-label="Resumen de los casos">
       <a routerLink="/" fragment="c0"><span class="ci-n">01</span><b>Asistente IA de planificación</b><span>UX conversacional · respuestas comparables y reservables</span><em>Demo interactiva</em></a>
       <a routerLink="/" fragment="c3"><span class="ci-n">02</span><b>Intranet de gestión y cobros</b><span>Pantallas densas, filtros, fichas y tablas con columnas fijas</span><em>Demo interactiva</em></a>
-      <a routerLink="/" fragment="cw"><span class="ci-n">03</span><b>Web corporativa</b><span>Arquitectura de información y presupuesto en tres pasos</span><em>Demo interactiva</em></a>
-      <a routerLink="/" fragment="c1"><span class="ci-n">04</span><b>Pipeline Figma ↔ código</b><span>Claude Code (MCP): de semanas a días</span></a>
-      <a routerLink="/" fragment="c2"><span class="ci-n">05</span><b>Design system multiempresa</b><span>Tokens semánticos en Figma y en código</span></a>
+      <a routerLink="/" fragment="c2"><span class="ci-n">03</span><b>Design system multiempresa</b><span>Tokens semánticos en Figma y en código</span></a>
     </nav>
 
     <!-- Caso 0: asistente IA -->
@@ -210,7 +203,6 @@
           <div><dt>problema</dt><dd>Planificar un reconocimiento obligaba a cruzar en varias pantallas cliente, trabajadores, centro, fecha, profesional y restricciones. Un chat de texto libre no bastaba: la IA necesitaba contexto y el usuario, respuestas que pudiera comparar.</dd></div>
           <div><dt>qué hice</dt><dd>Diseñé el flujo completo: inicio guiado, conversación, acciones recomendadas, reservas temporales, trazabilidad e historial, con sus estados, errores y confirmaciones como componentes.</dd></div>
           <div><dt>decisión</dt><dd>Opté por respuestas estructuradas en vez de párrafos: cada opción es una tarjeta con su porcentaje de ajuste y el motivo de lo que no coincide. Además, hice que el usuario elija el tipo de actividad antes de escribir, para reducir la ambigüedad desde el diseño.</dd></div>
-          <div><dt>decisión</dt><dd>Convertí las opciones elegidas en reservas temporales con cuenta atrás, para no bloquear la agenda de otros planificadores.</dd></div>
         </dl>
         <p class="result">Conseguí que buscar, comparar y reservar sea un solo flujo, sin salir de la conversación.</p>
         <span class="demo-links"><a class="btn btn-primary demo-link" routerLink="/demos/asistente">Probar la demo interactiva →</a><a class="btn btn-ghost demo-link" routerLink="/responsive/asistente">Ver en móvil y tablet</a></span>
@@ -304,138 +296,20 @@
       </div>
       <div class="case-info">
         <div><span class="case-no">caso 02 · intranet de gestión</span><h3 id="c3">Aplicaciones de intranet para gestión y cobros</h3></div>
-        <p class="tagline">Diseño y maqueto aplicaciones internas con mucha densidad de datos: bandejas con decenas de filtros, fichas con muchas pestañas, acciones masivas y modales, todo con componentes reutilizables.</p>
+        <p class="tagline">Diseño y programo aplicaciones internas con mucha densidad de datos: bandejas con decenas de filtros, fichas con muchas pestañas, acciones masivas y modales, todo con componentes reutilizables.</p>
         <dl class="ficha">
-          <div><dt>Rol</dt><dd>Diseño y maquetación</dd></div>
+          <div><dt>Rol</dt><dd>Diseño UX/UI y frontend</dd></div>
           <div><dt>Periodo</dt><dd class="num">2023 – hoy</dd></div>
-          <div><dt>Stack</dt><dd>JSP · Portlets MVC · SCSS</dd></div>
+          <div><dt>Stack</dt><dd>HTML semántico · SCSS · componentes</dd></div>
           <div><dt>Pantallas</dt><dd>+20 vistas y modales</dd></div>
         </dl>
         <dl class="story">
           <div><dt>problema</dt><dd>Los equipos de administración trabajan todo el día con cientos de expedientes, filtros cruzados e importes. Cada vista nueva se resolvía con estilos a medida y la información importante quedaba enterrada.</dd></div>
           <div><dt>qué hice</dt><dd>Diseñé el flujo completo de una aplicación de cobros: bandeja de expedientes, ficha de cliente con nueve pestañas, importación de movimientos, ingresos diarios y facturas sin cliente. Lo llevé a componentes globales (filtros, fichas, avisos, modales y DataTables) alineados con los iconos y piezas que ya usaba desarrollo.</dd></div>
           <div><dt>decisión</dt><dd>Puse lo urgente arriba: avisos de estado y cifras clave en la cabecera de la ficha, importes alineados con números tabulares y acciones masivas siempre visibles. Además, preparé las piezas para que cualquier pantalla nueva se maquete solo con clases y tokens.</dd></div>
-          <div><dt>detalle</dt><dd>En los informes con muchas columnas dejé fijas la primera columna, la cabecera de dos niveles y la fila de totales al desplazar en horizontal. Añadí una sombra que solo aparece cuando hay columnas ocultas debajo e hice que la tabla se pueda recorrer con el teclado.</dd></div>
         </dl>
         <p class="result">Logré pantallas densas que se leen de un vistazo y vistas nuevas que se montan con piezas existentes.</p>
         <span class="demo-links"><a class="btn btn-primary demo-link" routerLink="/demos/cobros">Probar la demo interactiva →</a><a class="btn btn-ghost demo-link" routerLink="/demos/cobros/recaptacion">Ver el detalle de la tabla fija</a><a class="btn btn-ghost demo-link" routerLink="/responsive/cobros">Ver en móvil y tablet</a></span>
-      </div>
-    </article>
-
-    <!-- Caso web pública -->
-    <article class="case" aria-labelledby="cw">
-      <div class="plate">
-        <div class="card-head">
-          <span class="file"><i aria-hidden="true"><b></b><b></b><b></b></i>web-corporativa</span>
-          <div class="tabs" role="tablist" appTabs aria-label="Pantallas de la web corporativa">
-            <button role="tab" id="cw-v" aria-selected="true" aria-controls="cw-pv">inicio</button>
-            <button role="tab" id="cw-p" aria-selected="false" aria-controls="cw-pp" tabindex="-1">presupuesto</button>
-            <button role="tab" id="cw-c" aria-selected="false" aria-controls="cw-pc" tabindex="-1">código</button>
-          </div>
-        </div>
-        <div class="plate-body">
-          <div role="tabpanel" id="cw-pv" aria-labelledby="cw-v" tabindex="0"><p class="sr">Inicio de la web: cabecera, propuesta de valor y catálogo de áreas filtrable.</p>
-            <div class="pub" aria-hidden="true">
-              <div class="pub-bar"><b>Normia<span>·</span></b><span class="pub-nav">Áreas · Kit Digital · Blog · Contacto</span><span class="pub-cta">Pide presupuesto</span></div>
-              <div class="pub-hero">
-                <div><span class="pub-eyebrow">Plataforma de cumplimiento</span><b>Todo tu cumplimiento normativo en una sola plataforma.</b><span class="pub-btns"><span class="kb p">Empieza por un área</span><span class="kb s">Ver la plataforma</span></span></div>
-                <div class="pub-shot" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-              </div>
-              <div class="pub-chips" aria-hidden="true"><span class="on">Todas</span><span>Protección y privacidad</span><span>Igualdad y personas</span><span>Sostenibilidad</span></div>
-              <div class="pub-areas">
-                <div><b>Protección de datos</b><span>RGPD y LOPDGDD al día</span></div>
-                <div><b>Canal ético</b><span>Ley 2/2023 de informantes</span></div>
-                <div><b>Plan de igualdad</b><span>Diagnóstico y registro</span></div>
-                <div><b>Huella de carbono</b><span>Cálculo y registro oficial</span></div>
-              </div>
-            </div>
-          </div>
-          <div role="tabpanel" id="cw-pp" aria-labelledby="cw-p" tabindex="0" hidden><p class="sr">Paso 2 del presupuesto: sector, tamaño de plantilla, situación actual y plazo.</p>
-            <div class="wiz" aria-hidden="true">
-              <ol class="wiz-steps">
-                <li class="done"><b>Necesidades</b><span>2 áreas</span></li>
-                <li class="on"><b>Tu organización</b><span>Sector y tamaño</span></li>
-                <li><b>Contacto</b><span>Cómo te contactamos</span></li>
-              </ol>
-              <div class="wiz-card">
-                <span class="pub-eyebrow">Paso 2 de 3</span>
-                <b class="wiz-h">Cuéntanos sobre tu organización</b>
-                <small>Sector</small>
-                <div class="pub-chips"><span>Industria</span><span>Alimentación</span><span class="on">Servicios profesionales</span><span>Salud</span></div>
-                <small>Personas en plantilla</small>
-                <div class="seg"><span>1–9</span><span>10–49</span><span class="on">50–249</span><span>250+</span></div>
-                <small>¿Cuándo lo necesitas?</small>
-                <div class="radios"><span>Sin prisa</span><span class="on">Próximos 3 meses</span><span>Urgente</span></div>
-                <div class="wiz-foot"><span>Atrás</span><span class="kb p">Continuar →</span></div>
-              </div>
-            </div>
-          </div>
-          <div role="tabpanel" id="cw-pc" aria-labelledby="cw-c" tabindex="0" hidden>
-            <pre class="code"><code [innerHTML]="code['web']"></code></pre>
-          </div>
-        </div>
-      </div>
-      <div class="case-info">
-        <div><span class="case-no">caso 03 · web pública corporativa</span><h3 id="cw">Rediseño de la web de una consultora de cumplimiento normativo</h3></div>
-        <p class="tagline">Replanteé la web pública alrededor de la plataforma de la empresa: cada servicio es un área que se puede contratar por separado, y el presupuesto se pide en tres pasos.</p>
-        <dl class="ficha">
-          <div><dt>Rol</dt><dd>UX/UI y arquitectura de información</dd></div>
-          <div><dt>Año</dt><dd class="num">2026</dd></div>
-          <div><dt>Alcance</dt><dd>+17 plantillas · escritorio, tablet y móvil</dd></div>
-          <div><dt>Incluye</dt><dd>Formularios, legales, cookies y 404</dd></div>
-        </dl>
-        <dl class="story">
-          <div><dt>problema</dt><dd>La web anterior presentaba los servicios como una lista suelta y no explicaba que todos se gestionan desde la misma plataforma. Pedir presupuesto era un formulario largo y genérico.</dd></div>
-          <div><dt>qué hice</dt><dd>Hice el inventario de la web actual, propuse una nueva arquitectura con la plataforma en el centro y diseñé todas las plantillas: inicio, área de trabajo, blog, contacto, presupuesto, legales, cookies, 404 y acceso de clientes, con su versión responsive.</dd></div>
-          <div><dt>decisión</dt><dd>Planteé el presupuesto en tres pasos con un resumen lateral de lo elegido: primero qué necesitas, luego tu organización y al final tus datos. Así pido los datos personales solo cuando el usuario ya ha invertido en el proceso.</dd></div>
-        </dl>
-        <p class="result">Conseguí una web que explica el producto como un sistema y convierte la visita en una petición de presupuesto cualificada.</p>
-        <span class="demo-links"><a class="btn btn-primary demo-link" routerLink="/demos/web-publica">Probar la demo interactiva →</a><a class="btn btn-ghost demo-link" routerLink="/responsive/web-publica">Ver en móvil y tablet</a></span>
-      </div>
-    </article>
-
-    <!-- Caso 1 -->
-    <article class="case" aria-labelledby="c1">
-      <div class="plate">
-        <div class="card-head">
-          <span class="file"><i aria-hidden="true"><b></b><b></b><b></b></i>pipeline</span>
-          <div class="tabs" role="tablist" appTabs aria-label="Vista del caso 2">
-            <button role="tab" id="c1-v" aria-selected="true" aria-controls="c1-pv">flujo</button>
-            <button role="tab" id="c1-c" aria-selected="false" aria-controls="c1-pc" tabindex="-1">código</button>
-          </div>
-        </div>
-        <div class="plate-body">
-          <div role="tabpanel" id="c1-pv" aria-labelledby="c1-v" tabindex="0">
-            <div class="flow" role="img" aria-label="Flujo: diseño en Figma con tokens, contexto vía MCP, Claude Code genera el componente, se integra en el workspace Liferay y se valida la accesibilidad antes del merge.">
-              <div class="node"><span class="ic ic-a">Fg</span><div><b>Diseño en Figma</b><small>Componentes y variables con tokens semánticos</small></div></div>
-              <div class="arrow">contexto de diseño vía MCP</div>
-              <div class="node"><span class="ic ic-b">CC</span><div><b>Claude Code</b><small>Lee el frame y genera el componente con las convenciones del repo</small></div></div>
-              <div class="arrow">clases y tokens existentes</div>
-              <div class="node"><span class="ic ic-c">&#123; &#125;</span><div><b>Workspace Liferay DXP 7.4</b><small>Temas SCSS, portlets MVC y JSP en +100 módulos OSGi</small></div></div>
-              <div class="arrow">revisión humana</div>
-              <div class="node"><span class="ic ic-d">✓</span><div><b>Validación</b><small>Contraste, teclado, roles ARIA y responsive antes del merge</small></div></div>
-            </div>
-          </div>
-          <div role="tabpanel" id="c1-pc" aria-labelledby="c1-c" tabindex="0" hidden>
-<pre class="code"><code [innerHTML]="code['c2']"></code></pre>
-          </div>
-        </div>
-      </div>
-      <div class="case-info">
-        <div><span class="case-no">caso 04 · design-to-code + IA</span><h3 id="c1">Pipeline Figma ↔ código con Claude Code</h3></div>
-        <p class="tagline">Conecté Figma con los repositorios de producción para que un cambio de interfaz no tuviera que reescribirse a mano.</p>
-        <dl class="ficha">
-          <div><dt>Rol</dt><dd>Diseño UX/UI y frontend</dd></div>
-          <div><dt>Periodo</dt><dd class="num">2023 – hoy</dd></div>
-          <div><dt>Stack</dt><dd>Claude Code · MCP · Figma</dd></div>
-          <div><dt>Entorno</dt><dd>Liferay DXP 7.4 · SCSS</dd></div>
-        </dl>
-        <dl class="story">
-          <div><dt>problema</dt><dd>Cada pantalla diseñada se traducía a mano a JSP y SCSS dentro de un workspace muy grande. Aparecían diferencias con el diseño y las entregas se alargaban semanas.</dd></div>
-          <div><dt>qué hice</dt><dd>Configuré el entorno MCP para que Claude Code leyera los frames de Figma y documenté las convenciones del repositorio en un <code>CLAUDE.md</code>, de modo que el código generado reutiliza clases y tokens en lugar de inventar estilos.</dd></div>
-          <div><dt>decisión</dt><dd>La IA propone y yo reviso. Ningún componente entra sin pasar la revisión de código y de accesibilidad.</dd></div>
-        </dl>
-        <p class="result">Ahora cierro en días entregas que antes llevaban semanas, con código limpio y validado.</p>
       </div>
     </article>
 
@@ -479,13 +353,13 @@
         </div>
       </div>
       <div class="case-info">
-        <div><span class="case-no">caso 05 · design system</span><h3 id="c2">Design system para productos SaaS multiempresa</h3></div>
+        <div><span class="case-no">caso 03 · design system</span><h3 id="c2">Design system para productos SaaS multiempresa</h3></div>
         <p class="tagline">Creé y hago evolucionar el sistema de diseño que comparten varias aplicaciones de gestión, en Figma y en código.</p>
         <dl class="ficha">
           <div><dt>Rol</dt><dd>Creadora y responsable</dd></div>
           <div><dt>Periodo</dt><dd class="num">2023 – hoy</dd></div>
-          <div><dt>Stack</dt><dd>Figma Variables · SCSS</dd></div>
-          <div><dt>Consumido por</dt><dd>Angular y Liferay</dd></div>
+          <div><dt>Stack</dt><dd>Figma Variables · SCSS · Angular</dd></div>
+          <div><dt>Consumido por</dt><dd>Apps Angular e intranets</dd></div>
         </dl>
         <dl class="story">
           <div><dt>problema</dt><dd>Cada producto resolvía los mismos patrones (filtros, fichas, avisos, tablas) a su manera, con interfaces incoherentes y estilos duplicados.</dd></div>
@@ -498,23 +372,9 @@
 
     <div class="more-work">
       <h3>Otros proyectos</h3>
+      <div class="mw-item"><span class="case-no">web pública · arquitectura de información</span><b>Rediseño de la web de una consultora</b><p>Replanteé la web alrededor de la plataforma de la empresa y llevé el presupuesto a tres pasos, pidiendo los datos personales al final. Más de 17 plantillas, en escritorio, tablet y móvil.</p><a class="mw-link" routerLink="/demos/web-publica">Probar la demo →</a></div>
       <div class="mw-item"><span class="case-no">e-learning · IA generativa</span><b>Generador de actividades formativas con IA</b><p>Desarrollé en TypeScript y Vite una plataforma que genera actividades a partir de un tema y un nivel con Gemini API. Hice que el contenido llegue en un esquema JSON cerrado y se valide antes de pintarse, para que la estructura y la accesibilidad siempre las fije el código.</p><ul class="chips"><li class="chip">TypeScript</li><li class="chip">Vite</li><li class="chip">Gemini API</li><li class="chip">SCORM</li></ul></div>
     </div>
-  </div>
-</section>
-
-<section class="block" id="proceso" aria-labelledby="proceso-title" style="padding-top:0">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="path" aria-hidden="true">proceso</span>
-      <h2 id="proceso-title">Un mismo hilo del boceto a producción</h2>
-    </div>
-    <ol class="steps">
-      <li><h3>Entender</h3><p>Hablo con negocio y con usuarios, ordeno la información y defino los flujos antes de dibujar nada.</p></li>
-      <li><h3>Diseñar con tokens</h3><p>Prototipo en Figma sobre el design system e incluyo los estados de error, vacío y carga.</p></li>
-      <li><h3>Programar</h3><p>Programo en Angular, TypeScript y SCSS. Con Claude Code vía MCP acelero el paso de <code>frame</code> a <code>componente</code>.</p></li>
-      <li><h3>Auditar</h3><p>Reviso contraste, teclado, lector de pantalla y responsive. Si no cumple WCAG AA, no lo publico.</p></li>
-    </ol>
   </div>
 </section>
 
@@ -523,7 +383,7 @@
     <div class="sec-head">
       <span class="path" aria-hidden="true">detalles</span>
       <h2 id="det-title">Los detalles que nadie pide y todos notan</h2>
-      <p>Cuido lo que separa una interfaz correcta de una que se usa a gusto ocho horas al día. Todos estos detalles los he implementado en las demos.</p>
+      <p>Lo que separa una interfaz correcta de una que se usa a gusto ocho horas al día. Están implementados en las demos.</p>
     </div>
     <ul class="det-grid">
       <li>
@@ -535,28 +395,10 @@
         <a routerLink="/demos/cobros/recaptacion">Verlo en la demo →</a>
       </li>
       <li>
-        <div class="det-demo" aria-hidden="true"><span class="mini-num"><b>1.200,00 €</b><b>14.711,74 €</b><b>&nbsp;&nbsp;&nbsp;971,00 €</b></span></div>
-        <h3>Números que se alinean</h3>
-        <p>Uso cifras tabulares alineadas a la derecha y con separador de miles siempre, para que los importes se comparen de un vistazo.</p>
-        <a routerLink="/demos/cobros">Verlo en la demo →</a>
-      </li>
-      <li>
         <div class="det-demo" aria-hidden="true"><span class="mini-err"><i></i><em>Elige el tipo de actuación.</em></span></div>
         <h3>Errores que te llevan al sitio</h3>
         <p>Si un formulario tiene errores, llevo el foco al primer campo inválido con un mensaje que explica cómo corregirlo.</p>
         <a routerLink="/demos/web-publica">Verlo en la demo →</a>
-      </li>
-      <li>
-        <div class="det-demo" aria-hidden="true"><span class="mini-chip">Cambios sin aplicar</span></div>
-        <h3>Filtros que no se disparan solos</h3>
-        <p>En listados pesados, los filtros se preparan y se aplican a la vez. Aviso de los cambios pendientes y doy un botón para restablecer.</p>
-        <a routerLink="/demos/cobros">Verlo en la demo →</a>
-      </li>
-      <li>
-        <div class="det-demo" aria-hidden="true"><span class="mini-undo">↶ Deshacer</span></div>
-        <h3>Deshacer en lugar de confirmar</h3>
-        <p>Cuando una acción es reversible, ofrezco deshacerla al momento en lugar de pedir confirmación.</p>
-        <a routerLink="/demos/asistente">Verlo en la demo →</a>
       </li>
       <li>
         <div class="det-demo" aria-hidden="true"><span class="mini-kbd"><kbd>←</kbd><kbd>→</kbd><kbd>Esc</kbd><kbd>↑</kbd></span></div>
@@ -574,44 +416,6 @@
   </div>
 </section>
 
-<section class="block studio" aria-labelledby="studio-title">
-  <div class="wrap">
-    <div class="studio-grid">
-      <div class="manual">
-        <div class="manual-head"><span>manual de identidad · pág. 04</span><span style="color:var(--spec)">retícula 16 px</span></div>
-        <div class="construct">
-          <svg viewBox="0 0 200 110" role="img" aria-label="Construcción geométrica de un logotipo de ejemplo">
-            <circle cx="70" cy="55" r="40" fill="none" stroke="var(--spec)" stroke-width=".8" stroke-dasharray="3 3"/>
-            <circle cx="130" cy="55" r="40" fill="none" stroke="var(--spec)" stroke-width=".8" stroke-dasharray="3 3"/>
-            <path d="M70 15 A40 40 0 0 0 70 95 L70 15Z" fill="var(--ultra)"/>
-            <path d="M130 15 A40 40 0 0 1 130 95 L130 15Z" fill="var(--ink)"/>
-            <rect x="88" y="35" width="24" height="40" rx="4" fill="var(--spec)"/>
-            <line x1="0" y1="55" x2="200" y2="55" stroke="var(--spec)" stroke-width=".5"/>
-          </svg>
-        </div>
-        <div class="palette-row">
-          <div style="background:var(--ultra);color:var(--on-ultra)">principal<br><span data-hex="--ultra"></span></div>
-          <div style="background:var(--ink);color:var(--paper)">tinta<br><span data-hex="--ink"></span></div>
-          <div style="background:var(--spec);color:var(--paper)">acento<br><span data-hex="--spec"></span></div>
-          <div style="background:var(--sheet);color:var(--ink);border:1px solid var(--rule)">papel<br><span data-hex="--sheet"></span></div>
-        </div>
-      </div>
-      <div>
-        <div class="sec-head" style="margin-bottom:var(--s4)">
-          <span class="path" aria-hidden="true">antes del codigo</span>
-          <h2 id="studio-title">13 años dirigiendo un estudio de diseño</h2>
-          <p>De 2005 a 2018 fundé y dirigí mi propio estudio web y de diseño gráfico. Ahí aprendí a pensar en sistemas antes de que se llamaran design systems.</p>
-        </div>
-        <ul class="studio-list">
-          <li><b>Identidad visual</b><span>Manuales de marca completos, guías de estilo digital y sistemas gráficos escalables.</span></li>
-          <li><b>Producto digital y UX</b><span>Portales corporativos para varios sectores, pensados para la usabilidad, la jerarquía de información y la conversión.</span></li>
-          <li><b>Negocio y clientes</b><span>Trato directo con cuentas corporativas, toma de requisitos, presupuestos y plazos.</span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="block" id="trayectoria" aria-labelledby="tray-title">
   <div class="wrap">
     <div class="sec-head">
@@ -622,45 +426,14 @@
       <li><span class="yr">2023 – hoy</span><div><b>Diseñadora UX/UI y desarrolladora frontend</b><span class="d">Vitaly</span></div><span class="d full">Design system, flujo Figma ↔ código con Claude Code, rediseño de la suite corporativa y accesibilidad WCAG 2.2.</span></li>
       <li><span class="yr">2025</span><div><b>Diseño UX/UI avanzado · Docencia FPE</b><span class="d">Hackea tu Futuro · Cema Informática</span></div><span class="d full">Formación en diseño de producto y capacitación como docente de formación profesional.</span></li>
       <li><span class="yr">2021 – 2023</span><div><b>CFGS Desarrollo de Aplicaciones Web</b><span class="d">IES Albarregas, Mérida</span></div><span class="d full">Formación técnica para dar el salto del diseño al desarrollo frontend profesional.</span></li>
-      <li><span class="yr">2005 – 2018</span><div><b>Fundadora y directora creativa</b><span class="d">Estudio web y de diseño gráfico</span></div><span class="d full">Dirección integral del estudio: identidad visual, portales corporativos y clientes.</span></li>
+      <li><span class="yr">2005 – 2018</span><div><b>Fundadora y directora creativa</b><span class="d">Estudio web y de diseño gráfico</span></div><span class="d full">Identidad visual, manuales de marca y portales corporativos, con trato directo con clientes. Ahí aprendí a pensar en sistemas antes de que se llamaran design systems.</span></li>
       <li><span class="yr">2000 – 2004</span><div><b>Licenciatura en Comunicación Audiovisual</b><span class="d">Universidad de Extremadura</span></div><span class="d full">Base en narrativa visual, composición e imagen.</span></li>
     </ol>
 
     <div class="stack-wrap">
-      <div><h3>Frontend</h3><ul class="chips"><li class="chip">Angular</li><li class="chip">TypeScript</li><li class="chip">SCSS modular</li><li class="chip">HTML semántico</li><li class="chip">CSS Grid / Flexbox</li><li class="chip">Vite</li><li class="chip">Liferay DXP 7.4</li><li class="chip">Git</li></ul></div>
+      <div><h3>Frontend</h3><ul class="chips"><li class="chip">Angular</li><li class="chip">TypeScript</li><li class="chip">SCSS modular</li><li class="chip">HTML semántico</li><li class="chip">CSS Grid / Flexbox</li><li class="chip">Vite</li><li class="chip">Git</li></ul></div>
       <div><h3>Diseño</h3><ul class="chips"><li class="chip">Figma</li><li class="chip">Variables y tokens</li><li class="chip">Prototipado</li><li class="chip">Identidad visual</li><li class="chip">Arquitectura de información</li></ul></div>
       <div><h3>Calidad e IA</h3><ul class="chips"><li class="chip">WCAG 2.1 / 2.2 AA</li><li class="chip">WAI-ARIA</li><li class="chip">Claude Code (MCP)</li><li class="chip">Gemini API</li></ul></div>
-    </div>
-  </div>
-</section>
-
-<section class="block colophon" id="colofon" aria-labelledby="colo-title">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="path" aria-hidden="true">colofon</span>
-      <h2 id="colo-title">Cómo está hecha esta web</h2>
-      <p>Esta web es en sí misma una muestra de mi trabajo. Los datos de esta sección los calcula el navegador en este momento a partir de los tokens del tema activo; cambia el tema y se recalculan.</p>
-    </div>
-    <div class="colo-grid">
-      <div class="tbl-wrap">
-        <table class="contrast">
-          <caption>Contraste de los pares de tokens · tema <span>{{ theme.isDark() ? 'oscuro' : 'claro' }}</span></caption>
-          <thead><tr><th scope="col">Par</th><th scope="col">Tokens</th><th scope="col">Ratio</th><th scope="col">WCAG</th></tr></thead>
-          <tbody>
-            @for (row of contrast(); track row.name) {
-              <tr><td><span class="pair"><span class="pv" [style.color]="'var(' + row.fg + ')'" [style.background]="'var(' + row.bg + ')'">Aa</span>{{ row.name }}</span></td><td class="r">{{ row.fg.slice(2) }} / {{ row.bg.slice(2) }}</td><td class="r">{{ row.ratio }}</td><td><span class="pass" [class.fail]="row.value < 3">{{ row.level }}</span></td></tr>
-            }
-          </tbody>
-        </table>
-      </div>
-      <ul class="checks">
-        <li><span>HTML semántico y landmarks</span><span class="m">header · nav · main · footer</span></li>
-        <li><span>Pestañas navegables con flechas</span><span class="m">patrón ARIA tabs</span></li>
-        <li><span>Foco visible y enlace de salto</span><span class="m">2.4.7 · 2.4.1</span></li>
-        <li><span>Respeta <code>prefers-reduced-motion</code></span><span class="m">2.3.3</span></li>
-        <li><span>Tema claro y oscuro por tokens</span><span class="m"><span>{{ tokenCount() }}</span> tokens</span></li>
-        <li><span>Angular 19 con componentes standalone y signals</span><span class="m num">{{ weight() }}</span></li>
-      </ul>
     </div>
   </div>
 </section>
@@ -673,8 +446,13 @@
       <p class="lede">Busco un puesto 100&nbsp;% remoto como Frontend UX/UI o Design Systems Engineer en una empresa de producto.</p>
     </div>
     <div class="c-list">
+      <div class="c-card">
+        <img src="/retrato-foto.webp" width="960" height="1200" loading="lazy" decoding="async" alt="Cristina Martínez Franganillo">
+        <div><b>Cristina Martínez Franganillo</b><span>Frontend UX/UI · Design Systems</span><span>Extremadura · en remoto</span></div>
+      </div>
       <div class="c-item"><div><small>Email</small><a class="val" #mailEl href="mailto:crisfranganillo1982&#64;gmail.com">crisfranganillo1982&#64;gmail.com</a></div><button class="copy" type="button" (click)="copyMail(mailEl)">{{ copyLabel() }}</button></div>
       <div class="c-item"><div><small>LinkedIn</small><a class="val" href="https://www.linkedin.com/in/cristina-mart%C3%ADnez-franganillo/" target="_blank" rel="noopener">in/cristina-martínez-franganillo</a></div></div>
+      <a class="btn btn-primary c-cv" href="/CV_Cristina_Martinez_Franganillo.pdf" download>Descargar CV <span class="c-cv-meta">PDF · 1 página</span></a>
       <div class="demo-note"><span aria-hidden="true" style="color:var(--spec);font-family:var(--f-mono)">▸</span><p><b>Demo en directo.</b> Te enseño en una sesión técnica cómo paso un diseño de Figma a código de producción con Claude Code.</p></div>
       <p class="sr" aria-live="polite">{{ copyStatus() }}</p>
     </div>
@@ -683,6 +461,6 @@
 </main>
 
 <footer>
-  <div class="wrap"><span>© 2026 Cristina Martínez Franganillo</span><span>Diseñada en Figma y programada en Angular por mí · Geist &amp; Geist Mono</span></div>
+  <div class="wrap"><span>© 2026 Cristina Martínez Franganillo</span><span>Diseñada en Figma y programada en Angular por mí</span></div>
 </footer>
 

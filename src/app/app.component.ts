@@ -1,4 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, PLATFORM_ID, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { ThemeService } from './core/theme.service';
 
@@ -14,6 +15,9 @@ export class AppComponent {
 
   constructor() {
     // Dentro de la vista responsive (iframe) se ocultan las barras de scroll del sistema.
-    if (window.self !== window.top) document.documentElement.classList.add('embed');
+    // En el prerender (servidor) no hay window: solo se comprueba en el navegador.
+    if (isPlatformBrowser(inject(PLATFORM_ID)) && window.self !== window.top) {
+      document.documentElement.classList.add('embed');
+    }
   }
 }

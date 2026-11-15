@@ -45,6 +45,8 @@
             "outputPath": "dist/portfolio-cmf",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "server": "src/main.server.ts",
+            "outputMode": "static",
             "polyfills": [
               "zone.js"
             ],
@@ -59,7 +61,7 @@
             "styles": [
               "@fontsource-variable/geist/index.css",
               "@fontsource-variable/geist-mono/index.css",
-              "@fontsource-variable/fraunces/full.css",
+              "@fontsource-variable/archivo/standard.css",
               "@fontsource/caveat/500.css",
               "@fontsource/caveat/600.css",
               "src/styles.scss"

@@ -1,22 +1,11 @@
-import { AfterViewInit, Component, DestroyRef, ElementRef, effect, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ThemeService } from '../../core/theme.service';
 import { TabsDirective } from '../../shared/tabs.directive';
-import { contrastRatio, formatRatio, wcagLevel } from '../../core/contrast';
 import { CODE } from './code-snippets';
 import { RetratoPerfilComponent } from '../../shared/ui/retrato-perfil.component';
-
-interface ContrastRow { name: string; fg: string; bg: string; value: number; ratio: string; level: string; }
-
-const PAIRS: [string, string, string][] = [
-  ['Texto sobre fondo', '--ink', '--paper'],
-  ['Texto secundario', '--ink-soft', '--paper'],
-  ['Acción primaria', '--on-ultra', '--ultra'],
-  ['Enlace sobre lámina', '--ultra', '--sheet'],
-  ['Anotación', '--spec', '--sheet'],
-  ['Estado correcto', '--ok', '--sheet'],
-];
 
 @Component({
   selector: 'app-home',
@@ -24,40 +13,23 @@ const PAIRS: [string, string, string][] = [
   imports: [RouterLink, TabsDirective, RetratoPerfilComponent],
   templateUrl: './home.component.html',
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent {
   readonly theme = inject(ThemeService);
-  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly sanitizer = inject(DomSanitizer);
+  private readonly doc = inject(DOCUMENT);
 
   /** Fragmentos de código estáticos y escritos por mí: se marcan como seguros. */
   readonly code: Record<string, SafeHtml> = Object.fromEntries(
     Object.entries(CODE).map(([k, v]) => [k, this.sanitizer.bypassSecurityTrustHtml(v)]),
   );
 
-  readonly contrast = signal<ContrastRow[]>([]);
-  readonly tokenCount = signal(0);
-  readonly weight = signal('');
   readonly copyLabel = signal('copiar');
   readonly copyStatus = signal('');
 
   constructor() {
     // Estilo «cuaderno» solo mientras se ve la home (las demos mantienen el suyo)
-    document.documentElement.classList.add('cuaderno');
-    inject(DestroyRef).onDestroy(() => document.documentElement.classList.remove('cuaderno'));
-    // Recalcula el contraste cada vez que cambia el tema
-    effect(() => {
-      this.theme.isDark();
-      queueMicrotask(() => this.measure());
-    });
-  }
-
-  ngAfterViewInit(): void {
-    this.measure();
-    this.tokenCount.set(this.countTokens());
-    const kb = performance.getEntriesByType('resource')
-      .filter((r) => /\.(js|css)$/.test(r.name))
-      .reduce((sum, r) => sum + ((r as PerformanceResourceTiming).transferSize || 0), 0) / 1024;
-    this.weight.set(kb > 0 ? `${kb.toFixed(0)} KB de JS y CSS` : 'carga diferida por rutas');
+    this.doc.documentElement.classList.add('cuaderno');
+    inject(DestroyRef).onDestroy(() => this.doc.documentElement.classList.remove('cuaderno'));
   }
 
   copyMail(el: HTMLElement): void {
@@ -75,36 +47,5 @@ export class HomeComponent implements AfterViewInit {
       this.copyStatus.set('Email copiado');
       setTimeout(() => this.copyLabel.set('copiar'), 1800);
     }, select) ?? select();
-  }
-
-  private token(name: string): string {
-    return getComputedStyle(document.documentElement).getPropertyValue(name).trim().toUpperCase();
-  }
-
-  private measure(): void {
-    this.contrast.set(PAIRS.map(([name, fg, bg]) => {
-      const value = contrastRatio(this.token(fg), this.token(bg));
-      return { name, fg, bg, value, ratio: formatRatio(value), level: wcagLevel(value) };
-    }));
-    const root = this.host.nativeElement;
-    root.querySelectorAll<HTMLElement>('[data-ratio]').forEach((el) => {
-      const [f, b] = (el.dataset['ratio'] ?? '').split('|');
-      el.textContent = formatRatio(contrastRatio(this.token(f), this.token(b)));
-    });
-    root.querySelectorAll<HTMLElement>('[data-hex]').forEach((el) => (el.textContent = this.token(el.dataset['hex'] ?? '')));
-  }
-
-  private countTokens(): number {
-    const tokens = new Set<string>();
-    for (const sheet of Array.from(document.styleSheets)) {
-      try {
-        for (const rule of Array.from(sheet.cssRules)) {
-          if (rule instanceof CSSStyleRule && rule.selectorText === ':root') {
-            for (const p of Array.from(rule.style)) if (p.startsWith('--')) tokens.add(p);
-          }
-        }
-      } catch { /* hojas de otros orígenes */ }
-    }
-    return tokens.size;
   }
 }

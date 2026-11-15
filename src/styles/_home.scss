@@ -140,7 +140,7 @@ dl.story dd{margin:4px 0 0;max-width:62ch}
 /* lámina 2 */
 .ds-grid{display:grid;gap:var(--s3)}
 .swatches{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
-.swatches div{aspect-ratio:1/1.2;border-radius:6px;padding:6px;display:flex;align-items:flex-end;font-family:var(--f-mono);font-size:.625rem;max-width:100%;overflow:hidden}
+.swatches div{aspect-ratio:1/1.2;border-radius:6px;padding:6px;display:flex;align-items:flex-end;font-family:var(--f-mono);font-size:.6875rem;max-width:100%;overflow:hidden}
 .type-scale{display:grid;gap:6px;border-top:1px dashed var(--rule);padding-top:var(--s2)}
 .type-scale div{display:flex;align-items:baseline;gap:12px;min-width:0}
 .type-scale span.t{font-family:var(--f-mono);font-size:.6875rem;color:var(--spec);width:64px;flex:none}
@@ -319,7 +319,7 @@ dl.story dd{margin:4px 0 0;max-width:62ch}
   background-image:linear-gradient(to right,var(--spec-soft) 1px,transparent 1px),linear-gradient(to bottom,var(--spec-soft) 1px,transparent 1px);background-size:16px 16px;display:grid;place-items:center}
 .construct svg{width:62%;height:auto;max-width:100%}
 .palette-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s1)}
-.palette-row div{border-radius:6px;padding:8px;font-family:var(--f-mono);font-size:.625rem;min-height:64px;display:flex;flex-direction:column;justify-content:flex-end;line-height:1.4}
+.palette-row div{border-radius:6px;padding:8px;font-family:var(--f-mono);font-size:.6875rem;min-height:64px;display:flex;flex-direction:column;justify-content:flex-end;line-height:1.4}
 .studio-list{list-style:none;margin:0;padding:0;display:grid;gap:var(--s3)}
 .studio-list li{border-top:1px solid color-mix(in srgb,var(--paper) 20%,transparent);padding-top:var(--s2)}
 .studio-list b{display:block;font-size:var(--t-lg);font-weight:600;letter-spacing:-.02em;margin-bottom:4px}
@@ -485,3 +485,43 @@ app-home {
   .case{scroll-margin-top:80px}
   h3[id]{scroll-margin-top:96px}
 }
+
+/* lámina del retrato ilustrado en el hero */
+.hero-art{margin:0}
+.hero-art .card-head{padding-block:12px}
+.ha-tag{font:var(--t-xs) var(--f-mono);color:var(--spec)}
+.ha-body{display:grid;place-items:center;padding:56px var(--s3) 40px}
+.ha-stage{position:relative}
+.hero-art app-retrato-perfil{--perfil-size:200px}
+.ha-dim{position:absolute;left:0;right:0;top:-26px;border-top:1px solid var(--spec);font:.6875rem var(--f-mono);color:var(--spec);text-align:center}
+.ha-dim::before,.ha-dim::after{content:"";position:absolute;top:-5px;height:9px;border-left:1px solid var(--spec)}
+.ha-dim::before{left:0}.ha-dim::after{right:0}
+.ha-dim span{position:relative;top:-9px;background:var(--sheet);padding:0 6px}
+.hero-art .spec-notes{padding:0 var(--s3) var(--s3)}
+
+/* tarjeta de contacto con la foto real (la foto ya viene en b/n: sin filter, para no apagar el calco) */
+.c-card{display:grid;grid-template-columns:88px minmax(0,1fr);gap:18px;align-items:center;border:1px solid var(--rule);border-radius:8px;padding:16px;background:var(--paper)}
+.c-card img{display:block;width:88px;height:auto;aspect-ratio:4/5;object-fit:cover;box-shadow:var(--calco,6px) var(--calco,6px) 0 var(--accent,var(--ultra))}
+.c-card b{display:block;font-size:var(--t-md);letter-spacing:-.01em;margin-bottom:2px}
+.c-card span{display:block;font:var(--t-xs)/1.6 var(--f-mono);color:var(--ink-soft)}
+@media (max-width:379px){.c-card{grid-template-columns:72px minmax(0,1fr);gap:14px}.c-card img{width:72px}}
+
+/* cifras: en móvil el texto ancho («días, no semanas») no cabe en dos columnas */
+@media (max-width:559px){app-home .facts strong{font-size:clamp(1.125rem,6.2vw,var(--t-2xl));font-stretch:100% !important}app-home .facts li{padding-inline:var(--s2) 12px}}
+
+/* «cómo trabajo»: prueba con cifras de un proyecto interno, sin pantallas */
+.proof{margin-top:var(--s4);display:grid;gap:var(--s4);border:1px solid var(--rule);border-radius:10px;padding:var(--s4);background:var(--sheet)}
+@media (min-width:980px){.proof{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:center;gap:56px}}
+.proof-txt p{margin-top:var(--s1);color:var(--ink-soft);max-width:46ch}
+.proof-txt p b{color:var(--ink)}
+.proof-stats{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s3) var(--s2)}
+@media (min-width:640px){.proof-stats{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.proof-stats li{display:grid;gap:4px;align-content:start}
+.proof-stats strong{font-size:var(--t-2xl);font-weight:600;letter-spacing:-.04em;line-height:1;color:var(--accent,var(--ultra))}
+.proof-stats span{font-size:var(--t-sm);color:var(--ink-soft);line-height:1.4}
+.mw-link{display:inline-block;margin-top:var(--s1);font-weight:500}
+
+/* botón de descarga del CV en contacto */
+.c-cv{justify-content:space-between;width:100%}
+.c-cv-meta{font:var(--t-xs) var(--f-mono);opacity:.8}
+.mw-item + .mw-item{margin-top:var(--s3)}
