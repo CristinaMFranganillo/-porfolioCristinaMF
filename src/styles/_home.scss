@@ -486,18 +486,18 @@ app-home {
   h3[id]{scroll-margin-top:96px}
 }
 
-/* retrato ilustrado en el hero: el recorrido funcional → Figma → Angular alrededor */
-.hero-art{position:relative;width:min(100%,460px);aspect-ratio:460/420;justify-self:center;--ha-accent:var(--accent,var(--ultra))}
-.hero-art app-retrato-perfil{--perfil-size:240px;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:1}
-.ha-path{position:absolute;inset:0;width:100%;height:100%;color:var(--ha-accent);overflow:visible}
-.ha-path path{fill:none;stroke:currentColor;stroke-width:1.6;stroke-dasharray:5 6}
-.ha-label{position:absolute;left:60%;top:0;font:var(--t-xs) var(--f-mono);color:var(--ha-accent);background:var(--paper);padding:0 6px;white-space:nowrap}
+/* retrato ilustrado en el hero: recortado sobre una lámina de acento, con el recorrido funcional → Figma → Angular */
+.hero-art{position:relative;width:min(100%,460px);aspect-ratio:460/500;justify-self:center;--ha-accent:var(--accent,var(--ultra))}
+.ha-figure{position:absolute;inset:0}
+.ha-panel{position:absolute;left:10%;right:4%;top:16%;bottom:0;background-color:var(--ha-accent);border:2px solid var(--rule);
+  background-image:linear-gradient(to right,rgb(255 255 255 / .12) 1px,transparent 1px),linear-gradient(to bottom,rgb(255 255 255 / .12) 1px,transparent 1px);background-size:28px 28px}
+.ha-portrait{position:absolute;left:52%;bottom:0;width:82%;height:auto;transform:translateX(-50%);display:block}
 .ha-chip{position:absolute;z-index:2;display:grid;gap:7px;width:158px;padding:10px 12px;background:var(--sheet);border:2px solid var(--rule);
-  box-shadow:4px 4px 0 var(--ha-accent);animation:ha-float 7s ease-in-out infinite}
+  box-shadow:4px 4px 0 var(--rule);animation:ha-float 7s ease-in-out infinite}
 .ha-k{font:500 .6875rem var(--f-mono);color:var(--ink-soft);letter-spacing:.02em}
-.ha-1{left:-12px;top:7%}
-.ha-2{right:-36px;top:38%;animation-delay:-2.3s}
-.ha-3{left:4%;bottom:3%;animation-delay:-4.6s}
+.ha-1{left:-28px;top:4%}
+.ha-2{right:-44px;top:44%;animation-delay:-2.3s}
+.ha-3{left:-36px;bottom:9%;animation-delay:-4.6s}
 .ha-doc{display:grid;gap:5px}
 .ha-doc i{display:block;height:4px;background:var(--hair,#D6D6D6)}
 .ha-doc i:nth-child(1){width:70%;background:var(--ink)}.ha-doc i:nth-child(3){width:85%}.ha-doc i:nth-child(4){width:55%}
@@ -507,10 +507,10 @@ app-home {
 .ha-3 code{font:500 .8125rem var(--f-mono);color:var(--ha-accent);background:none;padding:0}
 @keyframes ha-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 @media (prefers-reduced-motion:reduce){.ha-chip{animation:none}}
+@media (max-width:979px){.ha-1{left:0}.ha-2{right:0}.ha-3{left:0}}
 @media (max-width:559px){
   .hero-art{aspect-ratio:auto;display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
-  .hero-art app-retrato-perfil{--perfil-size:200px;position:relative;left:auto;top:auto;transform:none;flex:0 0 100%;max-width:200px;margin:0 calc(50% - 100px) 12px}
-  .ha-path,.ha-label{display:none}
+  .ha-figure{position:relative;inset:auto;flex:0 0 100%;max-width:320px;aspect-ratio:460/500;margin:0 auto 12px}
   .ha-chip{position:static;width:auto;flex:1 1 30%;min-width:96px;animation:none;padding:8px}
   .ha-k,.ha-3 code{font-size:.625rem;white-space:nowrap}
 }

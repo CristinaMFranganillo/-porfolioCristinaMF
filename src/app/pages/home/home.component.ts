@@ -5,12 +5,11 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ThemeService } from '../../core/theme.service';
 import { TabsDirective } from '../../shared/tabs.directive';
 import { CODE } from './code-snippets';
-import { RetratoPerfilComponent } from '../../shared/ui/retrato-perfil.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, TabsDirective, RetratoPerfilComponent],
+  imports: [RouterLink, TabsDirective],
   templateUrl: './home.component.html',
 })
 export class HomeComponent {
