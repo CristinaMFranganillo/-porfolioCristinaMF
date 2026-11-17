@@ -541,3 +541,22 @@ app-home {
 .c-cv{justify-content:space-between;width:100%}
 .c-cv-meta{font:var(--t-xs) var(--f-mono);opacity:.8}
 .mw-item + .mw-item{margin-top:var(--s3)}
+
+/* láminas de los casos en móvil: pestañas en una línea, indicadores 2×2, muestras de color legibles */
+@media (max-width:559px){
+  app-home .plate .card-head{flex-wrap:wrap;gap:8px}
+  app-home .plate .tabs{flex:1 1 100%;flex-wrap:nowrap;overflow-x:auto;min-width:0;scrollbar-width:none}
+  app-home .plate .tabs::-webkit-scrollbar{display:none}
+  app-home .plate .tabs button{flex:1 0 auto;white-space:nowrap;padding:5px 6px;font-size:.6875rem}
+  app-home .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  app-home #c3-pf .res th:nth-child(3),app-home #c3-pf .res td:nth-child(3){display:none}
+  app-home #c3-pv .res :is(th,td):is(:nth-child(1),:nth-child(4),:nth-child(6)){display:none}
+  app-home :is(#c3-pv,#c3-pf) .res{min-width:0}
+  app-home #c3-pv .res td:nth-child(3){white-space:normal}
+  app-home .swatches{grid-template-columns:repeat(3,minmax(0,1fr))}
+  app-home .swatches div{aspect-ratio:auto;min-height:56px}
+}
+@media (max-width:379px){
+  app-home :is(#c3-pv,#c3-pf) .res :is(th,td){padding:6px;font-size:.6875rem}
+  app-home #c3-pv .res .est{font-size:.5625rem;padding:1px 4px;letter-spacing:0}
+}
