@@ -128,8 +128,13 @@
   /* contacto */
   .contact{background:transparent;border-top:2px solid var(--rule)}
   .contact h2 .hl{color:var(--accent)}
-  .demo-note{border:2px solid var(--rule);border-radius:0;background:var(--accent-soft);color:var(--ink)}
+  .c-panel{border:2px solid var(--rule);border-radius:0;box-shadow:var(--calco) var(--calco) 0 var(--accent)}
+  .c-panel > * + *{border-top:2px solid var(--rule)}
+  .c-panel .c-card{border:0}
+  .c-points li::before{background:var(--accent)}
+  .demo-note{background:var(--accent-soft);color:var(--ink)}
   .demo-note b{color:var(--ink)}
+  .demo-ask{color:var(--ink);text-decoration-color:var(--accent)}
   .copy{border:2px solid var(--rule);border-radius:0}
   footer{border-top:2px solid var(--rule)}
   footer .wrap{font-family:var(--f-hand);font-size:1.15rem}

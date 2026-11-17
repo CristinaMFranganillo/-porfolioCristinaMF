@@ -27,10 +27,10 @@
   <div class="wrap">
     <div>
       <h1 id="hero-title">Diseño la interfaz y la <span class="hl">programo</span>. <span class="tagc" aria-hidden="true">&lt;/&gt;</span></h1>
-      <p class="lede">Soy <strong>Frontend UX/UI &amp; Design Systems Engineer</strong>. Convierto un documento funcional en un producto diseñado en Figma y programado en <strong>Angular</strong>, con Claude como compañero de análisis. Accesible por defecto (WCAG&nbsp;2.2&nbsp;AA).</p>
+      <p class="lede">Soy <strong>Frontend UX/UI &amp; Design Systems Engineer</strong>. Convierto un documento funcional en un producto diseñado en Figma y programado en <strong>Angular</strong>, con la IA como apoyo en el análisis. Accesible por defecto (WCAG&nbsp;2.2&nbsp;AA).</p>
       <div class="cta-row">
         <a class="btn btn-primary" routerLink="/" fragment="trabajo">Ver casos de estudio</a>
-        <a class="btn btn-ghost" routerLink="/" fragment="como-trabajo">Cómo trabajo</a>
+        <a class="btn btn-ghost" href="/CV_Cristina_Martinez_Franganillo.pdf" download>Descargar CV <span class="c-cv-meta">PDF</span></a>
       </div>
     </div>
 
@@ -54,7 +54,7 @@
     <ul>
       <li><strong class="num">13 + 3 <em>años</em></strong><span>13 dirigiendo mi estudio de diseño y 3 diseñando y programando producto digital</span></li>
       <li><strong>horas<em>,</em> no semanas</strong><span>del documento funcional a un diseño completo y documentado</span></li>
-      <li><strong class="num">3</strong><span>demos interactivas que puedes probar aquí mismo, en escritorio, tablet y móvil</span></li>
+      <li><strong class="num">4</strong><span>demos interactivas que puedes probar aquí mismo, en escritorio, tablet y móvil</span></li>
       <li><strong>AA</strong><span>trabajo con WCAG 2.1 / 2.2 desde el primer boceto, no como revisión final</span></li>
     </ul>
   </div>
@@ -97,26 +97,26 @@
     </div>
 
     <nav class="case-index" aria-label="Resumen de los casos">
-      <a routerLink="/" fragment="c0"><span class="ci-n">01</span><b>Asistente IA de planificación</b><span>UX conversacional · respuestas comparables y reservables</span><em>Demo interactiva</em></a>
-      <a routerLink="/" fragment="c3"><span class="ci-n">02</span><b>Intranet de gestión y cobros</b><span>Pantallas densas, filtros, fichas y tablas con columnas fijas</span><em>Demo interactiva</em></a>
-      <a routerLink="/" fragment="c2"><span class="ci-n">03</span><b>Design system multiempresa</b><span>Tokens semánticos en Figma y en código</span></a>
+      <a routerLink="/" fragment="c1"><span class="ci-n">01</span><b>Asistente IA de planificación</b><span>UX conversacional · respuestas comparables y reservables</span><em>Demo interactiva</em></a>
+      <a routerLink="/" fragment="c2"><span class="ci-n">02</span><b>Intranet de gestión y cobros</b><span>Pantallas densas, filtros, fichas y tablas con columnas fijas</span><em>Demo interactiva</em></a>
+      <a routerLink="/" fragment="c3"><span class="ci-n">03</span><b>Design system multiempresa</b><span>Tokens semánticos en Figma y en código · tres marcas, una librería</span><em>Demo interactiva</em></a>
     </nav>
 
-    <!-- Caso 0: asistente IA -->
-    <article class="case" aria-labelledby="c0">
+    <!-- Caso 1 · asistente IA -->
+    <article class="case" aria-labelledby="c1">
       <div class="plate">
         <div class="card-head">
           <span class="file"><i aria-hidden="true"><b></b><b></b><b></b></i>asistente-ia</span>
           <div class="tabs" role="tablist" appTabs aria-label="Pantallas del asistente">
-            <button role="tab" id="c0-s" aria-selected="false" aria-controls="c0-ps" tabindex="-1">inicio</button>
-            <button role="tab" id="c0-v" aria-selected="true" aria-controls="c0-pv">chat</button>
-            <button role="tab" id="c0-r" aria-selected="false" aria-controls="c0-pr" tabindex="-1">proactivo</button>
-            <button role="tab" id="c0-t" aria-selected="false" aria-controls="c0-pt" tabindex="-1">reservas</button>
-            <button role="tab" id="c0-c" aria-selected="false" aria-controls="c0-pc" tabindex="-1">código</button>
+            <button role="tab" id="c1-s" aria-selected="false" aria-controls="c1-ps" tabindex="-1">inicio</button>
+            <button role="tab" id="c1-v" aria-selected="true" aria-controls="c1-pv">chat</button>
+            <button role="tab" id="c1-r" aria-selected="false" aria-controls="c1-pr" tabindex="-1">proactivo</button>
+            <button role="tab" id="c1-t" aria-selected="false" aria-controls="c1-pt" tabindex="-1">reservas</button>
+            <button role="tab" id="c1-c" aria-selected="false" aria-controls="c1-pc" tabindex="-1">código</button>
           </div>
         </div>
         <div class="plate-body">
-          <div role="tabpanel" id="c0-ps" aria-labelledby="c0-s" tabindex="0" hidden><p class="sr">Pantalla de inicio del asistente: se elige el tipo de actividad antes de escribir.</p>
+          <div role="tabpanel" id="c1-ps" aria-labelledby="c1-s" tabindex="0" hidden><p class="sr">Pantalla de inicio del asistente: se elige el tipo de actividad antes de escribir.</p>
             <div class="ai" aria-hidden="true">
               <div class="ai-top"><span class="ai-title">Chat</span><span class="ai-hint">sin tipo seleccionado</span></div>
               <div class="start">
@@ -128,7 +128,7 @@
               <span class="ai-hint" style="text-align:center">El asistente interpreta cliente, trabajadores, centro, fecha, hora y restricciones, y consulta la disponibilidad real.</span>
             </div>
           </div>
-          <div role="tabpanel" id="c0-pv" aria-labelledby="c0-v" tabindex="0"><p class="sr">Conversación de ejemplo: el asistente devuelve tres opciones de cita con su porcentaje de ajuste y el motivo de lo que no coincide.</p>
+          <div role="tabpanel" id="c1-pv" aria-labelledby="c1-v" tabindex="0"><p class="sr">Conversación de ejemplo: el asistente devuelve tres opciones de cita con su porcentaje de ajuste y el motivo de lo que no coincide.</p>
             <div class="ai" aria-hidden="true">
               <div class="ai-top"><span class="ai-title">Chat <span class="ai-type">Revisión prioritaria</span></span><span class="ai-hint">datos ficticios</span></div>
               <p class="bubble me">Busca cita para Metalúrgica Guadiana en la sede Norte el 14 de junio por la mañana.</p>
@@ -160,7 +160,7 @@
               <div class="composer"><span>Escribe un mensaje…</span><kbd>Enter</kbd></div>
             </div>
           </div>
-          <div role="tabpanel" id="c0-pr" aria-labelledby="c0-r" tabindex="0" hidden><p class="sr">Acciones recomendadas: tarjetas por cliente con prioridad, contexto y una propuesta.</p>
+          <div role="tabpanel" id="c1-pr" aria-labelledby="c1-r" tabindex="0" hidden><p class="sr">Acciones recomendadas: tarjetas por cliente con prioridad, contexto y una propuesta.</p>
             <div class="ai" aria-hidden="true">
               <div class="ai-top"><span class="ai-title">Acciones recomendadas</span><span class="ai-hint">3 pendientes</span></div>
               <div class="recs">
@@ -170,7 +170,7 @@
               </div>
             </div>
           </div>
-          <div role="tabpanel" id="c0-pt" aria-labelledby="c0-t" tabindex="0" hidden><p class="sr">Reservas temporales con cuenta atrás; las que están a punto de caducar se resaltan.</p>
+          <div role="tabpanel" id="c1-pt" aria-labelledby="c1-t" tabindex="0" hidden><p class="sr">Reservas temporales con cuenta atrás; las que están a punto de caducar se resaltan.</p>
             <div aria-hidden="true" class="ranges" aria-label="Filtrar por caducidad"><span class="on">&lt; 15 min</span><span>&lt; 1 h</span><span>&lt; 4 h</span><span>&lt; 48 h</span></div>
             <div class="res-wrap" aria-hidden="true">
               <table class="res">
@@ -185,13 +185,13 @@
               </table>
             </div>
           </div>
-          <div role="tabpanel" id="c0-pc" aria-labelledby="c0-c" tabindex="0" hidden>
+          <div role="tabpanel" id="c1-pc" aria-labelledby="c1-c" tabindex="0" hidden>
 <pre class="code"><code [innerHTML]="code['c1']"></code></pre>
           </div>
         </div>
       </div>
       <div class="case-info">
-        <div><span class="case-no">caso 01 · UX conversacional con IA</span><h3 id="c0">Asistente IA para planificar citas</h3></div>
+        <div><span class="case-no">caso 01 · UX conversacional con IA</span><h3 id="c1">Asistente IA para planificar citas</h3></div>
         <p class="tagline">Diseñé un asistente que entiende peticiones en lenguaje natural, consulta la agenda real y devuelve opciones comparables listas para reservar.</p>
         <dl class="ficha">
           <div><dt>Rol</dt><dd>Diseño UX/UI</dd></div>
@@ -209,20 +209,20 @@
       </div>
     </article>
 
-    <!-- Caso 3 -->
-    <article class="case" aria-labelledby="c3">
+    <!-- Caso 2 · cobros -->
+    <article class="case" aria-labelledby="c2">
       <div class="plate">
         <div class="card-head">
           <span class="file"><i aria-hidden="true"><b></b><b></b><b></b></i>gestion-cobros</span>
           <div class="tabs" role="tablist" appTabs aria-label="Pantallas de la aplicación de gestión">
-            <button role="tab" id="c3-v" aria-selected="true" aria-controls="c3-pv">bandeja</button>
-            <button role="tab" id="c3-f" aria-selected="false" aria-controls="c3-pf" tabindex="-1">ficha</button>
-            <button role="tab" id="c3-k" aria-selected="false" aria-controls="c3-pk" tabindex="-1">componentes</button>
-            <button role="tab" id="c3-c" aria-selected="false" aria-controls="c3-pc" tabindex="-1">código</button>
+            <button role="tab" id="c2-v" aria-selected="true" aria-controls="c2-pv">bandeja</button>
+            <button role="tab" id="c2-f" aria-selected="false" aria-controls="c2-pf" tabindex="-1">ficha</button>
+            <button role="tab" id="c2-k" aria-selected="false" aria-controls="c2-pk" tabindex="-1">componentes</button>
+            <button role="tab" id="c2-c" aria-selected="false" aria-controls="c2-pc" tabindex="-1">código</button>
           </div>
         </div>
         <div class="plate-body">
-          <div role="tabpanel" id="c3-pv" aria-labelledby="c3-v" tabindex="0"><p class="sr">Bandeja de expedientes con filtros, resumen de deuda y acciones masivas.</p>
+          <div role="tabpanel" id="c2-pv" aria-labelledby="c2-v" tabindex="0"><p class="sr">Bandeja de expedientes con filtros, resumen de deuda y acciones masivas.</p>
             <div class="erp" aria-hidden="true">
               <div class="erp-bar"><span class="erp-logo">Gestión de cobros</span><span class="erp-nav">Expedientes · Recobro · Ingresos diarios · Importar movimientos</span></div>
               <div class="erp-body">
@@ -248,7 +248,7 @@
               </div>
             </div>
           </div>
-          <div role="tabpanel" id="c3-pf" aria-labelledby="c3-f" tabindex="0" hidden><p class="sr">Ficha de expediente con aviso de baja, indicadores clave y pestañas.</p>
+          <div role="tabpanel" id="c2-pf" aria-labelledby="c2-f" tabindex="0" hidden><p class="sr">Ficha de expediente con aviso de baja, indicadores clave y pestañas.</p>
             <div class="erp" aria-hidden="true">
               <div class="erp-bar"><span class="erp-logo">Gestión de cobros</span><span class="erp-nav">← Expedientes</span></div>
               <div class="erp-body">
@@ -275,7 +275,7 @@
               </div>
             </div>
           </div>
-          <div role="tabpanel" id="c3-pk" aria-labelledby="c3-k" tabindex="0" hidden><p class="sr">Componentes de la aplicación: botones, campos, estados, avisos y un modal de confirmación.</p>
+          <div role="tabpanel" id="c2-pk" aria-labelledby="c2-k" tabindex="0" hidden><p class="sr">Componentes de la aplicación: botones, campos, estados, avisos y un modal de confirmación.</p>
             <div class="kit" aria-hidden="true">
               <div class="kit-row"><span class="kb p">Botón</span><span class="kb p">+ Botón</span><span class="kb s">Botón</span><span class="kb d">Eliminar</span></div>
               <div class="kit-row"><span class="kf"><small>Etiqueta</small>Seleccionar ▾</span><span class="kf"><small>Fecha (desde / hasta)</small>Desde – Hasta</span><span class="kf"><small>Importe</small>Desde – Hasta €</span></div>
@@ -289,13 +289,13 @@
               <div class="kit-modal"><b>¿Asignar el cliente a la factura?</b><span>Se asignará el cliente Construcciones Alcántara a la factura FP-2026-0012.</span><span class="kit-row" style="justify-content:flex-end"><span class="kb s">Cancelar</span><span class="kb p">Asignar</span></span></div>
             </div>
           </div>
-          <div role="tabpanel" id="c3-pc" aria-labelledby="c3-c" tabindex="0" hidden>
+          <div role="tabpanel" id="c2-pc" aria-labelledby="c2-c" tabindex="0" hidden>
 <pre class="code"><code [innerHTML]="code['c4']"></code></pre>
           </div>
         </div>
       </div>
       <div class="case-info">
-        <div><span class="case-no">caso 02 · intranet de gestión</span><h3 id="c3">Aplicaciones de intranet para gestión y cobros</h3></div>
+        <div><span class="case-no">caso 02 · intranet de gestión</span><h3 id="c2">Aplicaciones de intranet para gestión y cobros</h3></div>
         <p class="tagline">Diseño y programo aplicaciones internas con mucha densidad de datos: bandejas con decenas de filtros, fichas con muchas pestañas, acciones masivas y modales, todo con componentes reutilizables.</p>
         <dl class="ficha">
           <div><dt>Rol</dt><dd>Diseño UX/UI y frontend</dd></div>
@@ -313,18 +313,18 @@
       </div>
     </article>
 
-    <!-- Caso 2 -->
-    <article class="case" aria-labelledby="c2">
+    <!-- Caso 3 · design system -->
+    <article class="case" aria-labelledby="c3">
       <div class="plate">
         <div class="card-head">
           <span class="file"><i aria-hidden="true"><b></b><b></b><b></b></i>design-system</span>
-          <div class="tabs" role="tablist" appTabs aria-label="Vista del caso 3">
-            <button role="tab" id="c2-v" aria-selected="true" aria-controls="c2-pv">fundamentos</button>
-            <button role="tab" id="c2-c" aria-selected="false" aria-controls="c2-pc" tabindex="-1">código</button>
+          <div class="tabs" role="tablist" appTabs aria-label="Vistas del design system">
+            <button role="tab" id="c3-v" aria-selected="true" aria-controls="c3-pv">fundamentos</button>
+            <button role="tab" id="c3-c" aria-selected="false" aria-controls="c3-pc" tabindex="-1">código</button>
           </div>
         </div>
         <div class="plate-body">
-          <div role="tabpanel" id="c2-pv" aria-labelledby="c2-v" tabindex="0">
+          <div role="tabpanel" id="c3-pv" aria-labelledby="c3-v" tabindex="0">
             <div class="ds-grid">
               <div class="swatches" role="img" aria-label="Tokens de color: primario, primario suave, texto, superficie y aviso.">
                 <div style="background:var(--ultra);color:var(--on-ultra)">primary</div>
@@ -347,13 +347,13 @@
               </div>
             </div>
           </div>
-          <div role="tabpanel" id="c2-pc" aria-labelledby="c2-c" tabindex="0" hidden>
+          <div role="tabpanel" id="c3-pc" aria-labelledby="c3-c" tabindex="0" hidden>
 <pre class="code"><code [innerHTML]="code['c3']"></code></pre>
           </div>
         </div>
       </div>
       <div class="case-info">
-        <div><span class="case-no">caso 03 · design system</span><h3 id="c2">Design system para productos SaaS multiempresa</h3></div>
+        <div><span class="case-no">caso 03 · design system</span><h3 id="c3">Design system para productos SaaS multiempresa</h3></div>
         <p class="tagline">Creé y hago evolucionar el sistema de diseño que comparten varias aplicaciones de gestión, en Figma y en código.</p>
         <dl class="ficha">
           <div><dt>Rol</dt><dd>Creadora y responsable</dd></div>
@@ -367,6 +367,7 @@
           <div><dt>decisión</dt><dd>Nombré los tokens por función (<code>action-primary</code>) y no por valor (<code>blue-600</code>). Así, una marca nueva o un tema oscuro cambian valores sin tocar componentes.</dd></div>
         </dl>
         <p class="result">Conseguí una sola fuente de verdad: diseño y desarrollo usan los mismos nombres.</p>
+        <span class="demo-links"><a class="btn btn-primary demo-link" routerLink="/demos/design-system">Probar la demo interactiva →</a><a class="btn btn-ghost demo-link" routerLink="/responsive/design-system">Ver en móvil y tablet</a></span>
       </div>
     </article>
 
@@ -440,20 +441,37 @@
 
 <section class="block contact" id="contacto" aria-labelledby="contacto-title">
   <div class="wrap contact-grid">
-    <div>
+    <div class="c-pitch">
       <span class="path" aria-hidden="true">contacto</span>
-      <h2 id="contacto-title" style="margin-top:var(--s2)">¿Buscas a alguien que <span class="hl">diseñe y programe</span> tu producto?</h2>
-      <p class="lede">Escríbeme por email o por LinkedIn y hablamos de tu proyecto.</p>
+      <h2 id="contacto-title">¿Buscas a alguien que <span class="hl">diseñe y programe</span> tu producto?</h2>
+      <p class="lede">Para un puesto en tu equipo o para un proyecto concreto: cuéntame qué necesitas y lo hablamos.</p>
+      <ul class="c-points">
+        <li>Trabajo en remoto desde Extremadura (CET)</li>
+        <li>Diseño en Figma y programo en Angular</li>
+        <li>Accesibilidad WCAG 2.2 AA desde el primer boceto</li>
+      </ul>
     </div>
-    <div class="c-list">
+
+    <div class="c-panel">
       <div class="c-card">
         <img src="/retrato-foto.webp" width="960" height="1200" loading="lazy" decoding="async" alt="Cristina Martínez Franganillo">
-        <div><b>Cristina Martínez Franganillo</b><span>Frontend UX/UI · Design Systems</span><span>Extremadura, España</span></div>
+        <div><b>Cristina Martínez Franganillo</b><span>Frontend UX/UI · Design Systems</span><span>Extremadura, España · remoto</span></div>
       </div>
-      <div class="c-item"><div><small>Email</small><a class="val" #mailEl href="mailto:crisfranganillo1982&#64;gmail.com">crisfranganillo1982&#64;gmail.com</a></div><button class="copy" type="button" (click)="copyMail(mailEl)">{{ copyLabel() }}</button></div>
-      <div class="c-item"><div><small>LinkedIn</small><a class="val" href="https://www.linkedin.com/in/cristina-mart%C3%ADnez-franganillo/" target="_blank" rel="noopener">in/cristina-martínez-franganillo</a></div></div>
-      <a class="btn btn-primary c-cv" href="/CV_Cristina_Martinez_Franganillo.pdf" download>Descargar CV <span class="c-cv-meta">PDF · 1 página</span></a>
-      <div class="demo-note"><span aria-hidden="true" style="color:var(--spec);font-family:var(--f-mono)">▸</span><p><b>Demo en directo.</b> Te enseño en una sesión técnica cómo paso un diseño de Figma a código de producción con Claude Code.</p></div>
+
+      <div class="c-main">
+        <a class="btn btn-primary c-mail" href="mailto:crisfranganillo1982&#64;gmail.com?subject=Contacto%20desde%20tu%20portfolio">Escríbeme un email <span aria-hidden="true">→</span></a>
+        <div class="c-addr"><span class="val" #mailEl>crisfranganillo1982&#64;gmail.com</span><button class="copy" type="button" (click)="copyMail(mailEl)" aria-label="Copiar email">{{ copyLabel() }}</button></div>
+      </div>
+
+      <div class="c-secondary">
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/cristina-mart%C3%ADnez-franganillo/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span><span class="sr"> (se abre en otra pestaña)</span></a>
+        <a class="btn btn-ghost c-cv" href="/CV_Cristina_Martinez_Franganillo.pdf" download>Descargar CV <span class="c-cv-meta">PDF</span></a>
+      </div>
+
+      <div class="demo-note">
+        <p><b>Demo en directo.</b> Te enseño en una sesión técnica cómo paso un diseño de Figma a código de producción con Claude Code.</p>
+        <a class="demo-ask" href="mailto:crisfranganillo1982&#64;gmail.com?subject=Quiero%20ver%20la%20demo%20en%20directo">Pedir una demo <span aria-hidden="true">→</span></a>
+      </div>
       <p class="sr" aria-live="polite">{{ copyStatus() }}</p>
     </div>
   </div>

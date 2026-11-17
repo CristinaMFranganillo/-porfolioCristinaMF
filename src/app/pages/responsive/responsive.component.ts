@@ -11,6 +11,7 @@ const DEMOS: Record<string, { titulo: string; ruta: string }> = {
   'asistente': { titulo: 'Asistente IA de planificación', ruta: '/demos/asistente' },
   'cobros': { titulo: 'Intranet de gestión de cobros', ruta: '/demos/cobros' },
   'web-publica': { titulo: 'Web corporativa', ruta: '/demos/web-publica' },
+  'design-system': { titulo: 'Design system multiempresa', ruta: '/demos/design-system' },
 };
 
 /**

@@ -1,0 +1,157 @@
+<app-demo-bar title="Caso 03 · Design system multiempresa (marcas ficticias)" responsive="design-system" />
+
+<main class="ds">
+  <header class="intro">
+    <p class="eyebrow">design system · tokens semánticos</p>
+    <h1>Mismos componentes, tres marcas</h1>
+    <p>Cada empresa del grupo tiene su marca, y todas comparten la misma librería. Cambia la marca, el tema o la densidad: <strong>ningún componente cambia, solo los valores de sus tokens</strong>. El inspector muestra a qué valor apunta cada token y comprueba el contraste en vivo.</p>
+  </header>
+
+  <div class="layout">
+    <!-- Controles -->
+    <aside class="ctrls" aria-label="Configuración del sistema">
+      <fieldset>
+        <legend>Marca</legend>
+        <div class="brands">
+          @for (m of marcas; track m.id) {
+            <label class="brand" [class.on]="marcaId() === m.id">
+              <input type="radio" name="marca" [value]="m.id" [checked]="marcaId() === m.id" (change)="marcaId.set(m.id)">
+              <span class="dot" [attr.data-escala]="m.escala" aria-hidden="true"></span>
+              <span><b>{{ m.nombre }}</b><small>{{ m.sector }} · radio {{ m.radio }} px</small></span>
+            </label>
+          }
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Tema</legend>
+        <div class="seg">
+          <label [class.on]="tema() === 'claro'"><input type="radio" name="tema" value="claro" [checked]="tema() === 'claro'" (change)="tema.set('claro')">Claro</label>
+          <label [class.on]="tema() === 'oscuro'"><input type="radio" name="tema" value="oscuro" [checked]="tema() === 'oscuro'" (change)="tema.set('oscuro')">Oscuro</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Densidad</legend>
+        <div class="seg">
+          <label [class.on]="densidad() === 'comoda'"><input type="radio" name="densidad" value="comoda" [checked]="densidad() === 'comoda'" (change)="densidad.set('comoda')">Cómoda</label>
+          <label [class.on]="densidad() === 'compacta'"><input type="radio" name="densidad" value="compacta" [checked]="densidad() === 'compacta'" (change)="densidad.set('compacta')">Compacta</label>
+        </div>
+      </fieldset>
+
+      <div class="score" [class.ok]="cumplen() === pares().length">
+        <b>{{ cumplen() }}/{{ pares().length }}</b>
+        <span>pares de contraste cumplen WCAG AA en esta combinación</span>
+      </div>
+      <p class="sr" aria-live="polite">{{ resumen() }}</p>
+      <p class="note">3 marcas × 2 temas × 2 densidades = <b>12 combinaciones</b>, todas validadas con la misma regla.</p>
+    </aside>
+
+    <!-- Vista previa: solo componentes que leen tokens -->
+    <section class="preview" [style]="vars()" [attr.data-theme]="tema()" aria-labelledby="pv-title">
+      <div class="app">
+        <div class="app-bar">
+          <span class="logo"><span class="mark" aria-hidden="true"></span>{{ marca().nombre }}</span>
+          <span class="app-nav" aria-hidden="true">Expedientes · Centros · Informes</span>
+        </div>
+        <div class="app-body">
+          <div class="app-head">
+            <h2 id="pv-title">Expedientes</h2>
+            <div class="actions">
+              <button type="button" class="btn secondary">Exportar</button>
+              <button type="button" class="btn primary">+ Nuevo expediente</button>
+            </div>
+          </div>
+
+          <div class="chips" role="group" aria-label="Filtrar expedientes">
+            <button type="button" class="chip" [attr.aria-pressed]="filtro() === 'todos'" (click)="filtro.set('todos')">Todos</button>
+            <button type="button" class="chip" [attr.aria-pressed]="filtro() === 'pendientes'" (click)="filtro.set('pendientes')">Pendientes</button>
+            <button type="button" class="chip" [attr.aria-pressed]="filtro() === 'cerrados'" (click)="filtro.set('cerrados')">Cerrados</button>
+          </div>
+
+          <div class="grid2">
+            <div class="field">
+              <label for="ds-cif">CIF del cliente</label>
+              <input id="ds-cif" class="input" value="B1234" aria-invalid="true" aria-describedby="ds-cif-err">
+              <span class="err" id="ds-cif-err">El CIF debe tener 9 caracteres, por ejemplo B12345678.</span>
+            </div>
+            <div class="field">
+              <label for="ds-centro">Centro de trabajo</label>
+              <input id="ds-centro" class="input" value="Sede Norte · Mérida">
+              <span class="help">Se usa para calcular la disponibilidad.</span>
+            </div>
+          </div>
+
+          <div class="alerts">
+            <p class="alert warning"><b>Atención.</b> El cliente tiene una solicitud de baja en curso.</p>
+            <p class="alert success"><b>Guardado.</b> La actuación se ha creado correctamente.</p>
+          </div>
+
+          <div class="table-wrap">
+            <table class="table">
+              <caption class="sr">Expedientes de ejemplo</caption>
+              <thead><tr><th scope="col">Exp.</th><th scope="col">Cliente</th><th scope="col">Estado</th><th scope="col" class="r">Importe</th></tr></thead>
+              <tbody>
+                @for (r of visibles(); track r.exp) {
+                  <tr [class.sel]="$first"><td class="num">{{ r.exp }}</td><td><a href="#" (click)="$event.preventDefault()">{{ r.cliente }}</a></td><td><span class="badge" [class.done]="r.estado === 'Cerrado'">{{ r.estado }}</span></td><td class="r num">{{ r.importe }}</td></tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Inspector -->
+  <section class="inspector" aria-labelledby="ins-title">
+    <div class="ins-head">
+      <div>
+        <h2 id="ins-title">Inspector de tokens</h2>
+        <p>Componente → token semántico → primitivo. Los componentes nunca usan un primitivo ni un valor suelto.</p>
+      </div>
+      <div class="seg small" role="group" aria-label="Tipo de token">
+        <button type="button" [attr.aria-pressed]="vistaTokens() === 'color'" (click)="vistaTokens.set('color')">Color</button>
+        <button type="button" [attr.aria-pressed]="vistaTokens() === 'dimension'" (click)="vistaTokens.set('dimension')">Densidad y forma</button>
+      </div>
+    </div>
+
+    <div class="ins-grid">
+      <div class="tbl-wrap" tabindex="0" aria-label="Tabla de tokens, desplazable">
+        <table class="tokens">
+          <caption class="sr">Tokens semánticos de {{ marca().nombre }} en tema {{ tema() }}</caption>
+          <thead><tr><th scope="col">Token semántico</th><th scope="col">Apunta a</th><th scope="col">Valor</th><th scope="col">Lo usan</th></tr></thead>
+          <tbody>
+            @for (t of (vistaTokens() === 'color' ? color() : dims()); track t.token) {
+              <tr>
+                <td><code>--{{ t.token }}</code></td>
+                <td><code class="ref">{{ t.ref }}</code></td>
+                <td class="val">@if (vistaTokens() === 'color') {<span class="sw" [style.background]="t.valor" aria-hidden="true"></span>}<code>{{ t.valor }}</code></td>
+                <td class="uso">{{ t.uso }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="side">
+        <h3>Contraste en vivo</h3>
+        <ul class="pairs">
+          @for (p of pares(); track p.desc) {
+            <li [class.fail]="!p.ok">
+              <span class="pv" [style.color]="vars()['--' + p.a]" [style.background]="vars()['--' + p.b]" aria-hidden="true">Aa</span>
+              <span class="pd">{{ p.desc }}</span>
+              <span class="pr num">{{ p.texto }}</span>
+              <span class="pl">{{ p.ok ? (p.min === 3 ? 'AA no textual' : 'AA') : 'No cumple' }}</span>
+            </li>
+          }
+        </ul>
+
+        <div class="code-box">
+          <div class="code-head"><h3>CSS generado</h3><button type="button" class="copy" (click)="copiar()">{{ copiado() || 'Copiar' }}</button></div>
+          <pre class="code" tabindex="0" aria-label="CSS generado para la combinación actual"><code>{{ css() }}</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

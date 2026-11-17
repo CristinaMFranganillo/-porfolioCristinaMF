@@ -26,9 +26,9 @@ export class HomeComponent {
   readonly copyStatus = signal('');
 
   constructor() {
-    // Estilo «cuaderno» solo mientras se ve la home (las demos mantienen el suyo)
-    this.doc.documentElement.classList.add('cuaderno');
-    inject(DestroyRef).onDestroy(() => this.doc.documentElement.classList.remove('cuaderno'));
+    // Estilo «producto limpio» solo mientras se ve la home (las demos mantienen el suyo)
+    this.doc.documentElement.classList.add('limpio');
+    inject(DestroyRef).onDestroy(() => this.doc.documentElement.classList.remove('limpio'));
   }
 
   copyMail(el: HTMLElement): void {

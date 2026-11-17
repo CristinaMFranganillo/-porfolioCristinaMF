@@ -26,6 +26,11 @@ export const routes: Routes = [
     loadComponent: () => import('./demos/web/web.component').then((m) => m.WebComponent),
   },
   {
+    path: 'demos/design-system',
+    title: 'Demo · Design system multiempresa',
+    loadComponent: () => import('./demos/design-system/design-system.component').then((m) => m.DesignSystemComponent),
+  },
+  {
     path: 'responsive/:demo',
     title: 'Vista responsive de las demos',
     loadComponent: () => import('./pages/responsive/responsive.component').then((m) => m.ResponsiveComponent),
