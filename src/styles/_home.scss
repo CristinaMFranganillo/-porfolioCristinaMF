@@ -464,9 +464,11 @@ app-home {
   @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-60px)}}
   .mini-num{display:grid;justify-items:end;font:500 .875rem var(--f-sans);font-variant-numeric:tabular-nums;color:var(--ink);gap:2px}
   .mini-num b{font-weight:500;white-space:pre}
-  .mini-err{display:grid;gap:4px;width:70%}
-  .mini-err i{height:28px;border:1.5px solid var(--spec);border-radius:6px;background:var(--sheet);box-shadow:0 0 0 3px var(--spec-soft)}
-  .mini-err em{font-style:normal;font-size:.75rem;color:var(--spec)}
+  .mini-err{display:grid;gap:4px;width:74%}
+  .mini-err small{font-size:.6875rem;font-weight:600;color:var(--ink)}
+  .mini-err i{height:26px;border:1.5px solid var(--danger,var(--spec));border-radius:6px;background:var(--sheet);box-shadow:0 0 0 3px color-mix(in srgb,var(--danger,var(--spec)) 18%,transparent)}
+  .mini-err em{font-style:normal;font-size:.6875rem;color:var(--danger,var(--spec));display:flex;gap:4px;align-items:center}
+  .mini-err em::before{content:"!";display:grid;place-items:center;width:12px;height:12px;border-radius:50%;background:var(--danger,var(--spec));color:#fff;font:700 .5rem var(--f-sans);flex:none}
   .mini-chip{font-size:.75rem;font-weight:600;color:var(--spec);border:1px solid var(--spec);border-radius:999px;padding:3px 10px}
   .mini-undo{font:500 .8125rem var(--f-sans);border:1px solid var(--rule);background:var(--sheet);border-radius:6px;padding:6px 12px;color:var(--ultra)}
   .mini-kbd{display:flex;gap:6px}

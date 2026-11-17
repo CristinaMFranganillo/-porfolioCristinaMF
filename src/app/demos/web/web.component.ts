@@ -1,4 +1,5 @@
-import { Component, ElementRef, computed, signal, viewChild } from '@angular/core';
+import { Component, ElementRef, afterNextRender, computed, inject, signal, viewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { DemoBarComponent } from '../../shared/ui/demo-bar.component';
 import { AREAS, Area, CATEGORIAS, Categoria, IMPLANTADO, PLANTILLAS, PLAZOS, SECTORES } from './web.data';
@@ -31,6 +32,19 @@ export class WebComponent {
   comentario = '';
   referencia = '';
   private readonly titulo = viewChild<ElementRef<HTMLElement>>('titulo');
+  /** Enlace directo desde el portfolio (?ver=errores): abre el paso 2 enviado vacío para enseñar la gestión de errores. */
+  readonly demoErrores = signal(false);
+
+  constructor() {
+    if (inject(ActivatedRoute).snapshot.queryParamMap.get('ver') === 'errores') {
+      this.elegidas.set(new Set([AREAS[0].id]));
+      this.vista.set('presupuesto');
+      this.paso.set(2);
+      this.intento.set(true);
+      this.demoErrores.set(true);
+      afterNextRender(() => document.getElementById('w-' + Object.keys(this.errores())[0])?.focus());
+    }
+  }
 
   readonly visibles = computed(() => {
     const c = this.categoria(); const q = this.busqueda().trim().toLowerCase();

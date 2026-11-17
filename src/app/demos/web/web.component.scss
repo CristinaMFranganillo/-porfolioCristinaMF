@@ -161,3 +161,9 @@ input[type=radio],input[type=checkbox]{accent-color:var(--deep)}
   .cards,.checks{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){.menu{animation:none}.burger i{transition:none}}
+
+/* Aviso del enlace directo desde el portfolio (?ver=errores) */
+.demo-hint{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;margin-bottom:20px;padding:12px 14px;border-radius:10px;background:color-mix(in srgb,var(--deep) 7%,var(--sheet));border:1px solid color-mix(in srgb,var(--deep) 22%,var(--rule));font-size:.875rem;line-height:1.5}
+.demo-hint b{font-weight:600}
+.demo-hint button{flex:none;font:600 .8125rem var(--f-sans);background:transparent;border:1px solid var(--rule);border-radius:8px;padding:6px 10px;color:var(--ink);cursor:pointer}
+.demo-hint button:focus-visible{outline:2px solid var(--deep);outline-offset:2px}

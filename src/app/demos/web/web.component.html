@@ -104,6 +104,12 @@
       }
 
       <div class="wiz-main">
+        @if (demoErrores() && intento()) {
+          <div class="demo-hint" role="note">
+            <p><b>Así se ven los errores.</b> Te he traído al paso 2 con el formulario enviado vacío: el foco está en el primer campo con error y cada mensaje explica cómo corregirlo.</p>
+            <button type="button" (click)="demoErrores.set(false)">Entendido</button>
+          </div>
+        }
         @switch (paso()) {
           @case (1) {
             <p class="eyebrow">Paso 1 de 3</p>

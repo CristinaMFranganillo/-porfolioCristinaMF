@@ -326,12 +326,12 @@
         <div class="plate-body">
           <div role="tabpanel" id="c3-pv" aria-labelledby="c3-v" tabindex="0">
             <div class="ds-grid">
-              <div class="swatches" role="img" aria-label="Tokens de color: primario, primario suave, texto, superficie y aviso.">
+              <div class="swatches" role="img" aria-label="Tokens de color: primario, primario suave, texto, superficie y error.">
                 <div style="background:var(--ultra);color:var(--on-ultra)">primary</div>
                 <div style="background:var(--ultra-soft);color:var(--ultra)">primary-soft</div>
                 <div style="background:var(--ink);color:var(--paper)">text</div>
                 <div style="background:var(--paper);color:var(--ink);border:1px solid var(--rule)">surface</div>
-                <div style="background:var(--spec-soft);color:var(--spec)">warning</div>
+                <div style="background:var(--spec-soft);color:var(--spec)">danger</div>
               </div>
               <div class="type-scale" aria-label="Escala tipográfica">
                 <div><span class="t">display/32</span><span class="x" style="font-size:2rem">Gestión</span></div>
@@ -396,16 +396,16 @@
         <a routerLink="/demos/cobros/recaptacion">Verlo en la demo →</a>
       </li>
       <li>
-        <div class="det-demo" aria-hidden="true"><span class="mini-err"><i></i><em>Elige el tipo de actuación.</em></span></div>
+        <div class="det-demo" aria-hidden="true"><span class="mini-err"><small>Tipo de actuación *</small><i></i><em>Elige el tipo de actuación para continuar.</em></span></div>
         <h3>Errores que te llevan al sitio</h3>
         <p>Si un formulario tiene errores, llevo el foco al primer campo inválido con un mensaje que explica cómo corregirlo.</p>
-        <a routerLink="/demos/web-publica">Verlo en la demo →</a>
+        <a routerLink="/demos/web-publica" [queryParams]="{ ver: 'errores' }">Verlo en la demo →</a>
       </li>
       <li>
         <div class="det-demo" aria-hidden="true"><span class="mini-kbd"><kbd>←</kbd><kbd>→</kbd><kbd>Esc</kbd><kbd>↑</kbd></span></div>
         <h3>Todo funciona con teclado</h3>
         <p>Pestañas con flechas, modales que atrapan y devuelven el foco, tablas desplazables con teclado y atajos en el chat: todo se usa sin ratón.</p>
-        <a routerLink="/demos/asistente">Verlo en la demo →</a>
+        <a routerLink="/demos/cobros/expediente/185334">Verlo en la demo →</a>
       </li>
     </ul>
     <a class="resp-banner" routerLink="/responsive/cobros">

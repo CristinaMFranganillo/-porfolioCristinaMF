@@ -8,17 +8,19 @@
   --ink:#0A0A0B;--ink-soft:#5C5C66;--rule:#E7E7EB;--hair:#E7E7EB;
   --accent:#2B44E8;--accent-soft:#EEF0FE;--on-accent:#FFFFFF;
   --ultra:var(--accent);--ultra-soft:var(--accent-soft);--on-ultra:var(--on-accent);
-  --spec:var(--accent);--spec-soft:var(--accent-soft);--ok:#00704A;
+  /* --spec es el color de atención/error de las láminas (alertas, prioridad alta, urgencia): rojo, no el acento */
+  --spec:#C62828;--spec-soft:#FDECEC;--ok:#00704A;--danger:#C62828;
   --code-bg:#0E1024;--code-fg:#ECEEFB;--code-k:#9AA8FF;--code-a:#FFB38A;--code-s:#9EE0B8;--code-c:#8C93B8;
   --radius:10px;--r-card:14px;
   --shadow-sm:0 1px 2px rgb(16 16 24 / .05);
   --shadow-md:0 1px 2px rgb(16 16 24 / .04),0 12px 32px -16px rgb(16 16 24 / .14);
 }
 @mixin limpio-oscuro{
-  --paper:#0B0B0D;--sheet:#131316;--subtle:#17171B;
-  --ink:#F2F2F4;--ink-soft:#A3A3AD;--rule:#26262C;--hair:#26262C;
+  /* en oscuro las tarjetas se elevan: fondo < banda suave < tarjeta */
+  --paper:#0B0B0D;--subtle:#101013;--sheet:#17171B;
+  --ink:#F2F2F4;--ink-soft:#A3A3AD;--rule:#2A2A31;--hair:#2A2A31;
   --accent:#8C9AFF;--accent-soft:#1A1F45;--on-accent:#0B0B0D;
-  --ok:#6FD6A0;--code-bg:#08090F;color-scheme:dark;
+  --spec:#FF8A80;--spec-soft:#3A1614;--ok:#6FD6A0;--danger:#FF8A80;--code-bg:#08090F;color-scheme:dark;
   --shadow-sm:0 1px 2px rgb(0 0 0 / .4);
   --shadow-md:0 1px 2px rgb(0 0 0 / .4),0 16px 40px -20px rgb(0 0 0 / .7);
 }
@@ -104,13 +106,18 @@
   .tabs button[aria-selected="true"]{background:var(--sheet);color:var(--ink);box-shadow:0 1px 2px rgb(16 16 24 / .12),0 0 0 1px var(--rule)}
   .swatches div,.c-btn,.c-input,.c-chip,.c-alert{border-radius:8px}
   .type-scale span.t{color:var(--ink-soft)}
+  /* barra de la app de cobros: azul tinta fijo, legible en claro y en oscuro */
+  .erp-bar{background:color-mix(in srgb,var(--accent) 22%,#0E0F1A);color:#FFFFFF}
+  .mini-sticky .sh{background:linear-gradient(to right,color-mix(in srgb,#000 45%,transparent),transparent)}
 
   .result{border:0;border-left:3px solid var(--accent);border-radius:0 10px 10px 0;background:var(--accent-soft);color:var(--ink);font-weight:500}
   .result::before{content:none}
   .result{grid-template-columns:1fr}
 
   /* detalles */
-  .det-demo{border-radius:10px;background:var(--subtle);border:1px solid var(--rule)}
+  .det-demo{border-radius:10px;background:var(--subtle);border:1px solid var(--rule);height:96px}
+  .mini-sticky .fixed{background:var(--accent-soft);color:var(--accent)}
+  .mini-kbd kbd{border-radius:6px;box-shadow:var(--shadow-sm)}
   .resp-banner{border-radius:var(--r-card);background:var(--subtle);color:var(--ink);border:1px solid var(--rule)}
   .resp-banner .rb-txt span{color:var(--ink-soft)}
   .resp-banner .rb-go{color:var(--accent)}
