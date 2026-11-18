@@ -1,5 +1,5 @@
 /* Estilos de la página de inicio, encapsulados bajo app-home para que no afecten a las demos. */
-app-home {
+app-home, app-caso-storyin {
   display: block;
 /* cabecera */
 header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 86%,transparent);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--rule)}
@@ -447,7 +447,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
 }
 
 /* Sección «Detalles» */
-app-home {
+app-home, app-caso-storyin {
   .demo-links{display:flex;gap:10px;flex-wrap:wrap}
   .det-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:var(--s2)}
   .det-grid li{background:var(--sheet);border:1px solid var(--rule);border-radius:10px;padding:var(--s3);display:grid;gap:10px;align-content:start}
@@ -475,7 +475,7 @@ app-home {
   .mini-kbd kbd{font:500 .75rem var(--f-mono);border:1px solid var(--rule);border-bottom-width:3px;border-radius:6px;padding:4px 8px;background:var(--sheet);color:var(--ink)}
 }
 
-app-home {
+app-home, app-caso-storyin {
   .resp-banner{margin-top:var(--s2);display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:var(--s3);align-items:center;padding:var(--s3);border-radius:12px;background:var(--ink);color:var(--paper);text-decoration:none}
   .resp-banner:hover .rb-go{text-decoration:underline}
   .rb-devs{display:flex;align-items:flex-end;gap:6px}
@@ -490,7 +490,7 @@ app-home {
   @media (max-width:860px){.resp-banner{grid-template-columns:1fr}.rb-go{white-space:normal}}
 }
 
-app-home {
+app-home, app-caso-storyin {
   .hero-name{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-weight:600;font-size:var(--t-md);letter-spacing:-.01em}
   .case-index{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:0 0 var(--s4)}
   .case-index a{display:grid;gap:4px;align-content:start;padding:14px 16px;border:1px solid var(--rule);border-radius:10px;background:var(--sheet);color:var(--ink);text-decoration:none;transition:border-color .15s,transform .15s}

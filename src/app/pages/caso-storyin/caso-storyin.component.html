@@ -1,0 +1,167 @@
+<a class="skip" href="#main">Saltar al contenido</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" routerLink="/" aria-label="Cristina Martínez Franganillo, ir al inicio">
+      <span class="tag" aria-hidden="true">&lt;cmf/&gt;</span>
+      <span class="full">Cristina Martínez Franganillo</span>
+    </a>
+    <div class="top-right">
+      <nav aria-label="Principal">
+        <ul>
+          <li><a routerLink="/" fragment="trabajo">Casos</a></li>
+          <li><a routerLink="/" fragment="contacto">Contacto</a></li>
+        </ul>
+      </nav>
+      <button class="theme-btn" type="button" (click)="theme.toggle()" aria-label="Cambiar entre tema claro y oscuro">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="caso">
+  <section class="caso-hero" aria-labelledby="caso-title">
+    <div class="wrap caso-hero-grid">
+      <div>
+        <a class="caso-back" routerLink="/" fragment="trabajo">← Todos los casos</a>
+        <span class="case-no">proyecto personal · construido en público</span>
+        <h1 id="caso-title">StoryIn: una app que te <span class="hl">entrevista</span> para contar tu experiencia</h1>
+        <p class="lede">Es un concepto de rediseño basado en uno de mis trabajos. Lo diseñé y lo programé en Angular como <strong>prototipo funcional</strong>, con ayuda de IA, y documenté cada decisión en LinkedIn.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/storyin/index.html">Probar el prototipo →</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/cristina-mart%C3%ADnez-franganillo/recent-activity/all/" target="_blank" rel="noopener">Ver la serie en LinkedIn <span aria-hidden="true">↗</span><span class="sr"> (se abre en otra pestaña)</span></a>
+        </div>
+        <p class="caso-note">El prototipo está pensado para móvil: en escritorio se ve en una columna.</p>
+      </div>
+      <div class="caso-phones" aria-hidden="true">
+        <img src="/casos/storyin/entrevista-claro.webp" width="780" height="1688" alt="" fetchpriority="high">
+        <img src="/casos/storyin/entrevista-oscuro.webp" width="780" height="1688" alt="" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <div class="facts">
+    <div class="wrap">
+      <ul>
+        <li><strong class="num">8</strong><span>publicaciones documentando el proceso, una por decisión</span></li>
+        <li><strong class="num">2</strong><span>pantallas funcionales: la entrevista y el borrador con sus 4 estados</span></li>
+        <li><strong class="num">32/32</strong><span>valores de los tokens iguales en el código y en Figma</span></li>
+        <li><strong>AA</strong><span>0 incidencias automáticas con axe, en claro y en oscuro</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <section class="block" aria-labelledby="ficha-title">
+    <div class="wrap caso-cols">
+      <div class="sec-head">
+        <span class="path" aria-hidden="true">el proyecto</span>
+        <h2 id="ficha-title">El problema</h2>
+        <p>Mucha gente tiene buena experiencia y no sabe contarla en LinkedIn. Las herramientas de IA escriben por ti y acaban sonando igual. StoryIn hace lo contrario: te <b>entrevista</b>, una pregunta por pantalla, y escribe un borrador solo con lo que tú dices.</p>
+      </div>
+      <dl class="ficha caso-ficha">
+        <div><dt>Rol</dt><dd>Diseño UX/UI y desarrollo frontend</dd></div>
+        <div><dt>Año</dt><dd class="num">2026</dd></div>
+        <div><dt>Stack</dt><dd>Angular 19 · signals · formularios tipados · SCSS con tokens</dd></div>
+        <div><dt>Diseño</dt><dd>Figma · variables con modo claro y oscuro</dd></div>
+        <div><dt>Calidad</dt><dd>WCAG 2.2 AA · axe y Playwright</dd></div>
+        <div><dt>IA</dt><dd>Claude Code y Claude con el conector de Figma</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="block caso-decisiones" aria-labelledby="dec-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="path" aria-hidden="true">decisiones</span>
+        <h2 id="dec-title">Seis decisiones, con lo que salió mal</h2>
+      </div>
+
+      <ol class="dec-list">
+        <li class="dec">
+          <div class="dec-txt">
+            <span class="case-no">01 · producto</span>
+            <h3>Entrevistar, no escribir por ti</h3>
+            <p>Lo dejé escrito como regla en el <code>CLAUDE.md</code> del proyecto: StoryIn nunca inventa datos y nunca publica en nombre de nadie. Esa regla decidió muchas pantallas después.</p>
+          </div>
+        </li>
+        <li class="dec">
+          <div class="dec-txt">
+            <span class="case-no">02 · componentes</span>
+            <h3>Romper la pantalla en piezas antes de pedir código</h3>
+            <p>Progreso, campo, chip y aviso: definí cada pieza y su API, y pedí a la IA un plan antes que código. El campo asocia su error con <code>aria-describedby</code> y el foco va al error o a la nueva pregunta.</p>
+          </div>
+        </li>
+        <li class="dec dec-img">
+          <div class="dec-txt">
+            <span class="case-no">03 · tokens y tema oscuro</span>
+            <h3>El modo oscuro encontró dos colores sueltos</h3>
+            <p>Al añadir el tema oscuro, el chip activo se quedó con un contraste de 1,1:1. Tenía un <code>#fff</code> escrito a mano. Desde entonces, los componentes solo usan tokens semánticos y cada par de colores está medido en los dos temas.</p>
+          </div>
+          <figure>
+            <img src="/casos/storyin/chips-antes.webp" width="760" height="138" loading="lazy" alt="Antes: en tema oscuro, el texto del chip activo es blanco sobre fondo casi blanco y no se lee.">
+            <img src="/casos/storyin/chips-despues.webp" width="760" height="138" loading="lazy" alt="Después: el texto del chip activo es oscuro y se lee bien.">
+            <figcaption>Antes, 1,1:1. Después, 16,3:1.</figcaption>
+          </figure>
+        </li>
+        <li class="dec dec-img">
+          <div class="dec-txt">
+            <span class="case-no">04 · accesibilidad</span>
+            <h3>axe daba 0 incidencias, y había 3 fallos</h3>
+            <p>Probando a mano encontré el foco escondido bajo la barra fija (WCAG 2.4.11), un botón que perdía su forma en el contraste alto de Windows y textos en px que ignoraban la letra del navegador. Convertí esa revisión en una <b>skill de Claude Code</b> con 6 pruebas en Playwright.</p>
+          </div>
+          <figure>
+            <img src="/casos/storyin/foco-antes.webp" width="780" height="460" loading="lazy" alt="Antes: con poca altura de pantalla, el chip que tiene el foco queda tapado por la barra inferior.">
+            <figcaption>El foco, tapado por la barra fija. Lo arreglé con <code>scroll-padding-bottom</code>.</figcaption>
+          </figure>
+        </li>
+        <li class="dec dec-img">
+          <div class="dec-txt">
+            <span class="case-no">05 · Figma</span>
+            <h3>Una sola fuente de verdad para los tokens</h3>
+            <p>El código manda. Con Claude y el conector de Figma llevé <code>_tokens.scss</code> a variables: primitivos ocultos, 16 tokens semánticos con modos Claro y Oscuro y su nombre de código en cada uno. Después comparé los valores: 32 de 32 coinciden.</p>
+          </div>
+          <figure class="pair">
+            <img src="/casos/storyin/figma-claro.webp" width="780" height="1480" loading="lazy" alt="Pantalla Entrevista en Figma, modo Claro.">
+            <img src="/casos/storyin/figma-oscuro.webp" width="780" height="1480" loading="lazy" alt="La misma pantalla en Figma con el modo Oscuro.">
+            <figcaption>El mismo marco de Figma: solo cambia el modo.</figcaption>
+          </figure>
+        </li>
+        <li class="dec dec-img">
+          <div class="dec-txt">
+            <span class="case-no">06 · producto con IA</span>
+            <h3>Diseñar los estados, no solo el resultado</h3>
+            <p>En curso, falta un dato, error y listo. Cuando falta un dato, la IA pregunta en lugar de inventar. En el borrador, lo que sale de tus respuestas va subrayado. Un cambio de estado mueve el foco al título; el progreso lo anuncia una región viva, nunca las dos cosas a la vez.</p>
+          </div>
+          <figure class="four">
+            <img src="/casos/storyin/estado-generando.webp" width="600" height="1298" loading="lazy" alt="Estado en curso: pasos con texto, hecho, en curso y pendiente.">
+            <img src="/casos/storyin/estado-falta-dato.webp" width="600" height="1298" loading="lazy" alt="Estado falta un dato: cita la respuesta y pregunta cuántas pantallas fueron.">
+            <img src="/casos/storyin/estado-error.webp" width="600" height="1298" loading="lazy" alt="Estado de error: explica que se cortó la conexión y que las respuestas están guardadas.">
+            <img src="/casos/storyin/estado-listo.webp" width="600" height="1298" loading="lazy" alt="Estado listo: borrador con los datos de la persona subrayados.">
+          </figure>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block caso-reparto" aria-labelledby="ia-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="path" aria-hidden="true">cómo uso la IA</span>
+        <h2 id="ia-title">La IA acelera el código. El criterio es mío.</h2>
+      </div>
+      <div class="reparto">
+        <div><h3>La IA</h3><ul><li>Escribe componentes, páginas y scripts</li><li>Aplica tokens y convenciones del <code>CLAUDE.md</code></li><li>Pasa las pruebas y compara Figma con el código</li></ul></div>
+        <div class="me"><h3>Yo</h3><ul><li>Decido el producto y rompo cada pantalla en piezas</li><li>Defino tokens, nombres, ámbitos y la API de cada componente</li><li>Escribo lo que la IA no decide y reviso a mano la accesibilidad</li></ul></div>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="/storyin/index.html">Probar el prototipo →</a>
+        <a class="btn btn-ghost" routerLink="/" fragment="contacto">Hablemos</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span>© 2026 Cristina Martínez Franganillo</span><span>Diseñada en Figma y programada en Angular por mí</span></div>
+</footer>

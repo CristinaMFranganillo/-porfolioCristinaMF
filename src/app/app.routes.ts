@@ -31,6 +31,11 @@ export const routes: Routes = [
     loadComponent: () => import('./demos/design-system/design-system.component').then((m) => m.DesignSystemComponent),
   },
   {
+    path: 'casos/storyin',
+    title: 'StoryIn · caso de estudio · Cristina Martínez Franganillo',
+    loadComponent: () => import('./pages/caso-storyin/caso-storyin.component').then((m) => m.CasoStoryinComponent),
+  },
+  {
     path: 'responsive/:demo',
     title: 'Vista responsive de las demos',
     loadComponent: () => import('./pages/responsive/responsive.component').then((m) => m.ResponsiveComponent),
